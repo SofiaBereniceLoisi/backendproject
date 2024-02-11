@@ -102,6 +102,8 @@ export default productManager;
 
 // const products = new productManager('./products.json');
 
+// TESTER -------------------------------------------------------
+
 // Probando agregar un producto:
 // const result = await products.addProduct(
 //     'Producto 6',
