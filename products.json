@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "title": "Producto 1",
+    "description": "Esta es la descripción del producto 1",
+    "price": 2000,
+    "thumbnail": "imagen1.jpg",
+    "code": "A111",
+    "stock": 25
+  },
+  {
+    "id": 2,
+    "title": "Producto 2",
+    "description": "Descripción del producto 2",
+    "price": 8000,
+    "thumbnail": "imagen2.jpg",
+    "code": "A222",
+    "stock": 100
+  },
+  {
+    "id": 3,
+    "title": "Producto 3",
+    "description": "Esta es la descripción del producto 3",
+    "price": 6500,
+    "thumbnail": "imagen3.jpg",
+    "code": "A333",
+    "stock": 100
+  },
+  {
+    "id": 4,
+    "title": "Producto 4",
+    "description": "Esta es la descripción del producto 4",
+    "price": 7400,
+    "thumbnail": "imagen4.jpg",
+    "code": "A444",
+    "stock": 30
+  },
+  {
+    "id": 5,
+    "title": "Producto 5",
+    "description": "Esta es la descripción del producto 5",
+    "price": 100,
+    "thumbnail": "imagen5.jpg",
+    "code": "A555",
+    "stock": 10
+  },
+  {
+    "id": 6,
+    "title": "Producto 6",
+    "description": "Esta es la descripción del producto 6",
+    "price": 7700,
+    "thumbnail": "imagen6.jpg",
+    "code": "A666",
+    "stock": 6
+  },
+  {
+    "id": 7,
+    "title": "Producto 7",
+    "description": "Esta es la descripción del producto 7",
+    "price": 3800,
+    "thumbnail": "imagen7.jpg",
+    "code": "A777",
+    "stock": 8
+  },
+  {
+    "id": 8,
+    "title": "Producto 8",
+    "description": "Esta es la descripción del producto 8",
+    "price": 7200,
+    "thumbnail": "imagen8.jpg",
+    "code": "A888",
+    "stock": 15
+  },
+  {
+    "id": 9,
+    "title": "Producto 9",
+    "description": "Esta es la descripción del producto 9",
+    "price": 5700,
+    "thumbnail": "imagen9.jpg",
+    "code": "A999",
+    "stock": 7
+  },
+  {
+    "id": 10,
+    "title": "Producto 10",
+    "description": "Esta es la descripción del producto 10",
+    "price": 7200,
+    "thumbnail": "imagen10.jpg",
+    "code": "B111",
+    "stock": 15
+  }
+]
