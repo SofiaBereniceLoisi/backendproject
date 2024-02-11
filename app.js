@@ -24,7 +24,7 @@ app.get('/products', async (req, res) => {
         res.send(JSON.stringify(products));
 
     } catch (error) {
-        console.log(error, 'Error al obtener productos');
+        console.log('Error al obtener productos: ', error);
         res.status(500).send({ error: 'Error al obtener productos' });
     }
 })
