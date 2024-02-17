@@ -4,15 +4,16 @@ import productManager from './productManager.js';
 const app = express();
 const port = 8080;
 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const productsManager = new productManager('./products.json');
+const productsManager = new productManager('./data/products.json');
 
 app.get('/', (req, res) => {
     res.send('Hola! Esta es la página de inicio de mi aplicación.');
 });
 
-app.get('/products', async (req, res) => {
+app.get('/api/products', async (req, res) => {
     try {
         const { limit } = req.query;
         let products = await productsManager.getProducts();
@@ -29,7 +30,7 @@ app.get('/products', async (req, res) => {
     }
 })
 
-app.get('/products/:id', async (req, res) => {
+app.get('/api/products/:id', async (req, res) => {
     try {
         const productId = req.params.id;
         const product = await productsManager.getProductById(productId);

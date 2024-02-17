@@ -8,8 +8,8 @@ class productManager {
 
     getProducts = async () => {
         const data = await fs.promises.readFile(this.path, 'utf8');
-        const products = JSON.parse(data)
-        return products
+        const products = JSON.parse(data);
+        return products;
     }
 
     addProduct = async (title, description, price, thumbnail, code, stock) => {
