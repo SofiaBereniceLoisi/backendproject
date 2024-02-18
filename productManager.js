@@ -76,9 +76,10 @@ class productManager {
             const updatedProducts = products.filter(product => product.id !== id);
             await fs.promises.writeFile(this.path, JSON.stringify(updatedProducts, null, 2));
             console.log('Producto eliminado satisfactoriamente.');
-
+            return true;
         } else {
             console.log('Error: No se encontró ningún producto con el ID ingresado para eliminar.');
+            return false;
         }
     }
 

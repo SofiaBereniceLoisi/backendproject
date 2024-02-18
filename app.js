@@ -79,6 +79,23 @@ app.put("/api/products/:pid", async (req, res) => {
     }
 });
 
+app.delete("/api/products/:pid", async (req, res) => {
+    try {
+        const productId = parseInt(req.params.pid);
+
+        const deletedProduct = await productsManager.deleteProduct(productId);
+
+        if (deletedProduct) {
+            res.status(200).send({ success: "Producto eliminado correctamente" });
+        } else {
+            res.status(404).send({ error: "Producto no encontrado" });
+        }
+    } catch (error) {
+        console.log("Error al eliminar producto:", error);
+        res.status(500).send({ error: "Error interno del servidor" });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);
 });
