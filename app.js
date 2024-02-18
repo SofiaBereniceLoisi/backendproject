@@ -1,5 +1,6 @@
 import express from 'express';
-import productManager from './productManager.js';
+import ProductManager from './productManager.js';
+import CartManager from './cartManager.js';
 
 const app = express();
 const port = 8080;
@@ -7,7 +8,8 @@ const port = 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const productsManager = new productManager('./data/products.json');
+const productsManager = new ProductManager('./data/products.json');
+const cartsManager = new CartManager('./data/cart.json');
 
 app.get('/', (req, res) => {
     res.send('Hola! Esta es la página de inicio de mi aplicación.');
@@ -95,6 +97,21 @@ app.delete("/api/products/:pid", async (req, res) => {
         res.status(500).send({ error: "Error interno del servidor" });
     }
 });
+
+app.post("/api/carts", async (req, res) => {
+    try {
+        const newCart = await cartsManager.createCart(); 
+        if (newCart) {
+            res.status(201).send({ success: "Nuevo carrito creado con exito", cart: newCart });
+        } else {
+            res.status(500).send({ error: "No se pudo crear el carrito" });
+        }
+    } catch (error) {
+        console.log("Error al crear el carrito:", error);
+        res.status(500).send({ error: "Error interno del servidor" });
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);

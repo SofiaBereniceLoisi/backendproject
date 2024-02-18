@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-class productManager {
+class ProductManager {
     constructor(path) {
         this.nextProductId = 1;
         this.path = path
@@ -102,7 +102,7 @@ class productManager {
 
 }
 
-export default productManager;
+export default ProductManager;
 
 // const products = new productManager('./products.json');
 
