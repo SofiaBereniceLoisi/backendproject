@@ -30,9 +30,9 @@ app.get('/api/products', async (req, res) => {
     }
 })
 
-app.get('/api/products/:id', async (req, res) => {
+app.get('/api/products/:pid', async (req, res) => {
     try {
-        const productId = req.params.id;
+        const productId = req.params.pid;
         const product = await productsManager.getProductById(productId);
 
         if (product) {
@@ -47,11 +47,37 @@ app.get('/api/products/:id', async (req, res) => {
 
 })
 
-app.post("/api/products/", (req,res) => {
-    
-    
+app.post("/api/products/", async (req, res) => {
+    try {
+        const { title, description, price, code, stock, status, category, thumbnails } = req.body;
+        const addedProduct = await productsManager.addProduct(title, description, price, code, stock, status, category, thumbnails);
+
+        res.status(201).send(addedProduct);
+
+    } catch (error) {
+        console.log('Error al agregar producto:', error);
+        res.status(500).send({ error: 'Error al agregar producto' });
+    }
 
 })
+
+app.put("/api/products/:pid", async (req, res) => {
+    try {
+        const productId = parseInt(req.params.pid);
+        const updatedFields = req.body;
+
+        const updatedProduct = await productsManager.updateProduct(productId, updatedFields);
+
+        if (updatedProduct) {
+            res.status(200).send({ success: "Producto actualizado correctamente", product: updatedProduct });
+        } else {
+            res.status(404).send({ error: "Producto no encontrado" });
+        }
+    } catch (error) {
+        console.log("Error al actualizar producto:", error);
+        res.status(500).send({ error: "Error interno del servidor" });
+    }
+});
 
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);
