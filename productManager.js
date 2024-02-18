@@ -12,11 +12,11 @@ class productManager {
         return products;
     }
 
-    addProduct = async (title, description, price, thumbnail, code, stock) => {
+    addProduct = async (title, description, price, thumbnails, code, stock, status, category) => {
 
         const products = await this.getProducts()
 
-        if (!title.trim() || !description.trim() || !price || !thumbnail.trim() || !code.trim() || !stock) {
+        if (!title.trim() || !description.trim() || !price || !thumbnails.trim() || !code.trim() || !stock || !status || !category) {
             console.log('Error: Debes llenar todos los campos.');
             return null;
         }
@@ -31,9 +31,11 @@ class productManager {
             title,
             description,
             price,
-            thumbnail,
             code,
-            stock
+            stock,
+            status,
+            category,
+            thumbnails: thumbnails || []
         };
 
         if (products.length === 0) {

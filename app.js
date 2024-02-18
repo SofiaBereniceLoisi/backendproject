@@ -47,6 +47,12 @@ app.get('/api/products/:id', async (req, res) => {
 
 })
 
+app.post("/api/products/", (req,res) => {
+    
+    
+
+})
+
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);
 });

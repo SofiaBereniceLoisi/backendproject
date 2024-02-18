@@ -4,9 +4,11 @@
     "title": "Producto 1",
     "description": "Esta es la descripción del producto 1",
     "price": 2000,
-    "thumbnail": "imagen1.jpg",
+    "thumbnails": "imagen1.jpg",
     "code": "A111",
-    "stock": 25
+    "stock": 25,
+    "status": true,
+    "category": "remeras"
   },
   {
     "id": 2,
@@ -15,7 +17,9 @@
     "price": 8000,
     "thumbnail": "imagen2.jpg",
     "code": "A222",
-    "stock": 100
+    "stock": 100,
+    "status": true,
+    "category": "remeras"
   },
   {
     "id": 3,
@@ -24,7 +28,9 @@
     "price": 6500,
     "thumbnail": "imagen3.jpg",
     "code": "A333",
-    "stock": 100
+    "stock": 100,
+    "status": true,
+    "category": "pantalones"
   },
   {
     "id": 4,
@@ -33,7 +39,9 @@
     "price": 7400,
     "thumbnail": "imagen4.jpg",
     "code": "A444",
-    "stock": 30
+    "stock": 30,
+    "status": true,
+    "category": "pantalones"
   },
   {
     "id": 5,
@@ -42,7 +50,9 @@
     "price": 100,
     "thumbnail": "imagen5.jpg",
     "code": "A555",
-    "stock": 10
+    "stock": 10,
+    "status": true,
+    "category": "vestidos"
   },
   {
     "id": 6,
@@ -51,7 +61,9 @@
     "price": 7700,
     "thumbnail": "imagen6.jpg",
     "code": "A666",
-    "stock": 6
+    "stock": 6,
+    "status": true,
+    "category": "vestidos"
   },
   {
     "id": 7,
@@ -60,7 +72,9 @@
     "price": 3800,
     "thumbnail": "imagen7.jpg",
     "code": "A777",
-    "stock": 8
+    "stock": 8,
+    "status": true,
+    "category": "zapatillas"
   },
   {
     "id": 8,
@@ -69,7 +83,9 @@
     "price": 7200,
     "thumbnail": "imagen8.jpg",
     "code": "A888",
-    "stock": 15
+    "stock": 15,
+    "status": true,
+    "category": "zapatillas"
   },
   {
     "id": 9,
@@ -78,7 +94,9 @@
     "price": 5700,
     "thumbnail": "imagen9.jpg",
     "code": "A999",
-    "stock": 7
+    "stock": 7,
+    "status": true,
+    "category": "camperas"
   },
   {
     "id": 10,
@@ -87,6 +105,8 @@
     "price": 7200,
     "thumbnail": "imagen10.jpg",
     "code": "B111",
-    "stock": 15
+    "stock": 15,
+    "status": true,
+    "category": "camperas"
   }
 ]
