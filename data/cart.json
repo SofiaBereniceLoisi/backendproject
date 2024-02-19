@@ -27,6 +27,11 @@
   },
   {
     "id": "f4b322ac-d49d-4009-99f5-02459bca2ab3",
-    "products": []
+    "products": [
+      {
+        "productId": "13",
+        "quantity": 4
+      }
+    ]
   }
 ]
