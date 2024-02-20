@@ -122,16 +122,29 @@
   },
   {
     "id": 13,
-    "title": "Producto 11",
-    "description": "Descripción del producto 11",
+    "title": "Producto 13",
+    "description": "Descripción del producto 13",
     "price": 100,
-    "code": "B222",
+    "code": "B444",
     "stock": 10,
     "status": true,
     "category": "Accesorios",
     "thumbnails": [
       "imagen1.jpg",
       "imagen2.jpg"
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Producto 14",
+    "description": "Descripción del producto 14",
+    "price": 19000,
+    "code": "B555",
+    "stock": 10,
+    "status": true,
+    "category": "Accesorios",
+    "thumbnails": [
+      "imagen14.jpg"
     ]
   }
 ]
