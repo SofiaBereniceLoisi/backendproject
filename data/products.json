@@ -146,5 +146,19 @@
     "thumbnails": [
       "imagen14.jpg"
     ]
+  },
+  {
+    "id": 15,
+    "title": "Producto 11",
+    "description": "Descripción del producto 11",
+    "price": 100,
+    "code": "B222",
+    "stock": 10,
+    "status": true,
+    "category": "Accesorios",
+    "thumbnails": [
+      "imagen1.jpg",
+      "imagen2.jpg"
+    ]
   }
 ]

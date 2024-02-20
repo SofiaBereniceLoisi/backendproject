@@ -4,7 +4,7 @@ const productsRouter = Router();
 import ProductManager from '../productManager.js';
 const productsManager = new ProductManager('./data/products.json');
 
-productsRouter.get('/api/products', async (req, res) => {
+productsRouter.get('/', async (req, res) => {
     try {
         const { limit } = req.query;
         let products = await productsManager.getProducts();
@@ -21,7 +21,7 @@ productsRouter.get('/api/products', async (req, res) => {
     }
 })
 
-productsRouter.get('/api/products/:pid', async (req, res) => {
+productsRouter.get('/:pid', async (req, res) => {
     try {
         const productId = req.params.pid;
         const product = await productsManager.getProductById(productId);
@@ -38,7 +38,7 @@ productsRouter.get('/api/products/:pid', async (req, res) => {
 
 })
 
-productsRouter.post("/api/products/", async (req, res) => {
+productsRouter.post("/", async (req, res) => {
     try {
         const { title, description, price, code, stock, status, category, thumbnails } = req.body;
         const addedProduct = await productsManager.addProduct(title, description, price, code, stock, status, category, thumbnails);
@@ -52,7 +52,7 @@ productsRouter.post("/api/products/", async (req, res) => {
 
 })
 
-productsRouter.put("/api/products/:pid", async (req, res) => {
+productsRouter.put("/:pid", async (req, res) => {
     try {
         const productId = parseInt(req.params.pid);
         const updatedFields = req.body;
@@ -70,7 +70,7 @@ productsRouter.put("/api/products/:pid", async (req, res) => {
     }
 });
 
-productsRouter.delete("/api/products/:pid", async (req, res) => {
+productsRouter.delete("/:pid", async (req, res) => {
     try {
         const productId = parseInt(req.params.pid);
 

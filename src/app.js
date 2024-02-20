@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // ROUTES
 app.use(mainRouter);
-app.use(cartRouter);
-app.use(productsRouter);
+app.use('/api/carts', cartRouter);
+app.use('/api/products', productsRouter);
 
 app.listen(port, () => { console.log(`Servidor escuchando en el puerto ${port}`); });
