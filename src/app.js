@@ -1,4 +1,6 @@
 import express from 'express';
+import Handlebars from 'express-handlebars';
+import __dirname from './utils.js';
 
 // IMPORT ROUTES
 import productsRouter from './routes/productsRouter.js';
@@ -11,6 +13,12 @@ const port = 8080;
 // MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Carpeta vistas y motor de plantillas
+app.set('views', `${__dirname}/views`);
+app.set('view engine', 'handlebars');
+app.engine('handlebars', Handlebars.engine())
+
 
 // ROUTES
 app.use(mainRouter);
