@@ -1,0 +1,9 @@
+<h1>Hola!! Esta es la página de inicio de mi aplicación.</h1>
+    <h2>Lista de Productos:</h2>
+        <ul>
+            {{#each products}}
+                <li>{{this.title}} - ${{this.price}} - {{this.description}}.</li>
+            {{/each}}
+        </ul>
+
+
