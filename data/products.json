@@ -149,11 +149,11 @@
   },
   {
     "id": 15,
-    "title": "Producto 11",
-    "description": "Descripción del producto 11",
+    "title": "Producto 15",
+    "description": "Descripción del producto 15",
     "price": 100,
-    "code": "B222",
-    "stock": 10,
+    "code": "B666",
+    "stock": 16,
     "status": true,
     "category": "Accesorios",
     "thumbnails": [
