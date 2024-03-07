@@ -31,18 +31,17 @@ class ProductManager {
         }
     };
 
-
     addProduct = async (productData) => {
         try {
             const products = await this.getProducts();
-    
-            const { title, description, price, code, stock, status=true, category, thumbnails } = productData;
-    
+
+            const { title, description, price, code, stock, status = true, category, thumbnails } = productData;
+
             if (products.some(product => product.code === code)) {
                 console.log('Error: El código del producto ya está en uso.');
                 return null;
             }
-    
+
             const id = await this.generateId();
             const newProduct = {
                 id,
@@ -55,13 +54,13 @@ class ProductManager {
                 category,
                 thumbnails: thumbnails || []
             };
-    
+
             console.log('producto nuevo:', newProduct);
             products.push(newProduct);
-    
+
             await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2));
             console.log('Producto agregado satisfactoriamente.');
-    
+
             return newProduct;
         } catch (error) {
             console.log('Error al agregar producto:', error);

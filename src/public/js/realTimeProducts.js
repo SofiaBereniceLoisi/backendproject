@@ -18,43 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// ELIMINAR PRODUCTO----------------------------------------------------
-const btnDeleteProduct = document.querySelectorAll('#btnDeleteProduct');
 
-btnDeleteProduct.forEach(button => {
-    button.addEventListener('click', async (event) => {
-        const productId = event.target.dataset.id;
-        console.log(`Intentando eliminar producto con ID ${productId}`);
-        try {
-            const response = await fetch(`/api/products/${productId}`, {
-                method: 'DELETE',
-            });
-            if (response.ok) {
-                console.log(`Producto con ID ${productId} eliminado correctamente`);
-                const productContainer = event.target.parentElement;
-                productContainer.remove();
-
-                socket.emit('productDeleted', productId);
-            } else {
-                console.error(`Error al eliminar el producto con ID ${productId}`);
-            }
-        } catch (error) {
-            console.error(`Error al eliminar el producto con ID ${productId}:`, error);
-        }
-    });
-});
-
-socket.on('productDeleted', (deletedProductId) => {
-    const productContainer = document.querySelector(`div[data-id="${deletedProductId}"]`);
-    if (productContainer) {
-        productContainer.remove();
-        console.log(`Producto con ID ${deletedProductId} eliminado de la vista`);
-    } else {
-        console.error(`Producto con ID ${deletedProductId} no encontrado en la interfaz de usuario.`);
-    }
-});
-
-// AGREGAR PRODUCTO---------------------------------------------    
+// ACTUALIZAR VISTA ---------------------------------------------    
 
 socket.on('sendUpdatedList', (productsList) => {
     updateProductsList(productsList);
@@ -75,12 +40,15 @@ function updateProductsList(productsList) {
                     <li>Stock: ${product.stock}</li>
                     <li>Categoría: ${product.category}</li>
                 </ul>
-                <button id="btnDeleteProduct" class="btn btn-secondary" data-id="${product.id}">Eliminar Producto</button>
+                <button id="btnDeleteProduct" class="btn btn-secondary" onClick="deleteProduct(${product.id})" data-id="${product.id}">Eliminar Producto</button>
             </div>
         </div>`
     });
     productsContainer.innerHTML = productsHTML
 }
+
+
+// AGREGAR PRODUCTO ---------------------------------------------   
 
 let addProductForm = document.getElementById('addProductForm');
 
@@ -102,7 +70,8 @@ addProductForm.addEventListener('submit', (event) => {
 });
 
 
+// ELIMINAR PRODUCTO----------------------------------------------------
 
-
-
-
+function deleteProduct(Id) {
+    socket.emit("deleteProduct", Id);
+}

@@ -171,5 +171,38 @@
     "status": true,
     "category": "Sandalias",
     "thumbnails": []
+  },
+  {
+    "id": 17,
+    "title": "Producto 17",
+    "description": "Descripción del producto 17",
+    "price": 12000,
+    "code": "B888",
+    "stock": 12,
+    "status": true,
+    "category": "Sandalias",
+    "thumbnails": []
+  },
+  {
+    "id": 18,
+    "title": "Producto 18",
+    "description": "Descripción del producto 18",
+    "price": 15500,
+    "code": "B999",
+    "stock": 9,
+    "status": true,
+    "category": "Sandalias",
+    "thumbnails": []
+  },
+  {
+    "id": 19,
+    "title": "Producto 19",
+    "description": "Descripcion del producto 19",
+    "price": 14000,
+    "code": "C222",
+    "stock": 12,
+    "status": true,
+    "category": "Sandalias",
+    "thumbnails": []
   }
 ]

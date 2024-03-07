@@ -10,8 +10,7 @@ export const websocketManager = (io) => {
         const productsList = await productManager.getProducts();
         socket.emit('sendUpdatedList', productsList);
 
-
-
+    // Agregar producto --------------------------------------------------
         socket.on('addProduct', async (productData) => {
             console.log('Recibiendo el producto:', productData);
             try {
@@ -25,22 +24,18 @@ export const websocketManager = (io) => {
             }
         });
 
-        socket.on('productDeleted', async (productId) => {
-            console.log(`Intentando eliminar producto con ID ${productId}`);
+    // Eliminar producto --------------------------------------------------- 
+        socket.on('deleteProduct', async (Id) => {
+            console.log(`Intentando eliminar producto con ID ${Id}`);
             try {
-                const deletedProductId = await productManager.deleteProduct(productId);
-                if (deletedProductId) {
-                    console.log(`Producto con ID ${deletedProductId} eliminado correctamente`);
-                    socket.emit('productDeleted', deletedProductId);
-                } else {
-                    console.log(`No se encontró el producto con ID ${productId}`);
-                }
+                await productManager.deleteProduct(Id);
+                const productsList = await productManager.getProducts();
+                socket.emit('sendUpdatedList', productsList);
+                console.log(`Producto con ID ${Id} eliminado correctamente`);
             } catch (error) {
                 console.log('Error al eliminar producto:', error);
             }
         });
-
-        
 
         io.on('disconnect', () => {
             console.log('Client disconnected!');
@@ -53,16 +48,16 @@ export const websocketManager = (io) => {
 
 // handleProductEvents(socket);
 
-    // socket.on('productUpdated', async (updatedProduct) => {
-    //     try {
-    //         const updated = await productManager.updateProduct(updatedProduct.id, updatedProduct);
-    //         if (updated) {
-    //             io.emit('productUpdated', updated);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error al actualizar producto:', error);
-    //     }
-    // });
+// socket.on('productUpdated', async (updatedProduct) => {
+//     try {
+//         const updated = await productManager.updateProduct(updatedProduct.id, updatedProduct);
+//         if (updated) {
+//             io.emit('productUpdated', updated);
+//         }
+//     } catch (error) {
+//         console.error('Error al actualizar producto:', error);
+//     }
+// });
 // };
 
 
