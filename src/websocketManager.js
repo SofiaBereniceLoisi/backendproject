@@ -1,60 +1,70 @@
-import { Server } from 'socket.io';
-import ProductManager from './productManager.js';
 
+import ProductManager from './productManager.js';
 const productManager = new ProductManager('./data/products.json');
 
-const handleProductEvents = (socket, io) => {
-    socket.on('productAdded', async (product) => {
-        try {
-            const addedProduct = await productManager.addProduct(product);
-            io.emit('productAdded', addedProduct);
-        } catch (error) {
-            console.error('Error al agregar producto:', error);
-        }
-    });
 
-    socket.on('productDeleted', async (productId) => {
-        console.log(`Intentando eliminar producto con ID ${productId}`);
-        try {
-            const deletedProductId = await productManager.deleteProduct(productId);
-            if (deletedProductId) {
-                console.log(`Producto con ID ${deletedProductId} eliminado correctamente`);
-                io.emit('productDeleted', deletedProductId);
-            } else {
-                console.error(`No se encontró el producto con ID ${productId}`);
-            }
-        } catch (error) {
-            console.error('Error al eliminar producto:', error);
-        }
-    });
+export const websocketManager = (io) => {
 
-    socket.on('productUpdated', async (updatedProduct) => {
-        try {
-            const updated = await productManager.updateProduct(updatedProduct.id, updatedProduct);
-            if (updated) {
-                io.emit('productUpdated', updated);
-            }
-        } catch (error) {
-            console.error('Error al actualizar producto:', error);
-        }
-    });
-};
-
-const websocketManager = (server) => {
-    const io = new Server(server);
-
-    io.on('connection', (socket) => {
+    io.on('connection', async (socket) => {
         console.log('Client connected!');
+        const productsList = await productManager.getProducts();
+        socket.emit('sendUpdatedList', productsList);
+
+
+
+        socket.on('addProduct', async (productData) => {
+            console.log('Recibiendo el producto:', productData);
+            try {
+                await productManager.addProduct(productData);
+                const productsList = await productManager.getProducts();
+                socket.emit('sendUpdatedList', productsList);
+                console.log('Producto agregado correctamente:', productData);
+
+            } catch (error) {
+                console.error('Error al agregar producto:', error);
+            }
+        });
+
+        socket.on('productDeleted', async (productId) => {
+            console.log(`Intentando eliminar producto con ID ${productId}`);
+            try {
+                const deletedProductId = await productManager.deleteProduct(productId);
+                if (deletedProductId) {
+                    console.log(`Producto con ID ${deletedProductId} eliminado correctamente`);
+                    socket.emit('productDeleted', deletedProductId);
+                } else {
+                    console.log(`No se encontró el producto con ID ${productId}`);
+                }
+            } catch (error) {
+                console.log('Error al eliminar producto:', error);
+            }
+        });
+
         
-        socket.on('disconnect', () => {
+
+        io.on('disconnect', () => {
             console.log('Client disconnected!');
         });
-        handleProductEvents(socket, io);
-    });
 
-    return io;
+    });
 };
 
-export default websocketManager;
+// const handleProductEvents = (socket) => {
 
-    
+// handleProductEvents(socket);
+
+    // socket.on('productUpdated', async (updatedProduct) => {
+    //     try {
+    //         const updated = await productManager.updateProduct(updatedProduct.id, updatedProduct);
+    //         if (updated) {
+    //             io.emit('productUpdated', updated);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error al actualizar producto:', error);
+    //     }
+    // });
+// };
+
+
+
+

@@ -160,5 +160,16 @@
       "imagen1.jpg",
       "imagen2.jpg"
     ]
+  },
+  {
+    "id": 16,
+    "title": "Producto 16",
+    "description": "Descripción del producto 16",
+    "price": 13000,
+    "code": "B777",
+    "stock": 12,
+    "status": true,
+    "category": "Sandalias",
+    "thumbnails": []
   }
 ]

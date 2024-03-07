@@ -1,7 +1,8 @@
 import express from 'express';
 import Handlebars from 'express-handlebars';
 import __dirname from './utils.js';
-import websocketManager from './websocketManager.js';
+import { websocketManager } from './websocketManager.js';
+import { Server } from 'socket.io';
 
 // IMPORT ROUTES
 import productsRouter from './routes/productsRouter.js';
@@ -31,5 +32,6 @@ app.use(viewsRouter);
 // HTTP Server
 const server = app.listen(port, () => { console.log(`Servidor escuchando en el puerto ${port}`); });
 
-const io = websocketManager(server);
-app.set('io', io);
+// Socket Server
+const io = new Server(server);
+websocketManager(io);

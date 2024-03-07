@@ -1,35 +1,39 @@
-<h1>Productos en tiempo real</h1>
+<h2 class="text-center">Productos en tiempo real</h2>
 
-<div>
-    {{#each products}}
-    <div class="product-item">
-        <h3>{{title}}</h3>
-        <p>{{description}}</p>
-        <ul>
-            <li>Precio: ${{price}}</li>
-            <li>Stock: {{stock}}</li>
-            <li>Categoría: {{category}}</li>
-        </ul>
-        <button id="btnDeleteProduct" data-id="{{id}}">Eliminar Producto</button>
-    </div>
-    {{/each}}
+<div class="container mt-5" id="productsAddedList">
+
 </div>
+
 {{!-- FORMULARIO PARA AGREGAR PROD --}}
-<div>
-    <h2>Agregar productos</h2>
-    <p>Para agregar un producto complete el formulario</p>
-    <form action="/realtimeproducts/addProduct" method="POST" id="addProductForm" enctype="multipart/form-data">
-        <div class="mb-3" style="display: flex; flex-direction:column; width:20%; padding:10px;">
-            <input type="text" class="form-control" name="title" id="title" placeholder="Título" required>
-            <textarea class="form-control" name="description" id="description" placeholder="Descripción" required></textarea>
-            <input type="number" class="form-control" name="price" id="price" placeholder="Precio" required>
-            <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" required>
-            <input type="text" class="form-control" name="category" id="category" placeholder="Categoría" required>
+<div class="container mt-5">
+    <h2 class="text-center">Agregar Productos</h2>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form id="addProductForm">
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="Título" required>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" name="description" id="description" placeholder="Descripción" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <input type="number" class="form-control" name="price" id="price" placeholder="Precio" required>
+                </div>
+                <div class="mb-3">
+                    <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="category" id="category" placeholder="Categoría" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="code" id="code" placeholder="Código" required>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-secondary">Agregar Producto</button>
+                </div>
+            </form>
         </div>
-        <div>
-            <button type="submit" id="btnAddProduct">Agregar Producto</button>
-        </div>
-    </form>
+    </div>
 </div>
 
 

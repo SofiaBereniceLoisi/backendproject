@@ -2,7 +2,6 @@ import fs from 'fs';
 
 class ProductManager {
     constructor(path) {
-        this.nextProductId = 1;
         this.path = path
     }
 
@@ -17,23 +16,36 @@ class ProductManager {
         }
     }
 
-    addProduct = async (title, description, price, code, stock, status, category, thumbnails) => {
-
+    generateId = async () => {
         try {
-            const products = await this.getProducts()
-
-            if (!title.trim() || !description.trim() || !price || !code || !stock || !status || !category.trim) {
-                console.log('Error: Debes llenar todos los campos.');
-                return null;
+            const products = await this.getProducts();
+            if (products.length === 0) {
+                return 1;
+            } else {
+                const lastProductId = products[products.length - 1].id;
+                return lastProductId + 1;
             }
+        } catch (error) {
+            console.error('Error al generar ID del producto:', error);
+            return null;
+        }
+    };
 
+
+    addProduct = async (productData) => {
+        try {
+            const products = await this.getProducts();
+    
+            const { title, description, price, code, stock, status=true, category, thumbnails } = productData;
+    
             if (products.some(product => product.code === code)) {
                 console.log('Error: El código del producto ya está en uso.');
                 return null;
             }
-
+    
+            const id = await this.generateId();
             const newProduct = {
-                id: 0,
+                id,
                 title,
                 description,
                 price,
@@ -43,21 +55,14 @@ class ProductManager {
                 category,
                 thumbnails: thumbnails || []
             };
-
-            if (products.length === 0) {
-                newProduct.id = this.nextProductId;
-            } else {
-                const lastProduct = products[products.length - 1];
-                newProduct.id = lastProduct.id + 1;
-            }
-
+    
+            console.log('producto nuevo:', newProduct);
             products.push(newProduct);
-
+    
             await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2));
             console.log('Producto agregado satisfactoriamente.');
-
+    
             return newProduct;
-
         } catch (error) {
             console.log('Error al agregar producto:', error);
             return null;
