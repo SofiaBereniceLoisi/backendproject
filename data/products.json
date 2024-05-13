@@ -215,5 +215,16 @@
     "status": true,
     "category": "Varios",
     "thumbnails": []
+  },
+  {
+    "id": 20,
+    "title": "Producto 20",
+    "description": "Descripcion del producto 20",
+    "price": 19800,
+    "code": "C222",
+    "stock": 5,
+    "status": true,
+    "category": "Varios",
+    "thumbnails": []
   }
 ]

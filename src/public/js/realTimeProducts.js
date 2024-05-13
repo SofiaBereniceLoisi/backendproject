@@ -1,22 +1,24 @@
 // (socket server del lado del cliente)
 let socketClient = io();
 
-// document.addEventListener('DOMContentLoaded', () => {
 
-//     socketClient.emit('message', 'Cliente conectado!');
-//     console.log('Client connected');
+// Prueba de conexion desde el front :)
+document.addEventListener('DOMContentLoaded', () => {
 
-//     window.addEventListener('blur', () => {
-//         socketClient.disconnect();
-//         console.log('Client disconnected');
-//     });
+    socketClient.emit('message', 'Cliente conectado!');
+    console.log('Client connected');
 
-//     window.addEventListener('focus', () => {
-//         socketClient = io();
-//         console.log('Client reconnected');
-//     });
+    window.addEventListener('blur', () => {
+        socketClient.disconnect();
+        console.log('Client disconnected');
+    });
 
-// });
+    window.addEventListener('focus', () => {
+        socketClient = io();
+        console.log('Client reconnected');
+    });
+
+});
 
 //FUNCION PARA AGREGAR A LA VISTA EL NUEVO PRODUCTO -----------------------------------
 
