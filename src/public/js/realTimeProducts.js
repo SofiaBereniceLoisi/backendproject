@@ -18,6 +18,8 @@ let socketClient = io();
 
 // });
 
+//FUNCION PARA AGREGAR A LA VISTA EL NUEVO PRODUCTO -----------------------------------
+
 function updateProductsList(productsList) {
 
     const productsContainer = document.getElementById('productsAddedList');
@@ -29,7 +31,7 @@ function updateProductsList(productsList) {
                 <h5 class="card-title"> ${product.title}</h5>
                 <p class="card-text"> ${product.description}</p>
                 <ul>
-                    <li>Precio: ${product.price}</li>
+                    <li>Precio:$ ${product.price}</li>
                     <li>Stock: ${product.stock}</li>
                     <li>Categoría: ${product.category}</li>
                 </ul>
