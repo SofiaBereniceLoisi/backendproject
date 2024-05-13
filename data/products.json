@@ -209,9 +209,9 @@
     "id": 19,
     "title": "Producto 19",
     "description": "Descripcion del producto 19",
-    "price": 14900,
+    "price": 32000,
     "code": "C111",
-    "stock": 8,
+    "stock": 4,
     "status": true,
     "category": "Varios",
     "thumbnails": []
