@@ -27,11 +27,11 @@ app.engine('handlebars', Handlebars.engine())
 app.use(mainRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/products', productsRouter);
-app.use(viewsRouter);
+app.use('/', viewsRouter);
 
 // HTTP Server
-const server = app.listen(port, () => { console.log(`Servidor escuchando en el puerto ${port}`); });
+const httpServer = app.listen(port, () => { console.log(`Servidor escuchando en el puerto ${port}`); });
 
 // Socket Server
-const io = new Server(server);
-websocketManager(io);
+const socketServer = new Server(httpServer);
+websocketManager(socketServer);

@@ -3,14 +3,14 @@ import ProductManager from './productManager.js';
 const productManager = new ProductManager('./data/products.json');
 
 
-export const websocketManager = (io) => {
-
-    io.on('connection', async (socket) => {
+export const websocketManager = (socketServer) => {
+    //el socket del servidor escucha al socket del cliente:
+    socketServer.on('connection', async (socket) => {
         console.log('Client connected!');
         const productsList = await productManager.getProducts();
         socket.emit('sendUpdatedList', productsList);
 
-    // Agregar producto --------------------------------------------------
+        // Agregar producto --------------------------------------------------
         socket.on('addProduct', async (productData) => {
             console.log('Recibiendo el producto:', productData);
             try {
@@ -37,29 +37,9 @@ export const websocketManager = (io) => {
             }
         });
 
-        io.on('disconnect', () => {
+        socket.on('disconnect', () => {
             console.log('Client disconnected!');
         });
 
     });
 };
-
-// const handleProductEvents = (socket) => {
-
-// handleProductEvents(socket);
-
-// socket.on('productUpdated', async (updatedProduct) => {
-//     try {
-//         const updated = await productManager.updateProduct(updatedProduct.id, updatedProduct);
-//         if (updated) {
-//             io.emit('productUpdated', updated);
-//         }
-//     } catch (error) {
-//         console.error('Error al actualizar producto:', error);
-//     }
-// });
-// };
-
-
-
-

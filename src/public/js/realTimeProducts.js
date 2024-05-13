@@ -1,29 +1,22 @@
 // (socket server del lado del cliente)
-let socket = io();
+let socketClient = io();
 
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => {
 
-    socket.emit('message', 'Cliente conectado!');
-    console.log('Client connected');
+//     socketClient.emit('message', 'Cliente conectado!');
+//     console.log('Client connected');
 
-    window.addEventListener('blur', () => {
-        socket.disconnect();
-        console.log('Client disconnected');
-    });
+//     window.addEventListener('blur', () => {
+//         socketClient.disconnect();
+//         console.log('Client disconnected');
+//     });
 
-    window.addEventListener('focus', () => {
-        socket = io();
-        console.log('Client reconnected');
-    });
+//     window.addEventListener('focus', () => {
+//         socketClient = io();
+//         console.log('Client reconnected');
+//     });
 
-});
-
-
-// ACTUALIZAR VISTA ---------------------------------------------    
-
-socket.on('sendUpdatedList', (productsList) => {
-    updateProductsList(productsList);
-});
+// });
 
 function updateProductsList(productsList) {
 
@@ -48,6 +41,13 @@ function updateProductsList(productsList) {
 }
 
 
+// ACTUALIZAR VISTA ---------------------------------------------    
+
+socketClient.on('sendUpdatedList', (productsList) => {
+    updateProductsList(productsList);
+});
+
+
 // AGREGAR PRODUCTO ---------------------------------------------   
 
 let addProductForm = document.getElementById('addProductForm');
@@ -64,7 +64,7 @@ addProductForm.addEventListener('submit', (event) => {
     let code = addProductForm.elements.code.value;
     let category = addProductForm.elements.category.value;
 
-    socket.emit('addProduct', { title, description, price, stock, code, category, status, thumbnails });
+    socketClient.emit('addProduct', { title, description, price, stock, code, category, status, thumbnails });
     console.log({ title, description, price, stock, code, category })
     addProductForm.reset();
 });
@@ -73,5 +73,5 @@ addProductForm.addEventListener('submit', (event) => {
 // ELIMINAR PRODUCTO----------------------------------------------------
 
 function deleteProduct(Id) {
-    socket.emit("deleteProduct", Id);
+    socketClient.emit("deleteProduct", Id);
 }
