@@ -220,9 +220,9 @@
     "id": 20,
     "title": "Producto 20",
     "description": "Descripcion del producto 20",
-    "price": 19800,
+    "price": 19700,
     "code": "C222",
-    "stock": 5,
+    "stock": 3,
     "status": true,
     "category": "Varios",
     "thumbnails": []

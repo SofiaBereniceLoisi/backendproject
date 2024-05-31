@@ -1,7 +1,7 @@
 import express from 'express';
 import Handlebars from 'express-handlebars';
 import __dirname from './utils.js';
-import { websocketManager } from './websocketManager.js';
+import { websocketManager } from './managers/websocketManager.js';
 import { Server } from 'socket.io';
 
 // IMPORT ROUTES
