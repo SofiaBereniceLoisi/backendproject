@@ -3,6 +3,7 @@ import Handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import { websocketManager } from './managers/websocketManager.js';
 import { Server } from 'socket.io';
+import { initMongoDB } from './db/database.js';
 
 // IMPORT ROUTES
 import productsRouter from './routes/productsRouter.js';
@@ -28,6 +29,8 @@ app.use(mainRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/products', productsRouter);
 app.use('/', viewsRouter);
+
+initMongoDB();
 
 // HTTP Server
 const httpServer = app.listen(port, () => { console.log(`Servidor escuchando en el puerto ${port}`); });
