@@ -1,7 +1,6 @@
 
 import ProductManager from './productManager.js';
-const productManager = new ProductManager('./data/products.json');
-
+const productManager = new ProductManager('./src/dao/fileSystem/data/products.json');
 
 export const websocketManager = (socketServer) => {
     //el socket del servidor escucha al socket del cliente:

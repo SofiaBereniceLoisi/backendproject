@@ -1,9 +1,9 @@
 import express from 'express';
 import Handlebars from 'express-handlebars';
 import __dirname from './utils.js';
-import { websocketManager } from './dao/fileSystemManagers/websocketManager.js';
+import { websocketManager } from './dao/fileSystem/websocketManager.js';
 import { Server } from 'socket.io';
-import { initMongoDB } from './dao/mongoManagers/connectionMDB.js';
+import { initMongoDB } from './dao/mongoDB/connectionMDB.js';
 
 // IMPORT ROUTES
 import productsRouter from './routes/productsRouter.js';
