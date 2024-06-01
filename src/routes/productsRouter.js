@@ -1,9 +1,11 @@
 import { Router } from "express";
-const productsRouter = Router();
 
-import ProductManager from '../managers/productManager.js';
+import ProductManager from '../dao/fileSystemManagers/productManager.js';
 const productsManager = new ProductManager('./data/products.json');
 
+const productsRouter = Router();
+
+// ---------------- FILE SYSTEM --------------------------------------------------------------------------------
 productsRouter.get('/', async (req, res) => {
     try {
         const { limit } = req.query;

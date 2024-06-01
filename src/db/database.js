@@ -6,7 +6,7 @@ const MONGO_URL = process.env.MONGO_URL;
 
 export const initMongoDB = async () => {
     try {
-        //mongoose.set('strictQuery', false);
+        mongoose.set('strictQuery', false);
         await mongoose.connect(MONGO_URL);
         console.log("Conectado a MongoDB!");
     } catch (error) {

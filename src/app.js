@@ -1,7 +1,7 @@
 import express from 'express';
 import Handlebars from 'express-handlebars';
 import __dirname from './utils.js';
-import { websocketManager } from './managers/websocketManager.js';
+import { websocketManager } from './dao/fileSystemManagers/websocketManager.js';
 import { Server } from 'socket.io';
 import { initMongoDB } from './db/database.js';
 
@@ -10,6 +10,7 @@ import productsRouter from './routes/productsRouter.js';
 import cartRouter from './routes/cartRouter.js';
 import mainRouter from './routes/mainRouter.js';
 import viewsRouter from './routes/viewsRouter.js';
+import productsRouterM from './routes/productsRouterM.js';
 
 const app = express();
 const port = 8080;
@@ -29,6 +30,7 @@ app.use(mainRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/products', productsRouter);
 app.use('/', viewsRouter);
+app.use('/products', productsRouterM);
 
 initMongoDB();
 
