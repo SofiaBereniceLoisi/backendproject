@@ -3,7 +3,7 @@ import Handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import { websocketManager } from './dao/fileSystemManagers/websocketManager.js';
 import { Server } from 'socket.io';
-import { initMongoDB } from './db/database.js';
+import { initMongoDB } from './dao/mongoManagers/connectionMDB.js';
 
 // IMPORT ROUTES
 import productsRouter from './routes/productsRouter.js';
