@@ -4,8 +4,8 @@ class ProductManager {
     constructor(path) {
         this.path = path
     }
-
-    getProducts = async () => {
+    //getAllProducts
+    getAll = async () => {
         try {
             const data = await fs.promises.readFile(this.path, 'utf8');
             const products = JSON.parse(data);
@@ -18,7 +18,7 @@ class ProductManager {
 
     generateId = async () => {
         try {
-            const products = await this.getProducts();
+            const products = await this.getAll();
             if (products.length === 0) {
                 return 1;
             } else {
@@ -30,10 +30,10 @@ class ProductManager {
             return null;
         }
     };
-
-    addProduct = async (productData) => {
+    //addProduct
+    create = async (productData) => {
         try {
-            const products = await this.getProducts();
+            const products = await this.getAll();
 
             const { title, description, price, code, stock, status = true, category, thumbnails } = productData;
 
@@ -67,10 +67,10 @@ class ProductManager {
             return null;
         }
     }
-
-    getProductById = async (id) => {
+    //getProductById
+    getById = async (id) => {
         try {
-            const products = await this.getProducts();
+            const products = await this.getAll();
             const foundProduct = products.find(product => product.id === parseInt(id));
 
             if (foundProduct) {
@@ -85,11 +85,11 @@ class ProductManager {
             return null;
         }
     }
-
-    deleteProduct = async (id) => {
+    //deleteProduct
+    delete = async (id) => {
         try {
-            const products = await this.getProducts();
-            const productToDelete = await this.getProductById(id);
+            const products = await this.getAll();
+            const productToDelete = await this.getById(id);
 
             if (productToDelete) {
                 const updatedProducts = products.filter(product => product.id !== id);
@@ -105,10 +105,10 @@ class ProductManager {
             return null;
         }
     }
-
-    updateProduct = async (id, updatedFields) => {
+    //updateProduct
+    update = async (id, updatedFields) => {
         try {
-            const products = await this.getProducts();
+            const products = await this.getAll();
             const indexToUpdate = products.findIndex(product => product.id === id);
 
             if (indexToUpdate !== -1) {

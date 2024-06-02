@@ -6,15 +6,15 @@ export const websocketManager = (socketServer) => {
     //el socket del servidor escucha al socket del cliente:
     socketServer.on('connection', async (socket) => {
         console.log('Client connected!');
-        const productsList = await productManager.getProducts();
+        const productsList = await productManager.getAll();
         socket.emit('sendUpdatedList', productsList);
 
         // Agregar producto --------------------------------------------------
         socket.on('addProduct', async (productData) => {
             console.log('Recibiendo el producto:', productData);
             try {
-                await productManager.addProduct(productData);
-                const productsList = await productManager.getProducts();
+                await productManager.create(productData);
+                const productsList = await productManager.getAll();
                 socket.emit('sendUpdatedList', productsList);
                 console.log('Producto agregado correctamente:', productData);
 
@@ -27,8 +27,8 @@ export const websocketManager = (socketServer) => {
         socket.on('deleteProduct', async (Id) => {
             console.log(`Intentando eliminar producto con ID ${Id}`);
             try {
-                await productManager.deleteProduct(Id);
-                const productsList = await productManager.getProducts();
+                await productManager.delete(Id);
+                const productsList = await productManager.getAll();
                 socket.emit('sendUpdatedList', productsList);
                 console.log(`Producto con ID ${Id} eliminado correctamente`);
             } catch (error) {

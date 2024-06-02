@@ -4,6 +4,7 @@ import __dirname from './utils.js';
 import { websocketManager } from './dao/fileSystem/websocketManager.js';
 import { Server } from 'socket.io';
 import { initMongoDB } from './dao/mongoDB/connectionMDB.js';
+import 'dotenv/config';
 
 // IMPORT ROUTES
 import productsRouter from './routes/productsRouter.js';
@@ -32,7 +33,11 @@ app.use('/api/products', productsRouter);
 app.use('/', viewsRouter);
 app.use('/products', productsRouterM);
 
-initMongoDB();
+// PERSISTENCIA EN MONGO 
+// Si se quiere cambiar la persistencia a fileSystem, cambiar en .env
+if (process.env.PERSISTENCE === 'MONGO') {
+    initMongoDB();
+}
 
 // HTTP Server
 const httpServer = app.listen(port, () => { console.log(`Servidor escuchando en el puerto ${port}`); });

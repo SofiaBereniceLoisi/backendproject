@@ -1,92 +1,19 @@
 import { Router } from "express";
 
-import ProductManager from '../dao/fileSystem/productManager.js';
-const productsManager = new ProductManager('./src/dao/fileSystem/data/products.json');
+//Controllers de fileSystem
+import * as controllersFS from "../controllers/productControllerFS.js"
 
 const productsRouter = Router();
 
-// ---------------- FILE SYSTEM --------------------------------------------------------------------------------
-productsRouter.get('/', async (req, res) => {
-    try {
-        const { limit } = req.query;
-        let products = await productsManager.getProducts();
+// ---------------- ENDPOINTS FILE SYSTEM --------------------------------------------------------------------------------
+productsRouter.get('/', controllersFS.getAll)
 
-        if (limit) {
-            products = products.slice(0, parseInt(limit));
-        }
+productsRouter.get('/:pid', controllersFS.getById)
 
-        res.send(JSON.stringify(products));
+productsRouter.post("/", controllersFS.create)
 
-    } catch (error) {
-        console.log('Error al obtener productos: ', error);
-        res.status(500).send({ error: 'Error al obtener productos' });
-    }
-})
+productsRouter.put("/:pid", controllersFS.update);
 
-productsRouter.get('/:pid', async (req, res) => {
-    try {
-        const productId = req.params.pid;
-        const product = await productsManager.getProductById(productId);
-
-        if (product) {
-            res.send(JSON.stringify(product));
-        } else {
-            res.status(404).send({ error: 'Producto no encontrado' });
-        }
-    } catch (error) {
-        console.log('Error al obtener producto:', error);
-        res.status(500).send({ error: 'Error al obtener producto' });
-    }
-
-})
-
-productsRouter.post("/", async (req, res) => {
-    try {
-        const productData = req.body;
-        const addedProduct = await productsManager.addProduct(productData);
-
-        res.status(201).send(addedProduct);
-
-    } catch (error) {
-        console.log('Error al agregar producto:', error);
-        res.status(500).send({ error: 'Error al agregar producto' });
-    }
-
-})
-
-productsRouter.put("/:pid", async (req, res) => {
-    try {
-        const productId = parseInt(req.params.pid);
-        const updatedFields = req.body;
-
-        const updatedProduct = await productsManager.updateProduct(productId, updatedFields);
-
-        if (updatedProduct) {
-            res.status(200).send({ success: "Producto actualizado correctamente", product: updatedProduct });
-        } else {
-            res.status(404).send({ error: "Producto no encontrado" });
-        }
-    } catch (error) {
-        console.log("Error al actualizar producto:", error);
-        res.status(500).send({ error: "Error interno del servidor" });
-    }
-});
-
-productsRouter.delete("/:pid", async (req, res) => {
-    try {
-        const productId = parseInt(req.params.pid);
-
-        const deletedProduct = await productsManager.deleteProduct(productId);
-
-        if (deletedProduct) {
-            res.status(200).send({ success: "Producto eliminado correctamente" });
-        } else {
-            res.status(404).send({ error: "Producto no encontrado" });
-        }
-    } catch (error) {
-        console.log("Error al eliminar producto:", error);
-        res.status(500).send({ error: "Error interno del servidor" });
-    }
-});
+productsRouter.delete("/:pid", controllersFS.remove);
 
 export default productsRouter;

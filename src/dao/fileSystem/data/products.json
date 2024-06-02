@@ -226,5 +226,16 @@
     "status": true,
     "category": "Varios",
     "thumbnails": []
+  },
+  {
+    "id": 21,
+    "title": "Producto 21",
+    "description": "Descripcion del producto 21",
+    "price": 13400,
+    "code": "C333",
+    "stock": 5,
+    "status": true,
+    "category": "Varios",
+    "thumbnails": []
   }
 ]
