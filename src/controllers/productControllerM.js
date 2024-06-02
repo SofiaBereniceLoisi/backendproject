@@ -1,21 +1,20 @@
-import ProductManagerM from "../dao/mongoDB/productManagerM.js";
-const productManagerM = new ProductManagerM();
+import * as service from "../services/productServices.js";
 
-export const getAllProducts = async (req, res, next) => {
+export const getAll = async (req, res, next) => {
     try {
-        const products = await productManagerM.getAll();
-        res.json(products);
+        const response = await service.getAll();
+        res.json(response);
     } catch (error) {
-        next(error);
+        next(error.message);
     }
 }
 
-export const getProductById = async (req, res, next) => {
+export const getById = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const product = await productManagerM.getById(id);
+        const product = await service.getById(id);
         if (!product) {
-            res.json({ msg: 'Producto no encontrado.' });
+            res.status(404).json({ msg: 'Producto no encontrado.' });
         } else {
             res.json(product);
         }
@@ -24,11 +23,11 @@ export const getProductById = async (req, res, next) => {
     }
 }
 
-export const createProduct = async (req, res, next) => {
+export const create = async (req, res, next) => {
     try {
-        const newProduct = await productManagerM.create(req.body);
+        const newProduct = await service.create(req.body);
         if (!newProduct) {
-            res.json({ msg: 'No se pudo crear el producto.' });
+            res.status(404).json({ msg: 'No se pudo crear el producto.' });
         } else {
             res.json(newProduct);
         }
@@ -37,12 +36,12 @@ export const createProduct = async (req, res, next) => {
     }
 }
 
-export const updateProduct = async (req, res, next) => {
+export const update = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const updatedProduct = await productManagerM.update(id, req.body);
+        const updatedProduct = await service.update(id, req.body);
         if (!updatedProduct) {
-            res.json({ msg: 'No se pudo modificar el producto.' });
+            res.status(404).json({ msg: 'No se pudo modificar el producto.' });
         } else {
             res.json(updatedProduct);
         }
@@ -51,12 +50,12 @@ export const updateProduct = async (req, res, next) => {
     }
 }
 
-export const deleteProduct = async (req, res, next) => {
+export const remove = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const deletedProduct = await productManagerM.delete(id);
+        const deletedProduct = await service.delete(id);
         if (!deletedProduct) {
-            res.json({ msg: 'No se pudo eliminar el producto.' });
+            res.status(404).json({ msg: 'No se pudo eliminar el producto.' });
         } else {
             res.json(deletedProduct);
         }

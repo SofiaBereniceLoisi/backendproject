@@ -1,20 +1,20 @@
 import { Router } from "express";
 
-// Controllers de mongo
+// Controllers de MongoDB
 import * as controllers from "../controllers/productControllerM.js";
 
 const productsRouterM = Router();
 
 // -------------- ENDPOINTS MONGO DB -------------------------------------------------------------------------
 
-productsRouterM.get("/", controllers.getAllProducts);
+productsRouterM.get("/", controllers.getAll);
 
-productsRouterM.get("/:id", controllers.getProductById);
+productsRouterM.get("/:id", controllers.getById);
 
-productsRouterM.post("/", controllers.createProduct);
+productsRouterM.post("/", controllers.create);
 
-productsRouterM.put("/:id", controllers.updateProduct);
+productsRouterM.put("/:id", controllers.update);
 
-productsRouterM.delete("/:id", controllers.deleteProduct);
+productsRouterM.delete("/:id", controllers.remove);
 
 export default productsRouterM;
