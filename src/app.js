@@ -1,7 +1,7 @@
 import express from 'express';
 import Handlebars from 'express-handlebars';
 import __dirname from './utils.js';
-import { websocketManager } from './dao/fileSystem/websocketManager.js';
+import { websocketManager } from './websocketManager.js';
 import { Server } from 'socket.io';
 import { initMongoDB } from './dao/mongoDB/connectionMDB.js';
 import 'dotenv/config';
@@ -12,6 +12,7 @@ import cartRouter from './routes/cartRouter.js';
 import mainRouter from './routes/mainRouter.js';
 import viewsRouter from './routes/viewsRouter.js';
 import productsRouterM from './routes/productsRouterM.js';
+import messageRouterM from './routes/messageRouter.js';
 
 const app = express();
 const port = 8080;
@@ -32,6 +33,7 @@ app.use('/api/carts', cartRouter);
 app.use('/api/products', productsRouter);
 app.use('/', viewsRouter);
 app.use('/products', productsRouterM);
+app.use('/chat', messageRouterM);
 
 // PERSISTENCIA EN MONGO 
 // Si se quiere cambiar la persistencia a fileSystem, cambiar en .env

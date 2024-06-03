@@ -10,4 +10,8 @@ viewsRouter.get('/realtimeproducts', async (req, res) => {
     }
 });
 
+viewsRouter.get('/chat', async (req,res) => {
+    res.render('chat');
+})
+
 export default viewsRouter;

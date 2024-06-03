@@ -1,6 +1,9 @@
 
-import ProductManager from './productManager.js';
+import ProductManager from './dao/fileSystem/productManager.js';
 const productManager = new ProductManager('./src/dao/fileSystem/data/products.json');
+import MessageManagerM from './dao/mongoDB/messageManagerM.js';
+const messageManagerM = new MessageManagerM();
+
 
 export const websocketManager = (socketServer) => {
     //el socket del servidor escucha al socket del cliente:
@@ -23,7 +26,7 @@ export const websocketManager = (socketServer) => {
             }
         });
 
-    // Eliminar producto --------------------------------------------------- 
+        // Eliminar producto --------------------------------------------------- 
         socket.on('deleteProduct', async (Id) => {
             console.log(`Intentando eliminar producto con ID ${Id}`);
             try {
@@ -36,9 +39,24 @@ export const websocketManager = (socketServer) => {
             }
         });
 
+        // --------------- CHAT -------------------------
+        socket.on('newUser', (user) => {
+            console.log(`> ${user} ha iniciado sesión`);
+        })
+
+        socket.on('chat:message', async (msg) => {
+            await messageManagerM.createMessage(msg);
+            socketServer.emit('messages', await messageManagerM.getAllMessages());  
+        })
+
+        socket.on('chat:typing', (data) => {
+            socket.broadcast.emit('chat:typing', data)
+        });
+        
         socket.on('disconnect', () => {
             console.log('Client disconnected!');
         });
 
     });
+
 };
