@@ -20,7 +20,7 @@ export const getAll = async (req, res, next) => {
 
 export const getById = async (req, res, next) => {
     try {
-        const productId = req.params.pid;
+        const productId = req.params.id;
         const product = await serviceFS.getById(productId);
 
         if (product) {
@@ -49,7 +49,7 @@ export const create = async (req, res, next) => {
 
 export const update = async (req, res, next) => {
     try {
-        const productId = parseInt(req.params.pid);
+        const productId = parseInt(req.params.id);
         const updatedFields = req.body;
 
         const updatedProduct = await serviceFS.update(productId, updatedFields);
@@ -67,7 +67,7 @@ export const update = async (req, res, next) => {
 
 export const remove = async (req, res, next) => {
     try {
-        const productId = parseInt(req.params.pid);
+        const productId = parseInt(req.params.id);
 
         const deletedProduct = await serviceFS.delete(productId);
 

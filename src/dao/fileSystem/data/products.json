@@ -231,9 +231,9 @@
     "id": 21,
     "title": "Producto 21",
     "description": "Descripcion del producto 21",
-    "price": 12500,
+    "price": 13400,
     "code": "C333",
-    "stock": 13,
+    "stock": 14,
     "status": true,
     "category": "Varios",
     "thumbnails": []
