@@ -8,7 +8,6 @@ import * as controllers from "../controllers/productControllerM.js";
 
 const productsRouter = Router();
 
-// ---------------- ENDPOINTS FILE SYSTEM --------------------------------------------------------------------------------
 productsRouter.get('/', controllers.getAll)
 
 productsRouter.get('/:id', controllers.getById)
