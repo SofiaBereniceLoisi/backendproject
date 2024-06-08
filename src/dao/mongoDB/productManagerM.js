@@ -2,15 +2,20 @@ import { ProductsModel } from "./models/productsModel.js";
 
 export default class ProductManagerM {
 
-    async getAll() {
+    async getAll(page = 1, limit = 10, title, sort) {
         try {
-            return await ProductsModel.find({});
+            const filter = title ? { 'title': title } : {};
+            let sortOrder = {};
+            if (sort) {
+                sortOrder.price = sort === 'asc' ? 1 : sort === 'desc' ? -1 : null;
+            }
+            return await ProductsModel.paginate(filter, { page, limit, sort: sortOrder }); //sort: { price: 1 } 
         } catch (error) {
             throw new Error(error);
         }
     }
 
-    async getById(id){
+    async getById(id) {
         try {
             return await ProductsModel.findById(id);
         } catch (error) {
@@ -18,7 +23,7 @@ export default class ProductManagerM {
         }
     }
 
-    async create(obj){
+    async create(obj) {
         try {
             return ProductsModel.create(obj);
         } catch (error) {
@@ -26,15 +31,15 @@ export default class ProductManagerM {
         }
     }
 
-    async update(id, obj){
+    async update(id, obj) {
         try {
-            return await ProductsModel.findByIdAndUpdate(id, obj, {new : true})
+            return await ProductsModel.findByIdAndUpdate(id, obj, { new: true })
         } catch (error) {
             throw new Error(error);
         }
     }
 
-    async delete(id){
+    async delete(id) {
         try {
             return await ProductsModel.findByIdAndDelete(id);
         } catch (error) {
