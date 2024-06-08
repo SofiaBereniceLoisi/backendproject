@@ -5,14 +5,14 @@ const cartCollectionName = "carts";
 const cartSchema = new Schema({
     products: [
         {
-          _id: false,
+          _id: false, //para que no genere un id 
           quantity: {
             type: Number,
             default: 1 
           },
           product: {
             type: Schema.Types.ObjectId,
-            ref: "products" // Referencia al modelo de productos
+            ref: "products" // referencia al modelo de productos
           }
         }
       ]

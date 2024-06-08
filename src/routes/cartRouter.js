@@ -13,12 +13,12 @@ router.put("/:id", controller.update);
 
 router.delete("/:id", controller.remove);
 
-router.post("/:idCart/products/:idProd", controller.addProdToCart);
+router.post("/:cid/products/:pid", controller.addProdToCart);
 
-router.delete("/:idCart/products/:idProd", controller.removeProdToCart);
+router.delete("/:cid/products/:pid", controller.removeProdToCart);
 
-router.put("/:idCart/products/:idProd", controller.updateProdQuantityToCart);
+router.put("/:cid/products/:pid", controller.updateProdQuantityToCart);
 
-router.delete("/clear/:idCart", controller.clearCart);
+router.delete("/clear/:cid", controller.clearCart);
 
 export default router;

@@ -42,7 +42,7 @@ export const create = async () => {
 export const update = async (id, obj) => {
     try {
         const cartUpdated = await cartManagerM.update(id, obj);
-        if (!cartUpd) {
+        if (!cartUpdated) {
             return false;
         } else {
             return cartUpdated;
@@ -72,12 +72,14 @@ export const addProdToCart = async (cartId, prodId) => {
         if (!existCart || !existProd) {
             return null;
         }
-        //verificar si el prod existe en el cart
+        //verifico si el prod existe en el carrito
         const existProdInCart = await cartManagerM.existProdInCart(cartId, prodId);
         if (existProdInCart) {
+            // si ya hay un mismo prod sumo 1 
             const quantity = existProdInCart.products.find(p => p.product.toString() === prodId).quantity + 1;
             return await cartManagerM.addProdToCart(cartId, prodId, quantity);
         }
+        //si no existe en el carrito lo agrega
         return await cartManagerM.addProdToCart(cartId, prodId);
     } catch (error) {
         console.log(error);

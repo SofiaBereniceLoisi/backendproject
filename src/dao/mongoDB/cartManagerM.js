@@ -1,10 +1,10 @@
 import { CartModel } from "./models/cartModel.js";
 
-export default class CartDaoMongoDB {
+export default class CartManagerM {
   async create() {
     try {
       return await CartModel.create({
-        products: [],
+        products: [], //por default que se cree el carrito vacío.
       });
     } catch (error) {
       console.log(error);
@@ -21,7 +21,7 @@ export default class CartDaoMongoDB {
 
   async getById(id) {
     try {
-      return await CartModel.findById(id).populate("products.product");
+      return await CartModel.findById(id).populate("products.product"); // trae los datos del prod en la coleccion de prods
     } catch (error) {
       console.log(error);
     }
@@ -38,8 +38,10 @@ export default class CartDaoMongoDB {
   async addProdToCart(cartId, prodId, quantity) {
     try {
       const cart = await CartModel.findById(cartId);
-      if (!cart) return null;
-      //Buscar si existe el prod en el carrito
+      if (!cart) {
+        return null;
+      }
+      // busco si existe el prod en el carrito
       const existProdIndex = cart.products.findIndex(p => p.product.toString() === prodId);
 
       if(existProdIndex !== -1) {
