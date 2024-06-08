@@ -8,9 +8,9 @@ const productDao = new ProductManagerM();
 
 import __dirname from '../utils.js';
 
-export const getAll = async () => {
+export const getAll = async (page, limit, title, sort) => {
      try {
-        return await productDao.getAll()
+        return await productDao.getAll(page, limit, title, sort);
      } catch (error) {
         throw new Error(error)
      }

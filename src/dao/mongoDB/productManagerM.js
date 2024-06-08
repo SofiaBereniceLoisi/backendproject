@@ -9,7 +9,7 @@ export default class ProductManagerM {
             if (sort) {
                 sortOrder.price = sort === 'asc' ? 1 : sort === 'desc' ? -1 : null;
             }
-            return await ProductsModel.paginate(filter, { page, limit, sort: sortOrder }); //sort: { price: 1 } 
+            return await ProductsModel.paginate(filter, { page, limit, sort: sortOrder });
         } catch (error) {
             throw new Error(error);
         }
