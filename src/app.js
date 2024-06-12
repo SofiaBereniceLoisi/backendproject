@@ -27,11 +27,11 @@ app.set('view engine', 'handlebars');
 app.engine('handlebars', Handlebars.engine())
 
 // ROUTES
-app.use(mainRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/products', productsRouter);
 app.use('/', viewsRouter);
 app.use('/chat', messageRouterM);
+app.use(mainRouter);
 
 // PERSISTENCIA EN MONGO 
 // Si se quiere cambiar la persistencia a fileSystem, cambiar en .env

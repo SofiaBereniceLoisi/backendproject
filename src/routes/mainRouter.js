@@ -16,4 +16,8 @@ mainRouter.get('/', async (req, res) => {
 });
 
 
+mainRouter.get('/*', async(req,res) =>  {
+    res.status(500).send({ error: 'La página que ingresaste no existe.' });
+})
+
 export default mainRouter;
