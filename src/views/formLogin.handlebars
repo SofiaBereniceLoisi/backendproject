@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="./css/forms.css">
+<section class="contenedor-formulario">
+    <div class="login">
+        <div class="login-header">
+            <h2 id="iniciarSesion">Iniciar sesión</h2>
+            <p id="pIniciarSesion">Por favor inicie sesión para continuar</p>
+        </div>
+        <form class="login-contenido" id="formulario-login">
+            <div class="login-item">
+                <input type="text" name="username" placeholder="Ingrese su nombre" id="logUsuario">
+
+            </div>
+            <div class="login-item">
+                <input type="password" name="password" placeholder="Ingrese su contraseña" id="logPassword">
+            </div>
+            <div class="login-item-otro">
+                <div class="checkbox">
+                    <input type="checkbox" id="recordarmeCheckbox">
+                    <label for="recordarmeCheckbox" id="recordarme">Recordarme</label>
+                </div>
+                <a href="" id="olvideContraseña">Olvidé mi contraseña!</a>
+            </div>
+            <button type="submit" id="btnIngresar">INGRESAR</button>
+        </form>
+        <div class="login-footer">
+            <p id="crearCuenta">Todavía no tenes cuenta? <a href="">Creá una.</a></p>
+        </div>
+    </div>
+</section>
+
+<script src="./js/forms.js" charset="utf-8"></script>

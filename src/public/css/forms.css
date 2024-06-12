@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: #FFF8EA;
+    transition: 0.5s;
+    font-size: 14px;
+}
+
+.contenedor-formulario {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.contenedor-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.login, .contenido-perfil {
+    width: 450px;
+    background-color: #fff8eabc;
+    color: black;
+    padding: 4rem;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.contenido-perfil{
+    background-color: #fff8ea;
+}
+
+.login::before, .contenido-perfil::before {
+    content: '';
+    position: absolute;
+    background-color: rgba(255, 255, 255, .15);
+    inset: 0;
+    transform: rotate(-5deg);
+    border-radius: 10px;
+    z-index: -1;
+}
+
+.login a {
+    text-decoration: none;
+    transition: 0.5s;
+    color: black;
+}
+
+.contenedor-formulario a {
+    color: #C62727;
+}
+
+.contenedor-formulario a:hover {
+    font-weight: bold;
+    color: #C62727;
+}
+
+.login-header,
+.login-header h2 {
+    margin-bottom: 1rem;
+}
+
+.login-header h2+div {
+    font-size: calc(1rem * .8);
+    opacity: .8;
+}
+
+.login-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login-contenido .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.login-contenido .login-item-otro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: calc(1rem * .8)
+}
+
+.login-contenido input[type="text"],
+.login-contenido input[type="password"], .login-contenido input[type="email"] {
+    border: none;
+    outline: none;
+    width: 250px;
+    background-color: rgba(255, 255, 255, .3);
+    padding: 1rem 1.5rem;
+    padding-left: calc(1rem * 2.5);
+    border-radius: 100px;
+    width: 100%;
+    transition: background .5s;
+}
+
+.login-contenido input:focus {
+    background-color: #fff8eacd;
+}
+
+.login-contenido input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #c62727;
+}
+
+.login-contenido button{
+    border: none;
+    outline: none;
+    background-color: #C62727;
+    color: #FFF8EA;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 0.6rem;
+    border-radius: 100px;
+    transition: background .5s;
+}
+
+.login-contenido button:hover{
+    cursor: pointer;
+    background-color: #a12020;
+}
+
+.login-footer {
+    padding-top: 2rem;
+}
