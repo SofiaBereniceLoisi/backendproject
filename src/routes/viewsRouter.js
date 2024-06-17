@@ -23,13 +23,12 @@ viewsRouter.get('/register', async (req, res) => {
 })
 
 viewsRouter.get("/profile", (req, res) => {
-    console.log(req.session)
     res.render("profile",{
         first_name: req.session.first_name,
         last_name: req.session.last_name,
-        email: req.session.email
+        email: req.session.email,
+        role: req.session.role
     });
 });
-
 
 export default viewsRouter;

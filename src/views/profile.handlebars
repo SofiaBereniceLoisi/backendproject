@@ -9,6 +9,7 @@
                 <h2>Bienvenido! {{first_name}}</h2>
                 <p>Nombre completo: {{first_name}} {{last_name}}</p>
                 <p>Email: {{email}}</p>
+                <p>Rol: {{role}}</p>
             {{else}}
                 <p>No se han encontrado datos de usuario</p>
             {{/if}}
@@ -20,7 +21,6 @@
             <form action="/users/logout" method="post">
             <button type="submit">CERRAR SESIÓN</button>
             </form>
-            
         </div>
     </div>
 </section>

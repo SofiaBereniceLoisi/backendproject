@@ -51,7 +51,6 @@ app.use('/', viewsRouter);
 app.use('/chat', messageRouterM);
 app.use('/users', userRouter);
 app.use(mainRouter);
-// app.use('/login')????????????????
 
 // PERSISTENCIA EN MONGO 
 // Si se quiere cambiar la persistencia a fileSystem, cambiar en .env
