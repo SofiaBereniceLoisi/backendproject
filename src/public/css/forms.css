@@ -13,6 +13,12 @@ body {
     font-size: 14px;
 }
 
+
+
+.login-header h3, .login-footer h5{
+    font-size: 14px;
+}
+
 .contenedor-formulario {
     position: fixed;
     top: 0;
@@ -61,19 +67,25 @@ body {
     z-index: -1;
 }
 
-.login a {
-    text-decoration: none;
+.perfil-header h2{
+    font-size: 24px;
+    padding-bottom: 8px;
+}
+
+
+.login p {
     transition: 0.5s;
     color: black;
 }
 
-.contenedor-formulario a {
+.contenedor-formulario p {
     color: #C62727;
 }
 
-.contenedor-formulario a:hover {
+.contenedor-formulario p:hover {
     font-weight: bold;
     color: #C62727;
+    cursor: pointer;
 }
 
 .login-header,
@@ -128,7 +140,7 @@ body {
     accent-color: #c62727;
 }
 
-.login-contenido button{
+.login-contenido button, .login-footer button{
     border: none;
     outline: none;
     background-color: #C62727;
@@ -138,15 +150,33 @@ body {
     font-weight: bold;
     letter-spacing: 2px;
     padding: 0.6rem;
+    margin-bottom: 4px;
     border-radius: 100px;
     transition: background .5s;
 }
 
-.login-contenido button:hover{
+.login-footer button{
+    width: 100%;
+}
+
+.login-contenido button:hover , .login-footer button:hover{
     cursor: pointer;
     background-color: #a12020;
 }
 
 .login-footer {
+    display: flex;
+    justify-content: center;
     padding-top: 2rem;
+    width: 100%;
+}
+
+.perfil-header p{
+    color: black;
+}
+
+.perfil-header p:hover, .perfil-header h2{
+    color: black;
+    cursor:default;
+    font-weight: normal;
 }

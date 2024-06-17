@@ -5,7 +5,7 @@
             <h2 id="iniciarSesion">Registrate</h2>
             <p id="pIniciarSesion">Por favor regístrese si todavia no tiene una cuenta</p>
         </div>
-        <form class="login-contenido" id="formularioRegistro">
+        <form action="users/register" method="post" class="login-contenido" id="formularioRegistro">
             <div class="login-item">
                 <input type="text" name="first_name" placeholder="Ingrese su nombre" id="first_name">
             </div>
@@ -21,9 +21,12 @@
             <div class="login-item">
                 <input type="password" name="password" placeholder="Ingrese su contraseña" id="password">
             </div>
-            <button type="submit" id="btnRegistrar">REGISTRARME</button>
-            <button id="btnVolver">VOLVER</button>
+            <button value="REGISTER" type="submit" id="btnRegistrar">REGISTRARME</button>
+            
         </form>
+        <div class="login-contenido">
+            <button id="btnVolver" onclick="location.href='/login'">VOLVER</button>
+        </div>
     </div>
 </section>
 

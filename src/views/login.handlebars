@@ -3,9 +3,9 @@
     <div class="login">
         <div class="login-header">
             <h2 id="iniciarSesion">Iniciar sesión</h2>
-            <p id="pIniciarSesion">Por favor inicie sesión para continuar</p>
+            <h3 id="pIniciarSesion">Por favor inicie sesión para continuar</h3>
         </div>
-        <form class="login-contenido" id="formulario-login">
+        <form class="login-contenido" id="formulario-login" action="/users/login" method="post">
             <div class="login-item">
                 <input type="text" name="email" placeholder="Ingrese su email" id="email">
 
@@ -18,12 +18,13 @@
                     <input type="checkbox" id="recordarmeCheckbox">
                     <label for="recordarmeCheckbox" id="recordarme">Recordarme</label>
                 </div>
-                <a href="" id="olvideContraseña">Olvidé mi contraseña!</a>
+                <p id="olvideContraseña">Olvidé mi contraseña!</p>
             </div>
-            <button type="submit" id="btnIngresar">INGRESAR</button>
+            <button type="submit" id="btnIngresar" value="LOGIN">INGRESAR</button>
         </form>
         <div class="login-footer">
-            <p id="crearCuenta">Todavía no tenes cuenta? <a href="">Creá una.</a></p>
+            <h5 id="crearCuenta">Todavía no tenes cuenta?</h5> 
+            <p onclick="location.href='/register'">Creá una.</p>
         </div>
     </div>
 </section>

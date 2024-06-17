@@ -10,16 +10,26 @@ viewsRouter.get('/realtimeproducts', async (req, res) => {
     }
 });
 
-viewsRouter.get('/chat', async (req,res) => {
+viewsRouter.get('/chat', async (req, res) => {
     res.render('chat');
 })
 
-viewsRouter.get('/login', async (req,res) => {
-    res.render('formLogin');
+viewsRouter.get('/login', async (req, res) => {
+    res.render('login');
 })
 
-viewsRouter.get('/signup', async (req,res) => {
-    res.render('formSignup');
+viewsRouter.get('/register', async (req, res) => {
+    res.render('register');
 })
+
+viewsRouter.get("/profile", (req, res) => {
+    console.log(req.session)
+    res.render("profile",{
+        first_name: req.session.first_name,
+        last_name: req.session.last_name,
+        email: req.session.email
+    });
+});
+
 
 export default viewsRouter;

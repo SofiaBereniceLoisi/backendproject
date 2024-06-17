@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="./css/forms.css">
+<section class="contenedor-formulario">
+    <div class="login">
+        <div class="perfil-header">
+            <h2 id="perfil">Perfil:</h2>
+        </div>
+        <div class="perfil-header">
+            {{#if first_name}}
+                <h2>Bienvenido! {{first_name}}</h2>
+                <p>Nombre completo: {{first_name}} {{last_name}}</p>
+                <p>Email: {{email}}</p>
+            {{else}}
+                <p>No se han encontrado datos de usuario</p>
+            {{/if}}
+        </div>
+        <div class="login-footer">
+            <button onclick="location.href='/api/products'">IR A LA PAGINA PRINCIPAL</button>
+        </div>
+        <div class="login-footer">
+            <form action="/users/logout" method="post">
+            <button type="submit">CERRAR SESIÓN</button>
+            </form>
+            
+        </div>
+    </div>
+</section>
+
+<script src="./js/forms.js" charset="utf-8"></script>

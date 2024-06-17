@@ -6,15 +6,15 @@ const userCollectionName = "users";
 const userSchema = new Schema({
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
-    email: { type: string, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
     age: { type: Number, required: true },
     password: { type: String, required: true },
-    role: { type: String, default: usuario }
+    role: { type: String, default: 'user' }
 })
 
 userSchema.plugin(mongoosePaginate);
 
-export const UsersModel = model(
+export const UserModel = model(
     userCollectionName,
     userSchema
 );
