@@ -7,7 +7,7 @@ export const getAll = async (req, res, next) => {
         const response = await service.getAll(page, limit, title, sort);
         const next = response.hasNextPage ? `http://localhost:8080/api/products?page=${response.nextPage}` : null;
         const prev = response.hasPrevPage ? `http://localhost:8080/api/products?page=${response.prevPage}` : null;
-        res.json({
+        res.status(200).json({
             payload: response.docs,
             info: {
                 count: response.totalDocs,
@@ -18,7 +18,6 @@ export const getAll = async (req, res, next) => {
                 hasNextPage: response.hasNextPage
             }
         });
-        res.status(200).json(response);
     } catch (error) {
         next(error.message);
     }

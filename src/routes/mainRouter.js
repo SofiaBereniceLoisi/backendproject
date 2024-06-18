@@ -5,6 +5,7 @@ const mainRouter = Router();
 import ProductManager from '../dao/fileSystem/productManager.js'; 
 const productsManager = new ProductManager('./src/dao/fileSystem/data/products.json'); 
 
+/*
 mainRouter.get('/', async (req, res) => {
     try {
         const products = await productsManager.getAll();
@@ -14,7 +15,7 @@ mainRouter.get('/', async (req, res) => {
         res.status(500).send({ error: 'Error al obtener productos' });
     }
 });
-
+*/
 
 mainRouter.get('/*', async(req,res) =>  {
     res.status(500).send({ error: 'La página que ingresaste no existe.' });

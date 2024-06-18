@@ -10,7 +10,7 @@ export const login = async (req, res) => {
             req.session.last_name = "";
             req.session.email = email;
             req.session.role = "admin";
-            return res.redirect('/profile');
+            res.redirect('/profile');
         }
         const user = await userManager.login(email, password);
         if (!user) {
@@ -35,9 +35,9 @@ export const register = async (req, res) => {
         //const { email, password } = req.body;
         const user = await userManager.register(req.body);
         if (!user) {
-            return res.status(401).json({ msg: "El usuario ya existe!" });
+            res.status(401).json({ msg: "El usuario ya existe!" });
         } else {
-            return res.redirect("/login");
+            res.redirect("/login");
         }
     } catch (error) {
         throw new Error(error);

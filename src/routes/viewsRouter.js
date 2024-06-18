@@ -14,6 +14,10 @@ viewsRouter.get('/chat', async (req, res) => {
     res.render('chat');
 })
 
+viewsRouter.get('/', async (req, res) => {
+    res.render('login');
+})
+
 viewsRouter.get('/login', async (req, res) => {
     res.render('login');
 })
