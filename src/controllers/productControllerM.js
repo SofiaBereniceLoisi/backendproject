@@ -5,10 +5,17 @@ export const getAll = async (req, res, next) => {
         // paginate ----- 
         const { page, limit, title, sort } = req.query;
         const response = await service.getAll(page, limit, title, sort);
+
+        const products = response.docs.map(product => ({
+            id: product._id.toString(),
+            title: product.title,
+            price: product.price
+        }));
+
         const next = response.hasNextPage ? `http://localhost:8080/api/products?page=${response.nextPage}` : null;
         const prev = response.hasPrevPage ? `http://localhost:8080/api/products?page=${response.prevPage}` : null;
-        res.status(200).json({
-            payload: response.docs,
+        res.render('products', {
+            products: products,
             info: {
                 count: response.totalDocs,
                 totalPages: response.totalPages,
@@ -16,7 +23,8 @@ export const getAll = async (req, res, next) => {
                 prevLink: prev,
                 hasPrevPage: response.hasPrevPage,
                 hasNextPage: response.hasNextPage
-            }
+            },
+            first_name: req.session.first_name, //le paso el nombre a la vista principal de productos
         });
     } catch (error) {
         next(error.message);
@@ -28,9 +36,14 @@ export const getById = async (req, res, next) => {
         const { id } = req.params;
         const product = await service.getById(id);
         if (!product) {
-            res.status(404).json({ msg: 'Producto no encontrado.' });
+            res.status(404).render('productDetail', { error: 'Producto no encontrado.' });
         } else {
-            res.status(200).json(product);
+            res.render('productDetail', {
+                id: product._id.toString(),
+                title: product.title,
+                price: product.price,
+                description: product.description // Asegúrate de tener esta propiedad si la necesitas
+            });
         }
     } catch (error) {
         next(error);

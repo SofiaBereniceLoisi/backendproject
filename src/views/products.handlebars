@@ -1,0 +1,26 @@
+<h1>Bienvenido {{first_name}}!</h1>
+<button onclick="location.href='/profile'">Ver mi perfil</button>
+<h2>Lista de Productos</h2>
+{{#if products}}
+<ul>
+    {{#each products}}
+    <li>
+        <a href="/api/products/{{this.id}}">
+            {{this.title}} - ${{this.price}}
+        </a>
+    </li>
+    {{/each}}
+</ul>
+{{#if info}}
+<div>
+    {{#if info.hasPrevPage}}
+    <a href="{{info.prevLink}}">Anterior</a>
+    {{/if}}
+    {{#if info.hasNextPage}}
+    <a href="{{info.nextLink}}">Siguiente</a>
+    {{/if}}
+</div>
+{{/if}}
+{{else}}
+<p>No hay productos disponibles.</p>
+{{/if}}

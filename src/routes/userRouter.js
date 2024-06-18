@@ -11,10 +11,10 @@ const validateLogin = (req, res, next) => {
     }
 };
 
-userRouter.post("/login", login);
+userRouter.post('/login', login);
 userRouter.post('/register', register)
-userRouter.get("/info", validateLogin, infoSession);
+userRouter.get('/info', validateLogin, infoSession);
 
-userRouter.post("/logout", logout);
+userRouter.post('/logout', logout);
 
 export default userRouter;

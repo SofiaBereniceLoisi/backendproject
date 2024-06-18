@@ -1,0 +1,11 @@
+<h1>Detalle del Producto</h1>
+    {{#if error}}
+    <h1>{{error}}</h1>
+    {{else}}
+    <h1>Título: {{title}}</h1>
+    <p>ID: {{id}}</p>
+    <p>Precio: ${{price}}</p>
+    <p>Descripción: {{description}}</p>
+    {{/if}}
+
+<button onclick="location.href='/api/products'">Volver a la página principal</button>
