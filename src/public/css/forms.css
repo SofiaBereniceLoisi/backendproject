@@ -13,8 +13,6 @@ body {
     font-size: 14px;
 }
 
-
-
 .login-header h3, .login-footer h5{
     font-size: 14px;
 }
@@ -175,7 +173,7 @@ body {
     color: black;
 }
 
-.perfil-header p:hover, .perfil-header h2{
+.perfil-header p:hover, .perfil-header h2, #pIniciarSesion{
     color: black;
     cursor:default;
     font-weight: normal;
