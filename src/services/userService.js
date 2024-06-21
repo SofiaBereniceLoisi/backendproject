@@ -74,8 +74,3 @@ export const infoSession = (req, res) => {
         cookies: req.cookies,
     });
 };
-
-// export const logout = (req, res) => {
-//     req.session.destroy();
-//     res.redirect("/login");
-// };

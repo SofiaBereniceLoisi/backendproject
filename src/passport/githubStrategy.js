@@ -34,4 +34,3 @@ const registerOrLogin = async (accessToken, refreshToken, profile, done) => {
 }
 
 passport.use('github', new GithubStrategy(strategyConfig, registerOrLogin));
-

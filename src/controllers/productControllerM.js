@@ -14,6 +14,11 @@ export const getAll = async (req, res, next) => {
 
         const next = response.hasNextPage ? `http://localhost:8080/api/products?page=${response.nextPage}` : null;
         const prev = response.hasPrevPage ? `http://localhost:8080/api/products?page=${response.prevPage}` : null;
+        
+        //para mensaje de bienvenida
+        const user = await req.user;
+        const first_name = user.first_name;
+        
         res.render('products', {
             products: products,
             info: {
@@ -24,7 +29,7 @@ export const getAll = async (req, res, next) => {
                 hasPrevPage: response.hasPrevPage,
                 hasNextPage: response.hasNextPage
             },
-            first_name: req.session.passport.user.first_name, //le paso el nombre a la vista principal de productos
+            first_name: first_name, // le paso el nombre a la vista principal de productos
         });
     } catch (error) {
         next(error.message);
@@ -42,7 +47,7 @@ export const getById = async (req, res, next) => {
                 id: product._id.toString(),
                 title: product.title,
                 price: product.price,
-                description: product.description // Asegúrate de tener esta propiedad si la necesitas
+                description: product.description
             });
         }
     } catch (error) {
