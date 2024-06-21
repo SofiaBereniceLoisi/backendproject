@@ -16,8 +16,7 @@ export const getAll = async (req, res, next) => {
         const prev = response.hasPrevPage ? `http://localhost:8080/api/products?page=${response.prevPage}` : null;
         
         //para mensaje de bienvenida
-        const user = await req.user;
-        const first_name = user.first_name;
+        const first_name = await req.user.first_name;
         
         res.render('products', {
             products: products,
