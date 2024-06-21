@@ -18,11 +18,19 @@ export default class UserManager {
         }
     };
 
-    async login(email,password) {
+    async getById(id) {
         try {
-            return await this.model.findOne({ email, password });
+            return await this.model.findById(id);
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         }
-    };
+    }
+
+    async getByEmail(email) {
+        try {
+            return await this.model.findOne({ email });
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
 }

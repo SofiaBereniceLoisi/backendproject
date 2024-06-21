@@ -1,58 +1,48 @@
-import { UserModel } from "../dao/mongoDB/models/usersModel.js";
-import UserManager from "../dao/mongoDB/userManagerM.js";
-const userManager = new UserManager(UserModel);
+import * as services from '../services/userService.js';
 
-export const login = async (req, res) => {
+export const registerResponse = (req, res, next) => {
     try {
-        const { email, password } = req.body;
-        if (email === "adminCoder@coder.com" && password === "adminCod3r123"){
-            req.session.first_name = "Admin";
-            req.session.last_name = "";
-            req.session.email = email;
-            req.session.role = "admin";
-            res.redirect('/profile');
-        }
-        const user = await userManager.login(email, password);
-        if (!user) {
-            res.status(401).json({ msg: "Credenciales incorrectas" });
-            //acá podría hacer que aparezca un modal/toastify diciendo que los datos 
-            //ingresados son incorrectos.
-        } else {
-            req.session.first_name = user.first_name;
-            req.session.last_name = user.last_name;
-            req.session.email = email;
-            req.session.role = user.role;
-            res.redirect('/profile');
-        }
+        res.redirect('/login');
     } catch (error) {
-        throw new Error(error);
+        next(error);
     }
 };
 
-export const register = async (req, res) => {
+export const loginResponse = async (req, res, next) => {
     try {
-        console.log(req.body);
-        //const { email, password } = req.body;
-        const user = await userManager.register(req.body);
+        let id = null;
+        if (req.session.passport && req.session.passport.user) {
+            id = req.session.passport.user;
+        }
+        const user = await services.getUserById(id);
         if (!user) {
-            res.status(401).json({ msg: "El usuario ya existe!" });
+            res.status(401).json({ msg: 'Error de autenticacion' });
         } else {
-            res.redirect("/login");
+            const { first_name, last_name, email, age, role } = user;
+            res.redirect('/profile');
+            console.log({
+                msg: 'LOGIN OK!',
+                user: {
+                    first_name,
+                    last_name,
+                    email,
+                    age,
+                    role
+                }
+            })
         }
     } catch (error) {
-        throw new Error(error);
+        next(error);
     }
 };
 
-export const infoSession = (req, res) => {
-    res.json({
-        session: req.session,
-        sessionId: req.sessionID,
-        cookies: req.cookies,
+export const logoutResponse = (req, res, next) => {
+    req.logout(err => {
+        if (err) {
+            return next(err);
+        }
+        req.session.destroy();
+        console.log('Se cerró sesión exitosamente')
+        res.redirect('/login');
     });
-};
-
-export const logout = (req, res) => {
-    req.session.destroy();
-    res.redirect("/login");
 };

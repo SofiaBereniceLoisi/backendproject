@@ -8,6 +8,8 @@ import 'dotenv/config';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import passport from 'passport';
+import './passport/localStrategy.js';
 
 // IMPORT ROUTES
 import productsRouter from './routes/productsRouter.js';
@@ -38,6 +40,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 app.use(session(storeConfig));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Carpeta vistas y motor de plantillas
 app.set('views', `${__dirname}/views`);
