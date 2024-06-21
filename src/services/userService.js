@@ -50,6 +50,7 @@ export const login = async (user) => {
 export const register = async (user) => {
     try {
         const { email, password } = user;
+        console.log(user)
         const existUser = await getUserByEmail(email);
         if (!existUser) {
             const newUser = await userManager.register({
@@ -66,13 +67,13 @@ export const register = async (user) => {
     }
 };
 
-// export const infoSession = (req, res) => {
-//     res.json({
-//         session: req.session,
-//         sessionId: req.sessionID,
-//         cookies: req.cookies,
-//     });
-// };
+export const infoSession = (req, res) => {
+    res.json({
+        session: req.session,
+        sessionId: req.sessionID,
+        cookies: req.cookies,
+    });
+};
 
 // export const logout = (req, res) => {
 //     req.session.destroy();

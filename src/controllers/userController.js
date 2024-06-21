@@ -3,6 +3,7 @@ import * as services from '../services/userService.js';
 export const registerResponse = (req, res, next) => {
     try {
         res.redirect('/login');
+
     } catch (error) {
         next(error);
     }
@@ -18,6 +19,7 @@ export const loginResponse = async (req, res, next) => {
         if (!user) {
             res.status(401).json({ msg: 'Error de autenticacion' });
         } else {
+            // const user = await services.getUserByEmail(req.session.passport.user);
             const { first_name, last_name, email, age, role } = user;
             res.redirect('/profile');
             console.log({
@@ -46,3 +48,12 @@ export const logoutResponse = (req, res, next) => {
         res.redirect('/login');
     });
 };
+
+export const githubResponse = async (req, res, next) => {
+    try {
+        req.session.user = req.user;
+        res.redirect('/profile');
+    } catch (error) {
+        next(error);
+    }
+}

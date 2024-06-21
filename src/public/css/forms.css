@@ -17,6 +17,10 @@ body {
     font-size: 14px;
 }
 
+.login-footer h5{
+    margin: 2px;
+}
+
 .contenedor-formulario {
     position: fixed;
     top: 0;

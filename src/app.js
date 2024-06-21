@@ -10,6 +10,7 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import './passport/localStrategy.js';
+import './passport/githubStrategy.js';
 
 // IMPORT ROUTES
 import productsRouter from './routes/productsRouter.js';

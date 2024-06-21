@@ -24,7 +24,7 @@ export const getAll = async (req, res, next) => {
                 hasPrevPage: response.hasPrevPage,
                 hasNextPage: response.hasNextPage
             },
-            first_name: req.session.first_name, //le paso el nombre a la vista principal de productos
+            first_name: req.session.passport.user.first_name, //le paso el nombre a la vista principal de productos
         });
     } catch (error) {
         next(error.message);

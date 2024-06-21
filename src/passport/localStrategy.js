@@ -1,6 +1,6 @@
 import passport from "passport";
-import * as services from '../services/userService.js';
 import { Strategy as LocalStrategy } from "passport-local";
+import * as services from '../services/userService.js';
 
 const strategyConfig = {
     usernameField: 'email',
@@ -19,7 +19,7 @@ const register = async (req, email, password, done) => {
             return done(null, newUser);
         }
     } catch (error) {
-        console.error('Error en register strategy:', error);
+        console.log('Error en registro:', error);
         return done(null, false);
     }
 }
@@ -34,7 +34,7 @@ const login = async (req, email, password, done) => {
             return done(null, userLogin);
         }
     } catch (error) {
-        console.log('Error:', error);
+        console.log('Error en inicio de sesión:', error);
         return done(error);
     }
 
@@ -54,6 +54,11 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser(async (id, done) => {
-    const user = await services.getUserById(id);
-    return done(null, user)
+    try {
+        const user = await services.getUserById(id);
+        return done(null, user)
+    } catch (error) {
+        return done(error)
+    }
+
 })
