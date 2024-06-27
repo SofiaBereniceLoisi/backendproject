@@ -23,14 +23,6 @@ export const getUserByEmail = async (email) => {
 export const login = async (user) => {
     try {
         const { email, password } = user;
-        if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
-            req.session.first_name = "Admin";
-            req.session.last_name = "";
-            req.session.email = email;
-            req.session.role = "admin";
-            res.redirect('/api/products');
-            //res.redirect('/profile');
-        }
         const existUser = await getUserByEmail(email);
         if (!existUser) {
             return null
@@ -53,11 +45,21 @@ export const register = async (user) => {
         console.log(user)
         const existUser = await getUserByEmail(email);
         if (!existUser) {
-            const newUser = await userManager.register({
-                ...user,
-                password: createHash(password),
-            });
-            return newUser;
+            if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
+                const newUser = await userManager.register({
+                    ...user,
+                    password: createHash(password),
+                    role: "admin",
+                });
+                return newUser;
+            } else {
+                const newUser = await userManager.register({
+                    ...user,
+                    password: createHash(password),
+                });
+                return newUser;
+            }
+
         } else {
             return null;
         }
