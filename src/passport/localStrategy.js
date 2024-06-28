@@ -30,6 +30,8 @@ const login = async (req, email, password, done) => {
         const userLogin = await services.login({ email, password });
         if (!userLogin) {
             return done(null, false, { msg: 'Error de autenticación' });
+        } else if(userLogin.isGithub){
+            return done(null, false, { msg: 'Autenticación solo a través de GitHub' });
         } else {
             return done(null, userLogin);
         }

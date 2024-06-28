@@ -25,8 +25,10 @@ export const login = async (user) => {
         const { email, password } = user;
         const existUser = await getUserByEmail(email);
         if (!existUser) {
-            return null
+            return null;
             //acá podría hacer que aparezca un modal/toastify diciendo que los datos ingresados son incorrectos.
+        } else if(existUser.isGithub){
+            return null;
         } else {
             if (isValidPassword(password, existUser)) {
                 return existUser;
