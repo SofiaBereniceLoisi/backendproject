@@ -3,21 +3,19 @@ import * as controller from "../controllers/cartController.js";
 
 const router = Router();
 
-router.get("/", controller.getAll);
+router.route('/')
+    .get(controller.getAll)
+    .post(controller.create)
 
-router.get("/:id", controller.getById);
+router.route('/:id')
+    .get(controller.getById)
+    .put(controller.update)
+    .delete(controller.remove)
 
-router.post("/", controller.create);
-
-router.put("/:id", controller.update);
-
-router.delete("/:id", controller.remove);
-
-router.post("/:cid/products/:pid", controller.addProdToCart);
-
-router.delete("/:cid/products/:pid", controller.removeProdToCart);
-
-router.put("/:cid/products/:pid", controller.updateProdQuantityToCart);
+router.route('/:cid/products/:pid')
+    .post(controller.addProdToCart)
+    .delete(controller.removeProdToCart)
+    .put(controller.updateProdQuantityToCart)
 
 router.delete("/clear/:cid", controller.clearCart);
 

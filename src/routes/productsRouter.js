@@ -8,14 +8,13 @@ import * as controllers from "../controllers/productControllerM.js";
 
 const productsRouter = Router();
 
-productsRouter.get('/', controllers.getAll)
+productsRouter.route('/')
+    .get(controllers.getAll)
+    .post(controllers.create)
 
-productsRouter.get('/:id', controllers.getById)
-
-productsRouter.post("/", controllers.create)
-
-productsRouter.put("/:id", controllers.update);
-
-productsRouter.delete("/:id", controllers.remove);
+productsRouter.route('/:id')
+    .get(controllers.getById)
+    .put(controllers.update)
+    .delete(controllers.remove)
 
 export default productsRouter;

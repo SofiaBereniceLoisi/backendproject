@@ -1,3 +1,5 @@
+import { CartModel } from "./models/cartModel.js";
+
 export default class UserManager {
     constructor(model) {
         this.model = model;
@@ -8,8 +10,13 @@ export default class UserManager {
             const { email } = user;
             const existUser = await this.model.findOne({ email }); //trae el doc del user o null
             if (!existUser) {
+                const newCart = await CartModel.create({});
                 //si el user no existe lo crea
-                return await this.model.create(user);
+                //crea ademas un carrito asociado al nuevo usuario
+                return await this.model.create({
+                    ...user,
+                    cart: newCart._id 
+                });
             } else {
                 return null;
             }
@@ -20,7 +27,7 @@ export default class UserManager {
 
     async getById(id) {
         try {
-            return await this.model.findById(id);
+            return await this.model.findById(id).populate('cart');
         } catch (error) {
             throw new Error(error);
         }
@@ -28,7 +35,7 @@ export default class UserManager {
 
     async getByEmail(email) {
         try {
-            return await this.model.findOne({ email });
+            return await this.model.findOne({ email }).populate('cart');
         } catch (error) {
             throw new Error(error);
         }

@@ -12,13 +12,8 @@ import passport from 'passport';
 import './passport/localStrategy.js';
 import './passport/githubStrategy.js';
 
-// IMPORT ROUTES
-import productsRouter from './routes/productsRouter.js';
-import cartRouter from './routes/cartRouter.js';
-import mainRouter from './routes/mainRouter.js';
-import viewsRouter from './routes/viewsRouter.js';
-import messageRouterM from './routes/messageRouter.js';
-import userRouter from './routes/userRouter.js';
+// IMPORT ROUTER
+import router from './routes/routes.js';
 
 const app = express();
 const port = 8080;
@@ -50,12 +45,7 @@ app.set('view engine', 'handlebars');
 app.engine('handlebars', Handlebars.engine());
 
 // ROUTES
-app.use('/api/carts', cartRouter);
-app.use('/api/products', productsRouter);
-app.use('/', viewsRouter);
-app.use('/chat', messageRouterM);
-app.use('/users', userRouter);
-app.use(mainRouter);
+app.use('/', router);
 
 // PERSISTENCIA EN MONGO 
 // Si se quiere cambiar la persistencia a fileSystem, cambiar en .env

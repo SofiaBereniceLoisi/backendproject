@@ -10,7 +10,8 @@ const userSchema = new Schema({
     age: { type: Number },
     password: { type: String, required: true },
     role: { type: String, default: 'user' },
-    isGithub: { type: Boolean, default: false }
+    isGithub: { type: Boolean, default: false },
+    cart: { type: Schema.Types.ObjectId, ref: 'carts' } // Referencia al carrito
 })
 
 userSchema.plugin(mongoosePaginate);

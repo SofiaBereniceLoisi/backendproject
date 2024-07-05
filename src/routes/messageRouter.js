@@ -7,8 +7,8 @@ const messageRouterM = Router();
 
 // -------------- ENDPOINTS para msg del chat MONGO DB -------------------------------------------------------------------------
 
-messageRouterM.get("/", controllersMsg.getAllMessages);
-
-messageRouterM.post("/", controllersMsg.createMessage);
+messageRouterM.route('/')
+    .get(controllersMsg.getAllMessages)
+    .post(controllersMsg.createMessage)
 
 export default messageRouterM;
