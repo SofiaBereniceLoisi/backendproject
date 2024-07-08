@@ -31,12 +31,14 @@ export const createHash = (password) => {
 export const isValidPassword = (password, user) => {
     return bcrypt.compareSync(password, user.password)
 }
-
+/**
+ * Funcion que crea una respuesta estandard
+ * @param {*} res 
+ * @param {*} statusCode type number (ej: 200, 404)
+ * @param {*} data 
+ * @returns 
+ */
 export const createResponse = (res, statusCode, data) => {
-    // try {
-        return res.status(statusCode).json(data);
-    // } catch (error) {
-    //     next(error)
-    // }
+    return res.status(statusCode).json(data);
 }
 
