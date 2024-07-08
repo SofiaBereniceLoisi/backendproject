@@ -1,6 +1,8 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import * as services from '../services/userService.js';
+import UserService from '../services/userService.js';
+
+const userService = new UserService();
 
 const strategyConfig = {
     usernameField: 'email',
@@ -11,11 +13,11 @@ const strategyConfig = {
 //logica del registro con passport
 const register = async (req, email, password, done) => {
     try {
-        const user = await services.getUserByEmail(email);
+        const user = await userService.getByEmail(email);
         if (user) {
             return done(null, false, { message: 'El usuario ya existe' });
         } else {
-            const newUser = await services.register(req.body);
+            const newUser = await userService.register(req.body);
             return done(null, newUser);
         }
     } catch (error) {
@@ -27,7 +29,7 @@ const register = async (req, email, password, done) => {
 //logica del login con passport
 const login = async (req, email, password, done) => {
     try {
-        const userLogin = await services.login({ email, password });
+        const userLogin = await userService.login({ email, password });
         if (!userLogin) {
             return done(null, false, { msg: 'Error de autenticación' });
         } else if(userLogin.isGithub){
@@ -57,7 +59,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await services.getUserById(id);
+        const user = await userService.getById(id);
         return done(null, user)
     } catch (error) {
         return done(error)

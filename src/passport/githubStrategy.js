@@ -1,7 +1,9 @@
 import passport from "passport";
 import { Strategy as GithubStrategy } from "passport-github2";
-import * as services from '../services/userService.js';
+import UserService from '../services/userService.js';
 import 'dotenv/config';
+
+const userService = new UserService();
 
 const strategyConfig = {
     clientID: process.env.CLIENT_ID,
@@ -15,11 +17,11 @@ const registerOrLogin = async (accessToken, refreshToken, profile, done) => {
         const email = profile._json.email ?? ' ';
         const first_name = profile._json.name.split(' ')[0];
         const last_name = profile._json.name.split(' ').length === 3 ? profile._json.name.split(' ')[1].concat(' ', profile._json.name.split(' ')[2]) : profile._json.name.split(' ')[1];
-        const user = await services.getUserByEmail(email);
+        const user = await userService.getByEmail(email);
         if (user) {
             return done(null, user);
         } else {
-            const newUser = await services.register({
+            const newUser = await userService.register({
                 first_name,
                 last_name,
                 email,

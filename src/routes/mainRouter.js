@@ -1,24 +1,40 @@
 import { Router } from "express";
 
-const mainRouter = Router();
+// IMPORT ROUTES
+import productsRouter from './productsRouter.js';
+import cartRouter from './cartRouter.js';
+import viewsRouter from './viewsRouter.js';
+import messageRouterM from './messageRouter.js';
+import userRouter from './userRouter.js';
 
-// import ProductManager from '../dao/fileSystem/productManager.js'; 
-// const productsManager = new ProductManager('./src/dao/fileSystem/data/products.json'); 
+export default class MainRouter {
+    constructor() {
+        this.mainRouter = Router();
+        this.init();
 
-/*
-mainRouter.get('/', async (req, res) => {
-    try {
-        const products = await productsManager.getAll();
-        res.render('home', { products: products });
-    } catch (error) {
-        console.log('Error al obtener productos:', error);
-        res.status(500).send({ error: 'Error al obtener productos' });
     }
-});
-*/
+    init() {
+        // ROUTES
+        this.mainRouter.use('/api/carts', cartRouter);
+        this.mainRouter.use('/api/products', productsRouter);
+        this.mainRouter.use('/', viewsRouter);
+        this.mainRouter.use('/chat', messageRouterM);
+        this.mainRouter.use('/users', userRouter);
+    }
 
-mainRouter.get('/*', async(req,res) =>  {
-    res.status(500).send({ error: 'La página que ingresaste no existe.' });
-})
+    getRouter(){
+        return this.mainRouter;
+    }
+}
 
-export default mainRouter;
+
+
+
+
+
+
+
+
+// mainRouter.get('/*', async (req, res) => {
+//     res.status(500).send({ error: 'La página que ingresaste no existe.' });
+// })

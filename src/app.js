@@ -1,9 +1,10 @@
-import express from 'express';
+import express, { json, urlencoded } from 'express';
 import Handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import { websocketManager } from './websocketManager.js';
 import { Server } from 'socket.io';
 import { initMongoDB } from './dao/mongoDB/connectionMDB.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 import 'dotenv/config';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
@@ -13,7 +14,8 @@ import './passport/localStrategy.js';
 import './passport/githubStrategy.js';
 
 // IMPORT ROUTER
-import router from './routes/routes.js';
+import MainRouter from './routes/mainRouter.js';
+const mainRouter = new MainRouter();
 
 const app = express();
 const port = 8080;
@@ -31,13 +33,14 @@ const storeConfig = {
 };
 
 // MIDDLEWARES
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(json());
+app.use(urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 app.use(session(storeConfig));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(errorHandler);
 
 // Carpeta vistas y motor de plantillas
 app.set('views', `${__dirname}/views`);
@@ -45,7 +48,7 @@ app.set('view engine', 'handlebars');
 app.engine('handlebars', Handlebars.engine());
 
 // ROUTES
-app.use('/', router);
+app.use('/', mainRouter.getRouter());
 
 // PERSISTENCIA EN MONGO 
 // Si se quiere cambiar la persistencia a fileSystem, cambiar en .env

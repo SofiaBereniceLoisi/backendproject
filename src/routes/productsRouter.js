@@ -4,17 +4,18 @@ import { Router } from "express";
 //import * as controllers from "../controllers/productControllerFS.js"
 
 // Controllers de MongoDB
-import * as controllers from "../controllers/productControllerM.js";
+import ProductController from "../controllers/productControllerM.js";
 
 const productsRouter = Router();
+const productController = new ProductController();
 
 productsRouter.route('/')
-    .get(controllers.getAll)
-    .post(controllers.create)
+    .get(productController.getAll)
+    .post(productController.create)
 
 productsRouter.route('/:id')
-    .get(controllers.getById)
-    .put(controllers.update)
-    .delete(controllers.remove)
+    .get(productController.getById)
+    .put(productController.update)
+    .delete(productController.delete)
 
 export default productsRouter;

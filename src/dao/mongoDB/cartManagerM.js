@@ -1,9 +1,15 @@
 import { CartModel } from "./models/cartModel.js";
+import MongoDao from "./mongoDAO.js";
 
-export default class CartManagerM {
-  async create() {
+export default class CartManagerM extends MongoDao {
+
+  constructor() {
+    super(CartModel);
+  }
+
+  create = async () => {
     try {
-      return await CartModel.create({
+      return await this.model.create({
         products: [], //por default que se cree el carrito vacío.
       });
     } catch (error) {
@@ -11,40 +17,32 @@ export default class CartManagerM {
     }
   }
 
-  async getAll() {
+  getAll = async () => {
     try {
-      return await CartModel.find({});
+      return await this.model.find({});
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getById(id) {
+  getById = async (id) => {
     try {
-      return await CartModel.findById(id).populate("products.product"); // trae los datos del prod en la coleccion de prods
+      return await this.model.findById(id).populate("products.product"); // trae los datos del prod en la coleccion de prods
     } catch (error) {
       console.log(error);
     }
   }
 
-  async delete(id) {
+  addProdToCart = async (cartId, prodId, quantity) => {
     try {
-      return await CartModel.findByIdAndDelete(id);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async addProdToCart(cartId, prodId, quantity) {
-    try {
-      const cart = await CartModel.findById(cartId);
+      const cart = await this.model.findById(cartId);
       if (!cart) {
         return null;
       }
       // busco si existe el prod en el carrito
       const existProdIndex = cart.products.findIndex(p => p.product.toString() === prodId);
 
-      if(existProdIndex !== -1) {
+      if (existProdIndex !== -1) {
         //si el prod existe en el carrito
         cart.products[existProdIndex].quantity = quantity;
       } else cart.products.push({ product: prodId, quantity });
@@ -57,9 +55,9 @@ export default class CartManagerM {
     }
   }
 
-  async existProdInCart(cartId, prodId){
+  existProdInCart = async (cartId, prodId) => {
     try {
-      return await CartModel.findOne({
+      return await this.model.findOne({
         _id: cartId,
         products: { $elemMatch: { product: prodId } }
       })
@@ -68,9 +66,9 @@ export default class CartManagerM {
     }
   }
 
-  async removeProdToCart(cartId, prodId) {
+  removeProdToCart = async (cartId, prodId) => {
     try {
-      return await CartModel.findOneAndUpdate(
+      return await this.model.findOneAndUpdate(
         { _id: cartId },
         { $pull: { products: { product: prodId } } },
         { new: true }
@@ -80,36 +78,25 @@ export default class CartManagerM {
     }
   }
 
-  async update(id, obj) {
+  updateProdQuantityToCart = async (cartId, prodId, quantity) => {
     try {
-      const response = await CartModel.findByIdAndUpdate(id, obj, {
-        new: true,
-      });
-      return response;
+      return await this.model.findOneAndUpdate(
+        { _id: cartId, 'products.product': prodId },
+        { $set: { 'products.$.quantity': quantity } },
+        { new: true }
+      );
     } catch (error) {
       console.log(error);
     }
   }
 
-  async updateProdQuantityToCart(cartId, prodId, quantity) {
+  clearCart = async (cartId) => {
     try {
-     return await CartModel.findOneAndUpdate(
-      { _id: cartId, 'products.product': prodId },
-      { $set: { 'products.$.quantity': quantity } },
-      { new: true }
-     );
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async clearCart(cartId) {
-    try {
-     return await CartModel.findByIdAndUpdate(
-      cartId,
-      { $set: { products: [] } },
-      { new: true }
-     );
+      return await this.model.findByIdAndUpdate(
+        cartId,
+        { $set: { products: [] } },
+        { new: true }
+      );
     } catch (error) {
       console.log(error);
     }

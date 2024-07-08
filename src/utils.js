@@ -1,4 +1,4 @@
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,7 +28,15 @@ export const createHash = (password) => {
  * @param {*} user usuario existente en base de datos
  * @returns boolean
  */
-export const isValidPassword = (password,user) => {
+export const isValidPassword = (password, user) => {
     return bcrypt.compareSync(password, user.password)
+}
+
+export const createResponse = (res, statusCode, data) => {
+    // try {
+        return res.status(statusCode).json(data);
+    // } catch (error) {
+    //     next(error)
+    // }
 }
 

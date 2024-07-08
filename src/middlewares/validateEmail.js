@@ -8,5 +8,3 @@ export const validateEmail = (req, res, next) => {
         res.status(400).send('Email inválido');
     }
 };
-
-
