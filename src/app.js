@@ -7,7 +7,7 @@ import { initMongoDB } from './dao/mongoDB/connectionMDB.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
-import MongoStore from 'connect-mongo';
+import storeConfig from './sessionConfig.js';
 import passport from 'passport';
 import config from './config.js';
 import './passport/localStrategy.js';
@@ -18,18 +18,6 @@ import MainRouter from './routes/mainRouter.js';
 const mainRouter = new MainRouter();
 
 const app = express();
-
-const storeConfig = {
-    store: MongoStore.create({
-        mongoUrl: config.MONGO_URL,
-        crypto: { secret: config.SECRET_KEY },
-        ttl: 180,
-    }),
-    secret: config.SESSION_KEY,
-    resave: true,
-    saveUninitialized: true,
-    cookie: { maxAge: 180000 }
-};
 
 // MIDDLEWARES
 app.use(json());
