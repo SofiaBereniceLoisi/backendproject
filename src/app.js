@@ -5,11 +5,11 @@ import { websocketManager } from './websocketManager.js';
 import { Server } from 'socket.io';
 import { initMongoDB } from './dao/mongoDB/connectionMDB.js';
 import { errorHandler } from './middlewares/errorHandler.js';
-import 'dotenv/config';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
+import config from './config.js';
 import './passport/localStrategy.js';
 import './passport/githubStrategy.js';
 
@@ -18,15 +18,14 @@ import MainRouter from './routes/mainRouter.js';
 const mainRouter = new MainRouter();
 
 const app = express();
-const port = 8080;
 
 const storeConfig = {
     store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URL,
-        crypto: { secret: process.env.SECRET_KEY },
+        mongoUrl: config.MONGO_URL,
+        crypto: { secret: config.SECRET_KEY },
         ttl: 180,
     }),
-    secret: process.env.SESSION_KEY,
+    secret: config.SESSION_KEY,
     resave: true,
     saveUninitialized: true,
     cookie: { maxAge: 180000 }
@@ -52,12 +51,12 @@ app.use('/', mainRouter.getRouter());
 
 // PERSISTENCIA EN MONGO 
 // Si se quiere cambiar la persistencia a fileSystem, cambiar en .env
-if (process.env.PERSISTENCE === 'MONGO') {
+if (config.PERSISTENCE === 'MONGO') {
     initMongoDB();
 }
 
 // HTTP Server
-const httpServer = app.listen(port, () => { console.log(`Servidor escuchando en el puerto ${port}`); });
+const httpServer = app.listen(config.PORT, () => { console.log(`Servidor escuchando en el puerto ${config.PORT}`); });
 
 // Socket Server
 const socketServer = new Server(httpServer);

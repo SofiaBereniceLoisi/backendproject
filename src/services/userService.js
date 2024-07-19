@@ -1,7 +1,7 @@
+import config from "../config.js";
 import UserManager from "../dao/mongoDB/userManagerM.js";
 import { createHash, isValidPassword } from "../utils.js";
 import Services from "./mainServices.js";
-import 'dotenv/config';
 
 const userDao = new UserManager();
 
@@ -45,7 +45,7 @@ export default class UserService extends Services {
             console.log(user)
             const existUser = await this.dao.getByEmail(email);
             if (!existUser) {
-                if (email === process.env.EMAIL_ADMIN && password === process.env.PASSWORD_ADMIN) {
+                if (email === config.EMAIL_ADMIN && password === config.PASSWORD_ADMIN) {
                     const newUser = await this.dao.register({
                         ...user,
                         password: createHash(password),
