@@ -6,6 +6,7 @@ import cartRouter from './cartRouter.js';
 import viewsRouter from './viewsRouter.js';
 import messageRouterM from './messageRouter.js';
 import userRouter from './userRouter.js';
+import { isAuth } from "../middlewares/isAuth.js";
 
 export default class MainRouter {
     constructor() {
@@ -16,7 +17,7 @@ export default class MainRouter {
     init() {
         // ROUTES
         this.mainRouter.use('/api/carts', cartRouter);
-        this.mainRouter.use('/api/products', productsRouter);
+        this.mainRouter.use('/api/products', isAuth, productsRouter);
         this.mainRouter.use('/', viewsRouter);
         this.mainRouter.use('/chat', messageRouterM);
         this.mainRouter.use('/users', userRouter);
@@ -26,13 +27,6 @@ export default class MainRouter {
         return this.mainRouter;
     }
 }
-
-
-
-
-
-
-
 
 
 // mainRouter.get('/*', async (req, res) => {

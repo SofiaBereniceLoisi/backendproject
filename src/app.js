@@ -3,7 +3,7 @@ import Handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import { websocketManager } from './websocketManager.js';
 import { Server } from 'socket.io';
-import { initMongoDB } from './dao/mongoDB/connectionMDB.js';
+// import { initMongoDB } from './dao/mongoDB/connectionMDB.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
@@ -39,9 +39,9 @@ app.use('/', mainRouter.getRouter());
 
 // PERSISTENCIA EN MONGO 
 // Si se quiere cambiar la persistencia a fileSystem, cambiar en .env
-if (config.PERSISTENCE === 'MONGO') {
-    initMongoDB();
-}
+// if (config.PERSISTENCE === 'MONGO') {
+//     initMongoDB();
+// }
 
 // HTTP Server
 const httpServer = app.listen(config.PORT, () => { console.log(`Servidor escuchando en el puerto ${config.PORT}`); });

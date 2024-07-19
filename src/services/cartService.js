@@ -1,8 +1,11 @@
-import ProductManagerM from "../dao/mongoDB/productManagerM.js";
-const productDao = new ProductManagerM();
+// import ProductManagerM from "../dao/mongoDB/productManagerM.js";
+// const productDao = new ProductManagerM();
 
-import CartManagerM from "../dao/mongoDB/cartManagerM.js";
-const cartDao = new CartManagerM();
+// import CartManagerM from "../dao/mongoDB/cartManagerM.js";
+// const cartDao = new CartManagerM();
+
+import persistence from "../dao/persistence.js";
+const { productDao , cartDao } = persistence;
 
 import Services from "./mainServices.js";
 
