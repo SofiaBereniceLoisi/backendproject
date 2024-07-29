@@ -1,24 +1,25 @@
 import { Router } from "express";
 import CartController from "../controllers/cartController.js";
+import { isAdmin } from "../middlewares/isAdmin.js";
+import { isAuth } from "../middlewares/isAuth.js";
 
 const cartController = new CartController();
-
 const router = Router();
 
 router.route('/')
-    .get(cartController.getAll)
-    .post(cartController.create)
+    .get([isAuth, isAdmin], cartController.getAll)
+    .post([isAuth, isAdmin], cartController.create)
 
 router.route('/:id')
-    .get(cartController.getById)
-    .put(cartController.update)
-    .delete(cartController.delete)
+    .get([isAuth], cartController.getById)
+    .put([isAuth, isAdmin], cartController.update)
+    .delete([isAuth, isAdmin], cartController.delete)
 
 router.route('/:cid/products/:pid')
-    .post(cartController.addProdToCart)
-    .delete(cartController.removeProdToCart)
-    .put(cartController.updateProdQuantityToCart)
+    .post([isAuth], cartController.addProdToCart)
+    .delete([isAuth], cartController.removeProdToCart)
+    .put([isAuth], cartController.updateProdQuantityToCart)
 
-router.delete("/clear/:cid", cartController.clearCart);
+router.delete("/clear/:cid", [isAuth], cartController.clearCart);
 
 export default router;
