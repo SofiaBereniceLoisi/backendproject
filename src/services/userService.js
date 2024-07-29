@@ -2,11 +2,8 @@ import config from "../config.js";
 import { createHash, isValidPassword } from "../utils.js";
 import Services from "./mainServices.js";
 
-// import UserManager from "../dao/mongoDB/userManagerM.js";
-// const userDao = new UserManager();
-
-import persistence from "../dao/persistence.js";
-const { userDao } = persistence;
+import UserManager from "../persistence/dao/mongoDB/userManagerM.js";
+const userDao = new UserManager();
 
 export default class UserService extends Services {
     constructor() {

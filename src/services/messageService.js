@@ -1,4 +1,4 @@
-import MessageManagerM from "../dao/mongoDB/messageManagerM.js";
+import MessageManagerM from "../persistence/dao/mongoDB/messageManagerM.js";
 const messageDao = new MessageManagerM();
 
 export const getAllMessages = async () => {

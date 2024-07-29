@@ -1,7 +1,7 @@
 
-import ProductManager from './dao/fileSystem/productManager.js';
+import ProductManager from './persistence/dao/fileSystem/productManager.js';
 const productManager = new ProductManager('./src/dao/fileSystem/data/products.json');
-import MessageManagerM from './dao/mongoDB/messageManagerM.js';
+import MessageManagerM from './persistence/dao/mongoDB/messageManagerM.js';
 const messageManagerM = new MessageManagerM();
 
 
