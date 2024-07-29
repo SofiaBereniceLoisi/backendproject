@@ -1,5 +1,6 @@
 import { Router } from "express";
-
+import { isAuth } from "../middlewares/isAuth.js";
+import { isAdmin } from "../middlewares/isAdmin.js";
 //Controllers de fileSystem
 //import * as controllers from "../controllers/productControllerFS.js"
 
@@ -10,12 +11,12 @@ const productsRouter = Router();
 const productController = new ProductController();
 
 productsRouter.route('/')
-    .get(productController.getAll)
-    .post(productController.create)
+    .get([isAuth], productController.getAll)
+    .post([isAuth, isAdmin], productController.create)
 
 productsRouter.route('/:id')
-    .get(productController.getById)
-    .put(productController.update)
-    .delete(productController.delete)
+    .get([isAuth], productController.getById)
+    .put([isAuth, isAdmin], productController.update)
+    .delete([isAuth, isAdmin], productController.delete)
 
 export default productsRouter;
