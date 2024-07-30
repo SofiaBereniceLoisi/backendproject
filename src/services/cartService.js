@@ -13,9 +13,12 @@ export default class CartServices extends Services {
 
     addProdToCart = async (cartId, prodId) => {
         try {
-            const existCart = await getById(cartId);
+            const existCart = await this.dao.getById(cartId);
+            console.log( 'cart:' , existCart)
             const existProd = await productDao.getById(prodId);
+            console.log('producto:' , existProd);
             if (!existCart || !existProd) {
+                console.log("Cart or Product does not exist.");
                 return null;
             }
             //verifico si el prod existe en el carrito
@@ -28,13 +31,14 @@ export default class CartServices extends Services {
             //si no existe en el carrito lo agrega
             return await this.dao.addProdToCart(cartId, prodId);
         } catch (error) {
+            console.log(error);
             throw new Error(error);
         }
     }
 
     removeProdToCart = async (cartId, prodId) => {
         try {
-            const existCart = await getById(cartId);
+            const existCart = await this.dao.getById(cartId);
             const existProd = existCart.products.find(p => p.product._id.toString() === prodId);
             if (!existCart || !existProd) {
                 return null;
@@ -48,7 +52,7 @@ export default class CartServices extends Services {
 
     updateProdQuantityToCart = async (cartId, prodId, quantity) => {
         try {
-            const existCart = await getById(cartId);
+            const existCart = await this.dao.getById(cartId);
             const existProd = existCart.products.find(p => p.product._id.toString() === prodId);
             if (!existCart || !existProd) {
                 return null;
@@ -61,7 +65,7 @@ export default class CartServices extends Services {
 
     clearCart = async (cartId) => {
         try {
-            const existCart = await getById(cartId);
+            const existCart = await this.dao.getById(cartId);
             if (!existCart) {
                 return null;
             }

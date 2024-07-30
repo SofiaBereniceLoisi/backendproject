@@ -30,6 +30,7 @@ export default class CartManagerM extends MongoDao {
       return await this.model.findById(id).populate("products.product"); // trae los datos del prod en la coleccion de prods
     } catch (error) {
       console.log(error);
+      throw new Error(error);
     }
   }
 
@@ -52,6 +53,7 @@ export default class CartManagerM extends MongoDao {
       return cart;
     } catch (error) {
       console.log(error);
+      throw new Error(error);
     }
   }
 

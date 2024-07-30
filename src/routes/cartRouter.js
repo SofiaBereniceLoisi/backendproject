@@ -15,7 +15,7 @@ router.route('/:id')
     .put([isAuth, isAdmin], cartController.update)
     .delete([isAuth, isAdmin], cartController.delete)
 
-router.route('/:cid/products/:pid')
+router.route('/products/:pid')
     .post([isAuth], cartController.addProdToCart)
     .delete([isAuth], cartController.removeProdToCart)
     .put([isAuth], cartController.updateProdQuantityToCart)

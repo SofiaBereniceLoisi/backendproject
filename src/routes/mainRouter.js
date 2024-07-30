@@ -7,6 +7,7 @@ import viewsRouter from './viewsRouter.js';
 import messageRouterM from './messageRouter.js';
 import userRouter from './userRouter.js';
 import { isAuth } from "../middlewares/isAuth.js";
+import ticketRouter from "./ticketRouter.js";
 
 export default class MainRouter {
     constructor() {
@@ -21,6 +22,7 @@ export default class MainRouter {
         this.mainRouter.use('/', viewsRouter);
         this.mainRouter.use('/chat', messageRouterM);
         this.mainRouter.use('/users', userRouter);
+        this.mainRouter.use('/ticket' , ticketRouter);
     }
 
     getRouter(){
