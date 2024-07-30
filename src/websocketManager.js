@@ -1,6 +1,6 @@
 
-import ProductManager from './persistence/dao/fileSystem/productManager.js';
-const productManager = new ProductManager('./src/dao/fileSystem/data/products.json');
+import ProductManagerM from './persistence/dao/mongoDB/productManagerM.js';
+const productManager = new ProductManagerM();
 import MessageManagerM from './persistence/dao/mongoDB/messageManagerM.js';
 const messageManagerM = new MessageManagerM();
 
@@ -9,16 +9,18 @@ export const websocketManager = (socketServer) => {
     //el socket del servidor escucha al socket del cliente:
     socketServer.on('connection', async (socket) => {
         console.log('Client connected!');
-        const productsList = await productManager.getAll();
-        socket.emit('sendUpdatedList', productsList);
+        const result = await productManager.getAll();
+        const productsList = result.docs; 
+        socketServer.emit('sendUpdatedList', productsList);
 
         // Agregar producto --------------------------------------------------
         socket.on('addProduct', async (productData) => {
             console.log('Recibiendo el producto:', productData);
             try {
                 await productManager.create(productData);
-                const productsList = await productManager.getAll();
-                socket.emit('sendUpdatedList', productsList);
+                const result = await productManager.getAll();
+                const productsList = result.docs;
+                socketServer.emit('sendUpdatedList', productsList);
                 console.log('Producto agregado correctamente:', productData);
 
             } catch (error) {
@@ -31,8 +33,9 @@ export const websocketManager = (socketServer) => {
             console.log(`Intentando eliminar producto con ID ${Id}`);
             try {
                 await productManager.delete(Id);
-                const productsList = await productManager.getAll();
-                socket.emit('sendUpdatedList', productsList);
+                const result = await productManager.getAll();
+                const productsList = result.docs;
+                socketServer.emit('sendUpdatedList', productsList);
                 console.log(`Producto con ID ${Id} eliminado correctamente`);
             } catch (error) {
                 console.log('Error al eliminar producto:', error);
