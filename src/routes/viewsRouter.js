@@ -30,21 +30,10 @@ viewsRouter.get('/register', async (req, res) => {
     res.render('register');
 })
 
-viewsRouter.get("/profile", isAuth, (req, res) => {
-    // console.log("req.user", req.user);
-    const { first_name, last_name, email, age, role } = req.user.toObject();
-    res.render("profile", {
-        first_name,
-        last_name,
-        email,
-        age,
-        role
-    });
-});
-
-// viewsRouter.get('/profile', isAuth, (req, res) => {
-//     const { first_name, last_name, email, age, role } = req.user;
-//     res.render('profile', {
+// viewsRouter.get("/profile", isAuth, (req, res) => {
+//     // console.log("req.user", req.user);
+//     const { first_name, last_name, email, age, role } = req.user.toObject();
+//     res.render("profile", {
 //         first_name,
 //         last_name,
 //         email,

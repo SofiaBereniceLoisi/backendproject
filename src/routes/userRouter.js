@@ -14,6 +14,8 @@ userRouter.post("/login", passport.authenticate('login'), userController.loginRe
 userRouter.post('/logout', userController.logoutResponse);
 userRouter.get('/private', isAuth, (req, res) => res.json({ msg: 'Ruta privada' }))
 
+userRouter.get('/profile', isAuth, userController.profile);
+
 // Passport con github -----
 // Ruta inicial:
 userRouter.get('/register-github', passport.authenticate('github', { scope: ['user:email'] }));

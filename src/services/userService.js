@@ -3,6 +3,8 @@ import { createHash, isValidPassword } from "../utils.js";
 import Services from "./mainServices.js";
 
 import UserManager from "../persistence/dao/mongoDB/userManagerM.js";
+import UserRepository from "../repository/userRepository.js";
+const userRepository = new UserRepository();
 const userDao = new UserManager();
 
 export default class UserService extends Services {
@@ -13,6 +15,14 @@ export default class UserService extends Services {
     getByEmail = async (email) => {
         try {
             return await this.dao.getByEmail(email);
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
+    getUserById = async (id) => {
+        try {
+            return await userRepository.getUserById(id);
         } catch (error) {
             throw new Error(error);
         }

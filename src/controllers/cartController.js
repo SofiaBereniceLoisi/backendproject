@@ -1,4 +1,5 @@
 import CartServices from '../services/cartService.js';
+import { createResponse } from '../utils.js';
 import Controllers from './mainController.js';
 
 const cartService = new CartServices();
@@ -10,14 +11,18 @@ export default class CartController extends Controllers {
 
   addProdToCart = async (req, res, next) => {
     try {
-      const { cid } = req.params;
+      //const { cid } = req.params;
+      const { cart } = req.user;
       const { pid } = req.params;
       const newProdToUserCart = await cartService.addProdToCart(
-        cid,
+        cart,
         pid,
       );
-      if (!newProdToUserCart) res.json({ msg: "El producto o el carrito no existe." });
-      else res.json(newProdToUserCart);
+      if (!newProdToUserCart) {
+        createResponse(res, 404, { msg: "El producto o el carrito no existe." });
+      } else {
+        createResponse(res, 200, newProdToUserCart);
+      }
     } catch (error) {
       next(error.message);
     }
@@ -25,14 +30,18 @@ export default class CartController extends Controllers {
 
   removeProdToCart = async (req, res, next) => {
     try {
-      const { cid } = req.params;
+      const { cart } = req.user;
       const { pid } = req.params;
       const delProdToUserCart = await cartService.removeProdToCart(
-        cid,
+        cart,
         pid,
       );
-      if (!delProdToUserCart) res.json({ msg: "El producto o el carrito no existe." });
-      else res.json({ msg: `El producto de id: ${pid} fue eliminado del carrito correctamente.` });
+      if (!delProdToUserCart) {
+        createResponse(res, 404, { msg: "El producto o el carrito no existe." });
+      }
+      else {
+        createResponse(res, 200, { msg: `El producto de id: ${pid} fue eliminado del carrito correctamente.` });
+      }
     } catch (error) {
       next(error.message);
     }
@@ -40,16 +49,19 @@ export default class CartController extends Controllers {
 
   updateProdQuantityToCart = async (req, res, next) => {
     try {
-      const { cid } = req.params;
+      const { cart } = req.user;
       const { pid } = req.params;
       const { quantity } = req.body;
       const updateProdQuantity = await cartService.updateProdQuantityToCart(
-        cid,
+        cart,
         pid,
         quantity
       );
-      if (!updateProdQuantity) res.json({ msg: "Error actualizando la cantidad del producto al carrito." });
-      else res.json(updateProdQuantity);
+      if (!updateProdQuantity) {
+        createResponse(res, 404, { msg: "Error actualizando la cantidad del producto al carrito." });
+      } else {
+        createResponse(res, 200, updateProdQuantity);
+      }
     } catch (error) {
       next(error.message);
     }
@@ -57,12 +69,15 @@ export default class CartController extends Controllers {
 
   clearCart = async (req, res, next) => {
     try {
-      const { cid } = req.params;
+      const { cart } = req.user;
       const clearCart = await cartService.clearCart(
-        cid,
+        cart,
       );
-      if (!clearCart) res.json({ msg: "Error vaciando el carrito." });
-      else res.json(clearCart);
+      if (!clearCart) {
+        createResponse(res, 404, { msg: "Error vaciando el carrito." });
+      } else {
+        createResponse(res, 200, clearCart);
+      }
     } catch (error) {
       next(error.message);
     }

@@ -27,7 +27,7 @@ export default class UserController extends Controllers {
                 res.status(401).json({ msg: 'Error de autenticacion' });
             } else {
                 const { first_name, last_name, email, age, role } = user;
-                res.redirect('/profile');
+                res.redirect('/users/profile');
                 console.log({
                     msg: 'LOGIN OK!',
                     user: {
@@ -58,10 +58,24 @@ export default class UserController extends Controllers {
     githubResponse = async (req, res, next) => {
         try {
             req.session.user = req.user;
-            res.redirect('/profile');
+            res.redirect('/users/profile');
         } catch (error) {
             next(error);
         }
-    }
+    };
+
+    profile = async (req, res, next) => {
+        try {
+            if (req.user) {
+                const { _id } = req.user;
+                const user = await this.service.getUserById(_id); 
+                res.render('profile', user);
+            } else {
+                res.status(401).json({ msg: 'Unauthorized' });
+            }
+        } catch (error) {
+            next(error);
+        }
+    };
 
 }
