@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { isAuth } from "../middlewares/isAuth.js";
+import { isAdmin } from "../middlewares/isAdmin.js";
 const viewsRouter = Router();
 
 //localhost:8080/...
 
-viewsRouter.get('/realtimeproducts', async (req, res) => {
+viewsRouter.get('/realtimeproducts', [isAuth, isAdmin], async (req, res) => {
     try {
         res.render('realTimeProducts');
     } catch (error) {
