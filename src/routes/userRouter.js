@@ -13,7 +13,6 @@ userRouter.post("/register", validateEmail, passport.authenticate('register'), u
 userRouter.post("/login", passport.authenticate('login'), userController.loginResponse);
 userRouter.post('/logout', userController.logoutResponse);
 userRouter.get('/private', isAuth, (req, res) => res.json({ msg: 'Ruta privada' }))
-
 userRouter.get('/profile', isAuth, userController.profile);
 
 // Passport con github -----
@@ -27,9 +26,12 @@ userRouter.get('/github-callback', passport.authenticate('github' , {
 }), userController.githubResponse);
 
 // prueba para ver si se le asignó el cart al usuario ---------------
+// import UserService from '../services/userService.js';
+// const userService = new UserService();
+
 // userRouter.get('/user/:id', async (req, res) => {
 //     try {
-//         const user = await services.getUserById(req.params.id);
+//         const user = await userService.getUserById(req.params.id);
 //         if (user) {
 //             res.status(200).json(user);
 //         } else {
