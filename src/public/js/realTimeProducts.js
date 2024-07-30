@@ -8,26 +8,28 @@ document.addEventListener('DOMContentLoaded', () => {
     socketClient.emit('message', 'Cliente conectado!');
     console.log('Client connected');
 
-    window.addEventListener('blur', () => {
-        socketClient.disconnect();
-        console.log('Client disconnected');
-    });
+    // window.addEventListener('blur', () => {
+    //     socketClient.disconnect();
+    //     console.log('Client disconnected');
+    // });
 
-    window.addEventListener('focus', () => {
-        socketClient = io();
-        console.log('Client reconnected');
-    });
+    // window.addEventListener('focus', () => {
+        // socketClient = io();
+    //     console.log('Client reconnected');
+    // });
 
 });
 
 //FUNCION PARA AGREGAR A LA VISTA EL NUEVO PRODUCTO -----------------------------------
 
 function updateProductsList(productsList) {
-
+    
     const productsContainer = document.getElementById('productsAddedList');
     let productsHTML = '';
+    
 
     productsList.forEach((product) => {
+        let id = product._id
         productsHTML += `<div class="card" style="width: 25%;">
             <div class="card-body productCard">
                 <h5 class="card-title"> ${product.title}</h5>
@@ -37,7 +39,7 @@ function updateProductsList(productsList) {
                     <li>Stock: ${product.stock}</li>
                     <li>Categoría: ${product.category}</li>
                 </ul>
-                <button id="btnDeleteProduct" class="btn btn-secondary" onClick="deleteProduct(${product.id})" data-id="${product.id}">Eliminar Producto</button>
+                <button id="btnDeleteProduct" class="btn btn-secondary" onClick="deleteProduct('${id}')" data-id="${id}">Eliminar Producto</button>
             </div>
         </div>`
     });
@@ -76,6 +78,7 @@ addProductForm.addEventListener('submit', (event) => {
 
 // ELIMINAR PRODUCTO----------------------------------------------------
 
-function deleteProduct(Id) {
-    socketClient.emit("deleteProduct", Id);
+function deleteProduct(id) {
+    console.log(`intentando eliminar prod de id ${id}`)
+    socketClient.emit("deleteProduct", id);
 }
