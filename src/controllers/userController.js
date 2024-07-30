@@ -1,5 +1,6 @@
 import UserService from '../services/userService.js';
 import Controllers from './mainController.js';
+import { createResponse } from '../utils.js';
 
 const userService = new UserService();
 
@@ -24,7 +25,7 @@ export default class UserController extends Controllers {
             }
             const user = await this.service.getById(id);
             if (!user) {
-                res.status(401).json({ msg: 'Error de autenticacion' });
+                createResponse(res, 401, { msg: 'Error de autenticacion' });
             } else {
                 const { first_name, last_name, email, age, role } = user;
                 res.redirect('/users/profile');
@@ -69,9 +70,10 @@ export default class UserController extends Controllers {
             if (req.user) {
                 const { _id } = req.user;
                 const user = await this.service.getUserById(_id); 
+                
                 res.render('profile', user);
             } else {
-                res.status(401).json({ msg: 'Unauthorized' });
+                createResponse(res, 401, { msg: 'Unauthorized' });
             }
         } catch (error) {
             next(error);
