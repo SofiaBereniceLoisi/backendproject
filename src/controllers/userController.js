@@ -1,6 +1,7 @@
 import UserService from '../services/userService.js';
 import Controllers from './mainController.js';
 import { createResponse } from '../utils.js';
+import { sendMailGMail } from './emailController.js';
 
 const userService = new UserService();
 
@@ -11,6 +12,16 @@ export default class UserController extends Controllers {
 
     registerResponse = async (req, res, next) => {
         try {
+            let id = null;
+            if (req.session.passport && req.session.passport.user) {
+                id = req.session.passport.user;
+            }
+            const user = await this.service.getById(id);
+            const { first_name, email } = user;
+            // Enviar correo de bienvenida
+            if (user) {
+                await sendMailGMail(first_name, email);
+            }
             return res.redirect('/login');
         } catch (error) {
             next(error);
