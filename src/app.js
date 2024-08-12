@@ -30,9 +30,9 @@ app.use(passport.session());
 app.use(errorHandler);
 
 // Carpeta vistas y motor de plantillas
-app.set('views', `${__dirname}/views`);
 app.set('view engine', 'handlebars');
 app.engine('handlebars', Handlebars.engine());
+app.set('views', `${__dirname}/views`);
 
 // ROUTES
 app.use('/', mainRouter.getRouter());

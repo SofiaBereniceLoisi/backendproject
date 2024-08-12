@@ -1,5 +1,6 @@
 import Controllers from "./mainController.js";
 import ProductService from "../services/productServices.js";
+import * as productServices from "../services/productServices.js"
 const productService = new ProductService;
 
 export default class ProductController extends Controllers{
@@ -61,4 +62,22 @@ export default class ProductController extends Controllers{
         }
     }
 
+}
+
+export const createProd = async (req,res) => {
+    try {
+        const { cant } = req.query;
+        const response = await productServices.createProdMock(cant || 50 )
+        res.json(response);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getProds = async (req,res) => {
+    try {
+        res.json(await productServices.getProds());  
+    } catch (error) {
+        console.log(error);
+    }
 }

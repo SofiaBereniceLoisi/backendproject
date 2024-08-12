@@ -10,6 +10,12 @@ import ProductController from "../controllers/productControllerM.js";
 const productsRouter = Router();
 const productController = new ProductController();
 
+import * as ProductsControllers from '../controllers/productControllerM.js';
+
+productsRouter.route('/mockingproducts')
+    .post(ProductsControllers.createProd)
+    .get(ProductsControllers.getProds)
+
 productsRouter.route('/')
     .get([isAuth], productController.getAll)
     .post([isAuth, isAdmin], productController.create)
