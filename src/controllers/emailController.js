@@ -1,5 +1,5 @@
 import { transporter } from '../services/emailService.js';
-import config from '../config.js';
+import config from '../config/config.js';
 
 export const sendMailGMail = async (userName,userEmail) => {
     try {

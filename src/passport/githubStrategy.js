@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy as GithubStrategy } from "passport-github2";
 import UserService from '../services/userService.js';
-import config from "../config.js";
+import config from "../config/config.js";
 
 const userService = new UserService();
 
