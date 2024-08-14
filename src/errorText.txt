@@ -1,0 +1,70 @@
+----- OK ---------------------------------------------------
+Cuando una operación se realiza correctamente.
+Codigo: 200
+Ejemplos:
+   - Obtener la lista de productos.
+   - Ver los detalles de un producto específico.
+   - Recuperar la información de la cuenta del usuario.
+
+
+----- CREATED ----------------------------------------------
+Cuando un nuevo recurso se crea correctamente.
+Codigo: 201
+Ejemplos:
+   - Registrar un nuevo usuario.
+   - Crear un nuevo pedido o carrito de compras.
+   - Agregar un nuevo producto al catálogo.
+
+
+----- BAD_REQUEST ------------------------------------------
+Cuando la solicitud no puede ser procesada por el servidor debido a errores evidentes o falta información necesaria.
+Codigo: 400
+Ejemplos:
+   - Enviar un formulario sin un campo obligatorio.
+   - Correo electrónico inválido
+
+
+----- UNAUTHORIZED ----------------------------------------
+Cuando un usuario intenta acceder a un recurso sin haber iniciado sesion.
+Codigo: 401
+
+
+----- FORBIDDEN -------------------------------------------
+Cuando el usuario no tiene los permisos necesarios para acceder a un recurso.
+Codigo: 403
+Ejemplos: 
+   - Intentar agregar, eliminar o modificar productos sin ser administrador.
+
+
+----- NOT_FOUND ---------------------------------------------
+Cuando el recurso solicitado no existe en el servidor.
+Codigo: 404
+Ejemplo:
+   - Buscar un producto que no existe.
+   - Acceder a una URL incorrecta o que no existe.
+
+
+----- CONFLICT ----------------------------------------------
+Cuando la solicitud es válida pero no puede ser procesada debido a un conflicto con el estado actual del recurso.
+Codigo: 409
+Ejemplos:
+   - Intentar registrar un nuevo usuario con un correo electrónico que ya está en uso.
+   - Intentar modificar un recurso que ha sido actualizado o eliminado por otro proceso.
+   - Intentar realizar una compra cuando ya no hay stock disponible.
+
+
+----- INTERNAL_SERVER_ERROR ----------------------------------
+Cuando ocurre un error general en el servidor
+Codigo: 500
+Ejemplos:
+   - Un fallo en la base de datos al intentar procesar un pedido.
+   - Un error no manejado en el servidor al intentar autenticar a un usuario.
+   - Problemas en el servidor que impiden que se complete una solicitud.
+
+
+----- SERVICE_UNAVAILABLE --------------------------------------
+El servidor no está disponible temporalmente para manejar la solicitud.
+Codigo: 501
+Ejemplos: 
+   - Durante un mantenimiento
+   - Cuando el servidor está sobrecargado debido a un tráfico excesivo.

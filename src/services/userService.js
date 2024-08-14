@@ -1,5 +1,5 @@
 import config from "../config.js";
-import { createHash, isValidPassword } from "../utils.js";
+import { createHash, isValidPassword } from "../utils/utils.js";
 import Services from "./mainServices.js";
 
 import UserManager from "../persistence/dao/mongoDB/userManagerM.js";

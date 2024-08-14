@@ -1,8 +1,9 @@
 import UserService from '../services/userService.js';
 import Controllers from './mainController.js';
-import { createResponse } from '../utils.js';
+import { HttpResponse } from '../utils/httpResponse.js';
 import { sendMailGMail } from './emailController.js';
 
+const httpResponse = new HttpResponse();
 const userService = new UserService();
 
 export default class UserController extends Controllers {
@@ -36,7 +37,7 @@ export default class UserController extends Controllers {
             }
             const user = await this.service.getById(id);
             if (!user) {
-                createResponse(res, 401, { msg: 'Error de autenticacion' });
+                return httpResponse.Unauthorized(res, 'Error de autenticacion');
             } else {
                 const { first_name, last_name, email, age, role } = user;
                 res.redirect('/users/profile');
@@ -80,11 +81,11 @@ export default class UserController extends Controllers {
         try {
             if (req.user) {
                 const { _id } = req.user;
-                const user = await this.service.getUserById(_id); 
-                
+                const user = await this.service.getUserById(_id);
+
                 res.render('profile', user);
             } else {
-                createResponse(res, 401, { msg: 'Unauthorized' });
+                return httpResponse.Unauthorized(res, 'Unauthorized');;
             }
         } catch (error) {
             next(error);

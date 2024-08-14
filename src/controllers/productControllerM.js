@@ -39,7 +39,7 @@ export default class ProductController extends Controllers{
                 first_name: first_name, // le paso el nombre a la vista principal de productos
             });
         } catch (error) {
-            next(error.message);
+            next(error);
         }
     }
 
@@ -64,6 +64,7 @@ export default class ProductController extends Controllers{
 
 }
 
+//MOCKING PRODS ---------------------------------------------------------
 export const createProd = async (req,res) => {
     try {
         const { cant } = req.query;

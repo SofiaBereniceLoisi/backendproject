@@ -1,5 +1,5 @@
 import Services from "./mainServices.js";
-import __dirname from '../utils.js';
+import { __dirname } from '../utils/utils.js';
 import { generateProds } from "../utils/prodsUtils.js";
 import { ProductsModel } from "../persistence/dao/mongoDB/models/productsModel.js";
 

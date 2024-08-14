@@ -2,9 +2,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-export default __dirname;
+export const __dirname = dirname(__filename);
 
 // ---------------------------------------------------------------------
 
@@ -31,14 +29,3 @@ export const createHash = (password) => {
 export const isValidPassword = (password, user) => {
     return bcrypt.compareSync(password, user.password)
 }
-/**
- * Funcion que crea una respuesta estandard
- * @param {*} res 
- * @param {*} statusCode type number (ej: 200, 404)
- * @param {*} data 
- * @returns 
- */
-export const createResponse = (res, statusCode, data) => {
-    return res.status(statusCode).json(data);
-}
-

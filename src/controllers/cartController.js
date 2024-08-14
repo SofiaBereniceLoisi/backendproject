@@ -1,7 +1,8 @@
 import CartServices from '../services/cartService.js';
-import { createResponse } from '../utils.js';
+import { HttpResponse } from '../utils/httpResponse.js';
 import Controllers from './mainController.js';
 
+const httpResponse = new HttpResponse();
 const cartService = new CartServices();
 
 export default class CartController extends Controllers {
@@ -19,12 +20,12 @@ export default class CartController extends Controllers {
         pid,
       );
       if (!newProdToUserCart) {
-        createResponse(res, 404, { msg: "El producto o el carrito no existe." });
+        return httpResponse.NotFound(res,"El producto o el carrito no existe.");
       } else {
-        createResponse(res, 200, newProdToUserCart);
+        return httpResponse.Ok(res,newProdToUserCart);
       }
     } catch (error) {
-      next(error.message);
+      next(error);
     }
   };
 
@@ -37,13 +38,13 @@ export default class CartController extends Controllers {
         pid,
       );
       if (!delProdToUserCart) {
-        createResponse(res, 404, { msg: "El producto o el carrito no existe." });
+        return httpResponse.NotFound(res,"El producto o el carrito no existe.");
       }
       else {
-        createResponse(res, 200, { msg: `El producto de id: ${pid} fue eliminado del carrito correctamente.` });
+        return httpResponse.Ok(res,`El producto de id: ${pid} fue eliminado del carrito correctamente.`);
       }
     } catch (error) {
-      next(error.message);
+      next(error);
     }
   };
 
@@ -58,12 +59,12 @@ export default class CartController extends Controllers {
         quantity
       );
       if (!updateProdQuantity) {
-        createResponse(res, 404, { msg: "Error actualizando la cantidad del producto al carrito." });
+        return httpResponse.BadRequest(res, 'Error actualizando la cantidad del producto al carrito.');
       } else {
-        createResponse(res, 200, updateProdQuantity);
+        return httpResponse.Ok(res,updateProdQuantity);
       }
     } catch (error) {
-      next(error.message);
+      next(error);
     }
   };
 
@@ -74,12 +75,12 @@ export default class CartController extends Controllers {
         cart,
       );
       if (!clearCart) {
-        createResponse(res, 404, { msg: "Error vaciando el carrito." });
+        return httpResponse.NotFound(res,"Error vaciando el carrito.");
       } else {
-        createResponse(res, 200, clearCart);
+        return httpResponse.Ok(res,clearCart);
       }
     } catch (error) {
-      next(error.message);
+      next(error);
     }
   };
 }

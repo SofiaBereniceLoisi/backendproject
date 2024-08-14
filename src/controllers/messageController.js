@@ -1,11 +1,14 @@
 import * as service from "../services/messageService.js";
+import { HttpResponse } from '../utils/httpResponse.js';
+
+const httpResponse = new HttpResponse();
 
 export const getAllMessages = async (req, res, next) => {
     try {
         const response = await service.getAllMessages();
-        createResponse(res, 200, response);
+        return httpResponse.Ok(res,response);
     } catch (error) {
-        next(error.message);
+        next(error);
     }
 }
 
@@ -13,9 +16,9 @@ export const createMessage = async (req, res, next) => {
     try {
         const newMessage = await service.createMessage(req.body);
         if (!newMessage) {
-            createResponse(res, 404, { msg: 'No se pudo mandar el mensaje.' });
+            return httpResponse.BadRequest(res,"No se pudo mandar el mensaje.");
         } else {
-            createResponse(res, 200, newMessage);
+            return httpResponse.Created(res,newMessage);
         }
     } catch (error) {
         next(error);

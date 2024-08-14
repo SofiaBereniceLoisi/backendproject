@@ -1,7 +1,7 @@
 
-import ProductManagerM from './persistence/dao/mongoDB/productManagerM.js';
+import ProductManagerM from './productManagerM.js';
 const productManager = new ProductManagerM();
-import MessageManagerM from './persistence/dao/mongoDB/messageManagerM.js';
+import MessageManagerM from './messageManagerM.js';
 const messageManagerM = new MessageManagerM();
 
 
