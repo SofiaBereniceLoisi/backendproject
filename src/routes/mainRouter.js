@@ -6,7 +6,8 @@ import cartRouter from './cartRouter.js';
 import viewsRouter from './viewsRouter.js';
 import messageRouterM from './messageRouter.js';
 import userRouter from './userRouter.js';
-import emailRouter from './emailRouter.js'
+import emailRouter from './emailRouter.js';
+import loggerTest from './loggerRouter.js';
 import { isAuth } from "../middlewares/isAuth.js";
 import ticketRouter from "./ticketRouter.js";
 
@@ -25,6 +26,7 @@ export default class MainRouter {
         this.mainRouter.use('/users', userRouter);
         this.mainRouter.use('/ticket' , ticketRouter);
         this.mainRouter.use('/api', emailRouter );
+        this.mainRouter.use('/test', loggerTest)
     }
 
     getRouter(){

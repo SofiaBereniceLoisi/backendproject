@@ -1,18 +1,49 @@
-import winston, {transports} from "winston";
+import winston, { format } from "winston";
+import config from './config.js';
 
-const logConfig = {
-    transports: [new winston.transports.Console()]
+const levels = {
+    fatal: 0,
+    error: 1,
+    warning: 2,
+    info: 3,
+    http: 4,
+    debug: 5,
 };
 
-const logger  = winston.createLogger(logConfig);
+const colors = {
+    fatal: 'blue',
+    error: 'red',
+    warning: 'yellow',
+    info: 'green',
+    http: 'magenta',
+    debug: 'gray',
+};
 
-logger.level = 'debug';
+winston.addColors(colors);
 
-logger.silly('log silly');
-logger.debug('log debug');
-logger.verbose('log verbose');
-logger.info('log info');
-logger.http('log http');
-logger.warn('og warn');
-logger.error('log error');
+// entorno
+const env = config.NODE_ENV;
 
+// Configuración del logger
+const logger = winston.createLogger({
+    levels, 
+    format: format.combine(
+        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+    ),
+    transports: [
+        new winston.transports.Console({
+            level: env === 'development' ? 'debug' : 'info',
+            format: format.combine(
+                format.colorize(),
+                format.simple()
+            )
+        }),
+        new winston.transports.File({
+            filename: './src/logs/errors.log',
+            level: 'error'
+        }),
+    ]
+});
+
+export default logger;
