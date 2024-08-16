@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import UserService from '../services/userService.js';
+import logger from "../config/logConfig.js";
 
 const userService = new UserService();
 
@@ -21,7 +22,7 @@ const register = async (req, email, password, done) => {
             return done(null, newUser);
         }
     } catch (error) {
-        console.log('Error en registro:', error);
+        logger.error('Error registering user [Passport Local]: ', error);
         return done(null, false);
     }
 }
@@ -38,7 +39,7 @@ const login = async (req, email, password, done) => {
             return done(null, userLogin);
         }
     } catch (error) {
-        console.log('Error en inicio de sesión:', error);
+        logger.error('Error loging in [Passport Local]: ', error);
         return done(error);
     }
 

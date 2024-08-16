@@ -1,3 +1,4 @@
+import logger from "../../../config/logConfig.js";
 import { CartModel } from "./models/cartModel.js";
 import MongoDao from "./mongoDAO.js";
 
@@ -13,7 +14,7 @@ export default class CartManagerM extends MongoDao {
         products: [], //por default que se cree el carrito vacío.
       });
     } catch (error) {
-      console.log(error);
+      logger.error('Error creating cart:', error);
     }
   }
 
@@ -21,7 +22,7 @@ export default class CartManagerM extends MongoDao {
     try {
       return await this.model.find({});
     } catch (error) {
-      console.log(error);
+      logger.error('Error getting carts:', error);
     }
   }
 
@@ -29,7 +30,7 @@ export default class CartManagerM extends MongoDao {
     try {
       return await this.model.findById(id).populate("products.product"); // trae los datos del prod en la coleccion de prods
     } catch (error) {
-      console.log(error);
+      logger.error(`Error getting cart  ${id} :`, error);
       throw new Error(error);
     }
   }
@@ -52,7 +53,7 @@ export default class CartManagerM extends MongoDao {
 
       return cart;
     } catch (error) {
-      console.log(error);
+      logger.error(`Error adding product in cart: ` , error);
       throw new Error(error);
     }
   }
@@ -64,6 +65,7 @@ export default class CartManagerM extends MongoDao {
         products: { $elemMatch: { product: prodId } }
       })
     } catch (error) {
+      logger.error(error);
       throw new Error(error);
     }
   }
@@ -76,6 +78,7 @@ export default class CartManagerM extends MongoDao {
         { new: true }
       );
     } catch (error) {
+      logger.error(error);
       throw new Error(error);
     }
   }
@@ -88,7 +91,7 @@ export default class CartManagerM extends MongoDao {
         { new: true }
       );
     } catch (error) {
-      console.log(error);
+      logger.error(`Error updating the quantity of a product in cart: `, error);
     }
   }
 
@@ -100,7 +103,7 @@ export default class CartManagerM extends MongoDao {
         { new: true }
       );
     } catch (error) {
-      console.log(error);
+      logger.error('Error cleaning cart: ', error);
     }
   }
 }

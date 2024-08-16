@@ -1,6 +1,7 @@
 import Controllers from "./mainController.js";
 import ProductService from "../services/productServices.js";
 import * as productServices from "../services/productServices.js"
+import logger from "../config/logConfig.js";
 const productService = new ProductService;
 
 export default class ProductController extends Controllers{
@@ -39,6 +40,7 @@ export default class ProductController extends Controllers{
                 first_name: first_name, // le paso el nombre a la vista principal de productos
             });
         } catch (error) {
+            logger.error('Error getting all products: ', error);
             next(error);
         }
     }
@@ -58,6 +60,7 @@ export default class ProductController extends Controllers{
                 });
             }
         } catch (error) {
+            logger.error('Error getting product by id: ', error);
             next(error);
         }
     }
@@ -71,7 +74,7 @@ export const createProd = async (req,res) => {
         const response = await productServices.createProdMock(cant || 50 )
         res.json(response);
     } catch (error) {
-        console.log(error);
+        logger.error('Error creating mocking products: ', error);
     }
 }
 
@@ -79,6 +82,6 @@ export const getProds = async (req,res) => {
     try {
         res.json(await productServices.getProds());  
     } catch (error) {
-        console.log(error);
+        logger.error('Error getting mocking products:', error);
     }
 }

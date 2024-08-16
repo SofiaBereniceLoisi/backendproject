@@ -4,6 +4,7 @@ import Services from "./mainServices.js";
 
 import UserManager from "../persistence/dao/mongoDB/userManagerM.js";
 import UserRepository from "../repository/userRepository.js";
+import logger from "../config/logConfig.js";
 const userRepository = new UserRepository();
 const userDao = new UserManager();
 
@@ -52,7 +53,7 @@ export default class UserService extends Services {
     register = async (user) => {
         try {
             const { email, password } = user;
-            console.log(user)
+            logger.info(user)
             const existUser = await this.dao.getByEmail(email);
             if (!existUser) {
                 if (email === config.EMAIL_ADMIN && password === config.PASSWORD_ADMIN) {

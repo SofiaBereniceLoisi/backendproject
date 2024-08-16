@@ -2,49 +2,51 @@
 import ProductManagerM from './productManagerM.js';
 const productManager = new ProductManagerM();
 import MessageManagerM from './messageManagerM.js';
+import logger from '../../../config/logConfig.js';
 const messageManagerM = new MessageManagerM();
 
 
 export const websocketManager = (socketServer) => {
     //el socket del servidor escucha al socket del cliente:
     socketServer.on('connection', async (socket) => {
-        console.log('Client connected!');
+        logger.info('Client connecte!');
         const result = await productManager.getAll();
         const productsList = result.docs; 
         socketServer.emit('sendUpdatedList', productsList);
 
         // Agregar producto --------------------------------------------------
         socket.on('addProduct', async (productData) => {
-            console.log('Recibiendo el producto:', productData);
+            logger.info('Receiving product: ', productData);
             try {
                 await productManager.create(productData);
                 const result = await productManager.getAll();
                 const productsList = result.docs;
                 socketServer.emit('sendUpdatedList', productsList);
-                console.log('Producto agregado correctamente:', productData);
+
+                logger.info('Producto added correctly: ', productData);
 
             } catch (error) {
-                console.error('Error al agregar producto:', error);
+                logger.error('Error adding product: ', error);
             }
         });
 
         // Eliminar producto --------------------------------------------------- 
         socket.on('deleteProduct', async (Id) => {
-            console.log(`Intentando eliminar producto con ID ${Id}`);
+            logger.info(`Trying to delete product of ID ${Id}`);
             try {
                 await productManager.delete(Id);
                 const result = await productManager.getAll();
                 const productsList = result.docs;
                 socketServer.emit('sendUpdatedList', productsList);
-                console.log(`Producto con ID ${Id} eliminado correctamente`);
+                logger.info(`Product of ID ${Id} deleted correctly`);
             } catch (error) {
-                console.log('Error al eliminar producto:', error);
+                logger.error('Error deleting product:', error);
             }
         });
 
         // --------------- CHAT -------------------------
         socket.on('newUser', (user) => {
-            console.log(`> ${user} ha iniciado sesión`);
+            logger.info(`> ${user} logged in`);
         })
 
         socket.on('chat:message', async (msg) => {
@@ -57,7 +59,7 @@ export const websocketManager = (socketServer) => {
         });
         
         socket.on('disconnect', () => {
-            console.log('Client disconnected!');
+            logger.info('Client disconnected!');
         });
 
     });

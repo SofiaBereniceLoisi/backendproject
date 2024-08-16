@@ -5,6 +5,7 @@ import CartManagerM from "../persistence/dao/mongoDB/cartManagerM.js";
 const cartDao = new CartManagerM();
 
 import Services from "./mainServices.js";
+import logger from "../config/logConfig.js";
 
 export default class CartServices extends Services {
     constructor() {
@@ -14,11 +15,11 @@ export default class CartServices extends Services {
     addProdToCart = async (cartId, prodId) => {
         try {
             const existCart = await this.dao.getById(cartId);
-            console.log( 'cart:' , existCart)
+            logger.info( 'Cart: ', existCart)
             const existProd = await productDao.getById(prodId);
-            console.log('producto:' , existProd);
+            logger.info('Product: ' , existProd);
             if (!existCart || !existProd) {
-                console.log("Cart or Product does not exist.");
+                logger.info("Cart or Product does not exist.");
                 return null;
             }
             //verifico si el prod existe en el carrito
@@ -31,7 +32,7 @@ export default class CartServices extends Services {
             //si no existe en el carrito lo agrega
             return await this.dao.addProdToCart(cartId, prodId);
         } catch (error) {
-            console.log(error);
+            logger.error('Error adding product to cart: ', error);
             throw new Error(error);
         }
     }
@@ -46,7 +47,7 @@ export default class CartServices extends Services {
             return await this.dao.removeProdToCart(cartId, prodId);
 
         } catch (error) {
-            console.log(error);
+            logger.error('Error removing product from cart', error);
         }
     };
 
@@ -59,7 +60,7 @@ export default class CartServices extends Services {
             }
             return await this.dao.updateProdQuantityToCart(cartId, prodId, quantity)
         } catch (error) {
-            console.log(error);
+            logger.error('Error updating quantity of a product in cart: ', error);
         }
     };
 
@@ -71,7 +72,7 @@ export default class CartServices extends Services {
             }
             return this.dao.clearCart(cartId);
         } catch (error) {
-            console.log(error);
+            logger.error('Error emptying cart', error);
         }
     };
 

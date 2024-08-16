@@ -1,3 +1,5 @@
+import logger from "../../config/logConfig";
+
 // (socket server del lado del cliente)
 let socketClient = io();
 
@@ -6,7 +8,7 @@ let socketClient = io();
 document.addEventListener('DOMContentLoaded', () => {
 
     socketClient.emit('message', 'Cliente conectado!');
-    console.log('Client connected');
+    logger.info('Client connected');
 
     // window.addEventListener('blur', () => {
     //     socketClient.disconnect();
@@ -71,7 +73,7 @@ addProductForm.addEventListener('submit', (event) => {
     let category = addProductForm.elements.category.value;
 
     socketClient.emit('addProduct', { title, description, price, stock, code, category, status, thumbnails });
-    console.log({ title, description, price, stock, code, category })
+    logger.info({ title, description, price, stock, code, category })
     addProductForm.reset();
 });
 
@@ -79,6 +81,6 @@ addProductForm.addEventListener('submit', (event) => {
 // ELIMINAR PRODUCTO----------------------------------------------------
 
 function deleteProduct(id) {
-    console.log(`intentando eliminar prod de id ${id}`)
+    logger.info(`Trying to delete product of ID: ${id}`)
     socketClient.emit("deleteProduct", id);
 }

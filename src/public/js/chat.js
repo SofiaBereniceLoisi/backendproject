@@ -1,3 +1,5 @@
+import logger from "../../config/logConfig";
+
 const socket = io();
 
 let user = null;
@@ -30,7 +32,7 @@ btn.addEventListener('click', ()=>{
         message: message.value
     })
     message.value = '';
-    console.log(message)
+    logger.info(message)
 })
 
 socket.on('messages', (data)=>{

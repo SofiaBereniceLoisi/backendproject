@@ -39,18 +39,9 @@ export default class UserController extends Controllers {
             if (!user) {
                 return httpResponse.Unauthorized(res, 'Error de autenticacion');
             } else {
-                const { first_name, last_name, email, age, role } = user;
+                const { first_name, last_name, email, role } = user;
                 res.redirect('/users/profile');
-                console.log({
-                    msg: 'LOGIN OK!',
-                    user: {
-                        first_name,
-                        last_name,
-                        email,
-                        age,
-                        role
-                    }
-                })
+                logger.info(`LOGIN OK! Usuario: ${first_name} ${last_name}, Email: ${email}, Rol: ${role}`);  
             }
         } catch (error) {
             next(error);
@@ -63,7 +54,7 @@ export default class UserController extends Controllers {
                 return next(error);
             }
             req.session.destroy();
-            console.log('Se cerró sesión exitosamente')
+            logger.info('LOGOUT OK!');
             res.redirect('/login');
         });
     };

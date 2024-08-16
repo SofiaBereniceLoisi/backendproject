@@ -1,4 +1,5 @@
 import fs from 'fs';
+import logger from '../../../config/logConfig';
 
 class ProductManager {
     constructor(path) {
@@ -11,7 +12,7 @@ class ProductManager {
             const products = JSON.parse(data);
             return products;
         } catch (error) {
-            console.log('Error al obtener productos:', error);
+            logger.error('Error getting products: ', error);
             return null;
         }
     }
@@ -26,7 +27,7 @@ class ProductManager {
                 return lastProductId + 1;
             }
         } catch (error) {
-            console.error('Error al generar ID del producto:', error);
+            logger.error('Error generating id :', error);
             return null;
         }
     };
@@ -38,7 +39,7 @@ class ProductManager {
             const { title, description, price, code, stock, status = true, category, thumbnails } = productData;
 
             if (products.some(product => product.code === code)) {
-                console.log('Error: El código del producto ya está en uso.');
+                logger.error('Error: Product code is already in use:', error);
                 return null;
             }
 
@@ -55,15 +56,14 @@ class ProductManager {
                 thumbnails: thumbnails || []
             };
 
-            console.log('producto nuevo:', newProduct);
+            logger.info('New product:', newProduct);
             products.push(newProduct);
 
             await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2));
-            console.log('Producto agregado satisfactoriamente.');
-
+            logger.info('Product created successfully');
             return newProduct;
         } catch (error) {
-            console.log('Error al agregar producto:', error);
+            logger.error('Error creating product:', error);
             return null;
         }
     }
@@ -74,14 +74,14 @@ class ProductManager {
             const foundProduct = products.find(product => product.id === parseInt(id));
 
             if (foundProduct) {
-                console.log('Producto encontrado de id:', id, foundProduct);
+                logger.info(`Product of id ${id} found: ${foundProduct}` );
                 return foundProduct;
             } else {
-                console.log('Error: No se encontró ningún producto con el ID ingresado.');
+                logger.info(`Error: Product of id ${id} NOT FOUND.`);
                 return null;
             }
         } catch (error) {
-            console.log('Error al obtener producto:', error);
+            logger.error('Error getting produt by id: ', error);
             return null;
         }
     }
@@ -94,14 +94,14 @@ class ProductManager {
             if (productToDelete) {
                 const updatedProducts = products.filter(product => product.id !== id);
                 await fs.promises.writeFile(this.path, JSON.stringify(updatedProducts, null, 2));
-                console.log('Producto eliminado satisfactoriamente.');
+                logger.info('Product deleted successfully.');
                 return true;
             } else {
-                console.log('Error: No se encontró ningún producto con el ID ingresado para eliminar.');
+                logger.info(`Error deleting product: Product of id ${id} NOT FOUND.`);
                 return false;
             }
         } catch (error) {
-            console.log('Error al eliminar producto:', error);
+            logger.error('Error deleting product', error);
             return null;
         }
     }
@@ -115,14 +115,14 @@ class ProductManager {
                 products[indexToUpdate] = { ...products[indexToUpdate], ...updatedFields };
 
                 await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2));
-                console.log(`Producto con ID ${id} actualizado satisfactoriamente.`);
+                logger.info(`Product of ID: ${id} updated successfully.`);
                 return products[indexToUpdate];
             } else {
-                console.log(`Error: No se encontró ningún producto con el ID ${id} para actualizar.`);
+                logger.info(`Error updating product: Product of ID ${id} NOT FOUND.`);
                 return null;
             }
         } catch (error) {
-            console.log('Error al actualizar producto:', error);
+            logger.error('Error udating product:', error);
             return null;
         }
     }

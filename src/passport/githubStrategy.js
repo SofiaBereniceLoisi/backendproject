@@ -13,7 +13,6 @@ const strategyConfig = {
 
 const registerOrLogin = async (accessToken, refreshToken, profile, done) => {
     try {
-        // console.log(profile);
         const email = profile._json.email ?? ' ';
         const first_name = profile._json.name.split(' ')[0];
         const last_name = profile._json.name.split(' ').length === 3 ? profile._json.name.split(' ')[1].concat(' ', profile._json.name.split(' ')[2]) : profile._json.name.split(' ')[1];

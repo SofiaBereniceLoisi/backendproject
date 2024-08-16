@@ -13,6 +13,7 @@ import config from './config/config.js';
 import './passport/localStrategy.js';
 import './passport/githubStrategy.js';
 import compression from 'express-compression';
+import logger from './config/logConfig.js';
 
 // IMPORT ROUTER
 import MainRouter from './routes/mainRouter.js';
@@ -45,7 +46,9 @@ if (config.PERSISTENCE === 'MONGO') {
 }
 
 // HTTP Server
-const httpServer = app.listen(config.PORT, () => { console.log(`Servidor escuchando en el puerto ${config.PORT}`); });
+const httpServer = app.listen(config.PORT, () => { 
+    logger.info(`Servidor escuchando en el puerto ${config.PORT}`);
+});
 
 // Socket Server
 const socketServer = new Server(httpServer);
