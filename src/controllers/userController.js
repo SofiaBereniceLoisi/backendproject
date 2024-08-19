@@ -2,6 +2,7 @@ import UserService from '../services/userService.js';
 import Controllers from './mainController.js';
 import { HttpResponse } from '../utils/httpResponse.js';
 import { sendMailGMail } from './emailController.js';
+import logger from '../config/logConfig.js';
 
 const httpResponse = new HttpResponse();
 const userService = new UserService();
