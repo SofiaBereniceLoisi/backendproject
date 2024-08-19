@@ -39,7 +39,7 @@ class ProductManager {
             const { title, description, price, code, stock, status = true, category, thumbnails } = productData;
 
             if (products.some(product => product.code === code)) {
-                logger.error('Error: Product code is already in use:', error);
+                logger.warn('Error: Product code is already in use:');
                 return null;
             }
 
@@ -77,11 +77,11 @@ class ProductManager {
                 logger.info(`Product of id ${id} found: ${foundProduct}` );
                 return foundProduct;
             } else {
-                logger.info(`Error: Product of id ${id} NOT FOUND.`);
+                logger.warn(`Error: Product of id ${id} NOT FOUND.`);
                 return null;
             }
         } catch (error) {
-            logger.error('Error getting produt by id: ', error);
+            logger.error('Error getting product by id: ', error);
             return null;
         }
     }
@@ -97,7 +97,7 @@ class ProductManager {
                 logger.info('Product deleted successfully.');
                 return true;
             } else {
-                logger.info(`Error deleting product: Product of id ${id} NOT FOUND.`);
+                logger.warn(`Error deleting product: Product of id ${id} NOT FOUND.`);
                 return false;
             }
         } catch (error) {
@@ -118,7 +118,7 @@ class ProductManager {
                 logger.info(`Product of ID: ${id} updated successfully.`);
                 return products[indexToUpdate];
             } else {
-                logger.info(`Error updating product: Product of ID ${id} NOT FOUND.`);
+                logger.warn(`Error updating product: Product of ID ${id} NOT FOUND.`);
                 return null;
             }
         } catch (error) {

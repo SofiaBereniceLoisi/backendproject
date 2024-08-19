@@ -73,7 +73,7 @@ addProductForm.addEventListener('submit', (event) => {
     let category = addProductForm.elements.category.value;
 
     socketClient.emit('addProduct', { title, description, price, stock, code, category, status, thumbnails });
-    logger.info({ title, description, price, stock, code, category })
+    logger.debug({ title, description, price, stock, code, category })
     addProductForm.reset();
 });
 
@@ -81,6 +81,6 @@ addProductForm.addEventListener('submit', (event) => {
 // ELIMINAR PRODUCTO----------------------------------------------------
 
 function deleteProduct(id) {
-    logger.info(`Trying to delete product of ID: ${id}`)
+    logger.debug(`Trying to delete product of ID: ${id}`)
     socketClient.emit("deleteProduct", id);
 }

@@ -9,14 +9,14 @@ const messageManagerM = new MessageManagerM();
 export const websocketManager = (socketServer) => {
     //el socket del servidor escucha al socket del cliente:
     socketServer.on('connection', async (socket) => {
-        logger.info('Client connecte!');
+        logger.info('Client connected!');
         const result = await productManager.getAll();
         const productsList = result.docs; 
         socketServer.emit('sendUpdatedList', productsList);
 
         // Agregar producto --------------------------------------------------
         socket.on('addProduct', async (productData) => {
-            logger.info('Receiving product: ', productData);
+            logger.debug('Receiving product: ', productData);
             try {
                 await productManager.create(productData);
                 const result = await productManager.getAll();
@@ -32,7 +32,7 @@ export const websocketManager = (socketServer) => {
 
         // Eliminar producto --------------------------------------------------- 
         socket.on('deleteProduct', async (Id) => {
-            logger.info(`Trying to delete product of ID ${Id}`);
+            logger.debug(`Trying to delete product of ID ${Id}`);
             try {
                 await productManager.delete(Id);
                 const result = await productManager.getAll();

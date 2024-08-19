@@ -15,11 +15,11 @@ export default class CartServices extends Services {
     addProdToCart = async (cartId, prodId) => {
         try {
             const existCart = await this.dao.getById(cartId);
-            logger.info( 'Cart: ', existCart)
+            logger.debug( 'Cart: ', existCart)
             const existProd = await productDao.getById(prodId);
-            logger.info('Product: ' , existProd);
+            logger.debug('Product: ' , existProd);
             if (!existCart || !existProd) {
-                logger.info("Cart or Product does not exist.");
+                logger.warn("Cart or Product does not exist.");
                 return null;
             }
             //verifico si el prod existe en el carrito
@@ -30,6 +30,7 @@ export default class CartServices extends Services {
                 return await this.dao.addProdToCart(cartId, prodId, quantity);
             }
             //si no existe en el carrito lo agrega
+            logger.info('Product added to cart correctrly.')
             return await this.dao.addProdToCart(cartId, prodId);
         } catch (error) {
             logger.error('Error adding product to cart: ', error);
