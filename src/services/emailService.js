@@ -11,10 +11,3 @@ export const transporter = createTransport({
         pass: config.PASSWORD
     }
 });
-
-// export const mailOptionsEthereal = {
-//     from: config.EMAIL,
-//     to: config.EMAIL,
-//     subject: 'Bienvenido/a',
-//     html: "<h1>Bienvenido<h1>"
-// }
