@@ -78,4 +78,12 @@ export default class UserService extends Services {
             throw new Error(error);
         }
     }
+
+     updatePassword = async(userId, newPassword) =>{
+        try {
+            return await this.dao.update(userId, { password: newPassword });
+        } catch (error) {
+            throw new Error(`Error al actualizar la contraseña: ${error.message}`);
+        }
+    }
 }

@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="/css/forms.css">
+<section class="contenedor-formulario">
+    <div class="login">
+        <div class="login-header">
+            <h2 id="iniciarSesion">Recuperar contraseña</h2>
+            <h3 id="pIniciarSesion">Por favor ingrese su correo electrónico para recuperar la contraseña.</h3>
+        </div>
+        {{#if successMessage}}
+            <div class="alert success">
+                {{successMessage}}
+            </div>
+        {{/if}}
+        {{#if errorMessage}}
+            <div class="alert error">
+                {{errorMessage}}
+            </div>
+        {{/if}}
+        <form class="login-contenido" id="formulario-login" action="/mailtoresetpass" method="post">
+            <div class="login-item">
+                <input type="email" name="email" placeholder="Ingrese su email" id="email" required>
+            </div>
+            <button type="submit" id="btnIngresar">ENVIAR MAIL</button>
+        </form>
+        <div class="login-footer">
+            <button onclick="location.href='/login'">VOLVER</button>
+        </div>
+    </div>
+</section>
+
+{{!-- <script src="./js/forms.js" charset="utf-8"></script> --}}

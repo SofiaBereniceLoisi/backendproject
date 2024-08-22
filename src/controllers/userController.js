@@ -1,7 +1,7 @@
 import UserService from '../services/userService.js';
 import Controllers from './mainController.js';
 import { HttpResponse } from '../utils/httpResponse.js';
-import { sendMailGMail } from './emailController.js';
+import { sendMailRegister } from './mailingController.js';
 import logger from '../config/logConfig.js';
 
 const httpResponse = new HttpResponse();
@@ -22,7 +22,7 @@ export default class UserController extends Controllers {
             const { first_name, email } = user;
             // Enviar correo de bienvenida
             if (user) {
-                await sendMailGMail(first_name, email);
+                await sendMailRegister(first_name, email);
             }
             return res.redirect('/login');
         } catch (error) {

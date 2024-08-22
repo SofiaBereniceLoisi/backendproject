@@ -3,6 +3,7 @@ import { isAuth } from "../middlewares/isAuth.js";
 import { isAdmin } from "../middlewares/isAdmin.js";
 import logger from "../config/logConfig.js";
 import { HttpResponse } from "../utils/httpResponse.js";
+import { renderResetPasswordView, handleMailToResetPass, handleResetPassword } from '../controllers/mailingController.js'
 const httpResponse = new HttpResponse();
 const viewsRouter = Router();
 
@@ -33,17 +34,17 @@ viewsRouter.get('/register', async (req, res) => {
     res.render('register');
 })
 
-// viewsRouter.get("/profile", isAuth, (req, res) => {
-//     // console.log("req.user", req.user);
-//     const { first_name, last_name, email, age, role } = req.user.toObject();
-//     res.render("profile", {
-//         first_name,
-//         last_name,
-//         email,
-//         age,
-//         role
-//     });
-// });
+viewsRouter.get('/mailtoresetpass', async (req, res) => {
+    res.render('mailToResetPass');
+});
 
+// Enviar correo para restablecer la contraseña
+viewsRouter.get('/resetPassword/:resetId', renderResetPasswordView);
+
+// Enviar el correo para recuperación de contraseña
+viewsRouter.post('/mailtoresetpass', handleMailToResetPass);
+
+// Procesar el formulario de recuperación de contraseña
+viewsRouter.post('/resetpassword', handleResetPassword);
 
 export default viewsRouter;
