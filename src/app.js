@@ -5,6 +5,7 @@ import { websocketManager } from './persistence/dao/mongoDB/websocketManager.js'
 import { Server } from 'socket.io';
 import { initMongoDB } from './persistence/dao/mongoDB/connectionMDB.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import { errorMessagesMiddleware } from './middlewares/errorMessages.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import storeConfig from './config/sessionConfig.js';
@@ -31,6 +32,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(compression({brotli:{enabled:true,zlib:{}}}));
 app.use(errorHandler);
+app.use(errorMessagesMiddleware);
 
 // Carpeta vistas y motor de plantillas
 app.set('view engine', 'handlebars');

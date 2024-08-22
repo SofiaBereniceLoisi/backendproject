@@ -32,9 +32,15 @@ const login = async (req, email, password, done) => {
     try {
         const userLogin = await userService.login({ email, password });
         if (!userLogin) {
-            return done(null, false, { msg: 'Error de autenticación' });
-        } else if(userLogin.isGithub){
-            return done(null, false, { msg: 'Autenticación solo a través de GitHub' });
+            const user = await userService.getByEmail(email);
+            if (user && !user.isGithub) {
+                return done(null, false, { message: 'Contraseña incorrecta' });
+            } else if (user && user.isGithub) {
+                logger.debug(`User tried to login with GitHub account: ${email}`);
+                return done(null, false, { message: 'Autenticación solo a través de GitHub' });
+            } else {
+                return done(null, false, { message: 'Mail no registrado' });
+            }
         } else {
             return done(null, userLogin);
         }

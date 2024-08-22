@@ -10,7 +10,7 @@ const userController = new UserController();
 // localhost:8080/users/...
 // Passport local --------
 userRouter.post("/register", validateEmail, passport.authenticate('register'), userController.registerResponse);
-userRouter.post("/login", passport.authenticate('login'), userController.loginResponse);
+userRouter.post("/login", userController.loginResponse);
 userRouter.post('/logout', userController.logoutResponse);
 userRouter.get('/private', isAuth, (req, res) => res.json({ msg: 'Ruta privada' }))
 userRouter.get('/profile', isAuth, userController.profile);

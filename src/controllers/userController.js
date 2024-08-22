@@ -3,6 +3,8 @@ import Controllers from './mainController.js';
 import { HttpResponse } from '../utils/httpResponse.js';
 import { sendMailRegister } from './mailingController.js';
 import logger from '../config/logConfig.js';
+import passport from 'passport';
+import { isValidPassword } from '../utils/utils.js';
 
 const httpResponse = new HttpResponse();
 const userService = new UserService();
@@ -32,18 +34,23 @@ export default class UserController extends Controllers {
 
     loginResponse = async (req, res, next) => {
         try {
-            let id = null;
-            if (req.session.passport && req.session.passport.user) {
-                id = req.session.passport.user;
-            }
-            const user = await this.service.getById(id);
-            if (!user) {
-                return httpResponse.Unauthorized(res, 'Error de autenticacion');
-            } else {
-                const { first_name, last_name, email, role } = user;
-                res.redirect('/users/profile');
-                logger.info(`LOGIN OK! Usuario: ${first_name} ${last_name}, Email: ${email}, Rol: ${role}`);  
-            }
+            passport.authenticate('login', (err, user, info) => {
+                if (err) return next(err);
+
+                if (!user) {
+                    // Guardar el mensaje de error en la sesión para usarlo en la vista
+                    req.session.messages = { error: info.message };
+                    return res.redirect('/login');
+                }
+
+                req.logIn(user, (err) => {
+                    if (err) return next(err);
+                    const { first_name, last_name, email, role } = user;
+                    // Log de éxito
+                    logger.info(`LOGIN OK! Usuario: ${first_name} ${last_name}, Email: ${email}, Rol: ${role}`);
+                    return res.redirect('/users/profile');
+                });
+            })(req, res, next);
         } catch (error) {
             next(error);
         }
