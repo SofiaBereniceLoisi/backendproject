@@ -46,7 +46,7 @@ export default class UserController extends Controllers {
                 req.logIn(user, (err) => {
                     if (err) return next(err);
                     const { first_name, last_name, email, role } = user;
-                    // Log de éxito
+                    
                     logger.info(`LOGIN OK! Usuario: ${first_name} ${last_name}, Email: ${email}, Rol: ${role}`);
                     return res.redirect('/users/profile');
                 });

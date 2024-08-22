@@ -14,7 +14,6 @@ export default class UserManager extends MongoDao {
             const existUser = await this.model.findOne({ email }); //trae el doc del user o null
             if (!existUser) {
                 const newCart = await CartModel.create({});
-                logger.info('Nuevo carrito creado:', newCart);
                 //si el user no existe lo crea
                 //crea ademas un carrito asociado al nuevo usuario
                 return await this.model.create({
