@@ -1,4 +1,6 @@
 import CartServices from '../services/cartService.js';
+import ProductService from '../services/productServices.js';
+const productService = new ProductService();
 import { HttpResponse } from '../utils/httpResponse.js';
 import Controllers from './mainController.js';
 
@@ -19,7 +21,6 @@ export default class CartController extends Controllers {
 
       const product = await productService.getById(pid);
 
-      // Verifica si el producto existe
       if (!product) {
         return httpResponse.NotFound(res, "El producto no existe.");
       }
