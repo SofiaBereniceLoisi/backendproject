@@ -1,0 +1,9 @@
+error | 2024-08-23 18:49:09 | Error adding product:  ValidationError: owner: Path `owner` is required.
+error | 2024-08-23 18:58:21 | Error creating product:  httpResponse is not defined
+error | 2024-08-23 18:59:04 | Error creating product:  Error: MongoServerError: E11000 duplicate key error collection: ecommerce.products index: code_1 dup key: { code: "H653" }
+error | 2024-08-23 19:12:42 | Error adding product:  Cannot read properties of undefined (reading 'role')
+error | 2024-08-23 19:27:29 | Error creating product:  Cannot read properties of undefined (reading 'role')
+error | 2024-08-23 19:30:11 | Error adding product:  Cannot read properties of undefined (reading 'email')
+error | 2024-08-25 18:00:08 | Error updating product:  productManager is not defined
+error | 2024-08-25 18:01:29 | Error updating product:  productManager is not defined
+error | 2024-08-25 18:02:04 | Error updating product:  productManager is not defined

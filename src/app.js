@@ -22,12 +22,14 @@ const mainRouter = new MainRouter();
 
 const app = express();
 
+const sessionMiddleware = session(storeConfig);
+
 // MIDDLEWARES
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/../public`));
 app.use(cookieParser());
-app.use(session(storeConfig));
+app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(compression({brotli:{enabled:true,zlib:{}}}));
@@ -52,6 +54,13 @@ const httpServer = app.listen(config.PORT, () => {
     logger.info(`Servidor escuchando en el puerto ${config.PORT}`);
 });
 
+
+
 // Socket Server
 const socketServer = new Server(httpServer);
+
+socketServer.use((socket, next) => {
+    sessionMiddleware(socket.request, socket.request.res || {}, next);
+  });
+  
 websocketManager(socketServer);

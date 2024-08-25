@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { isAuth } from "../middlewares/isAuth.js";
 import { isAdmin } from "../middlewares/isAdmin.js";
+import { isPremium } from "../middlewares/isPremium.js";
 //Controllers de fileSystem
 //import * as controllers from "../controllers/productControllerFS.js"
 
@@ -11,18 +12,19 @@ const productsRouter = Router();
 const productController = new ProductController();
 
 import * as ProductsControllers from '../controllers/productControllerM.js';
+import { isAdminOrIsPremium } from "../middlewares/isAdminOrIsPremium.js";
 
 productsRouter.route('/mockingproducts')
-    .post(ProductsControllers.createProd)
-    .get(ProductsControllers.getProds)
+    .post([isAuth, isAdmin], ProductsControllers.createProd)
+    .get([isAuth, isAdmin], ProductsControllers.getProds)
 
 productsRouter.route('/')
     .get([isAuth], productController.getAll)
-    .post([isAuth, isAdmin], productController.create)
+    .post([isAuth, isAdminOrIsPremium], productController.create)
 
 productsRouter.route('/:id')
     .get([isAuth], productController.getById)
-    .put([isAuth, isAdmin], productController.update)
-    .delete([isAuth, isAdmin], productController.delete)
+    .put([isAuth, isAdminOrIsPremium], productController.update)
+    .delete([isAuth, isAdminOrIsPremium], productController.delete)
 
 export default productsRouter;

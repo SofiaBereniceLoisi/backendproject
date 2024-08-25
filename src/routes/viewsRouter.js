@@ -4,12 +4,14 @@ import { isAdmin } from "../middlewares/isAdmin.js";
 import logger from "../config/logConfig.js";
 import { HttpResponse } from "../utils/httpResponse.js";
 import { renderResetPasswordView, handleMailToResetPass, handleResetPassword } from '../controllers/mailingController.js'
+// import { isPremium } from "../middlewares/isPremium.js";
+import { isAdminOrIsPremium } from "../middlewares/isAdminOrIsPremium.js";
 const httpResponse = new HttpResponse();
 const viewsRouter = Router();
 
 //localhost:8080/...
 
-viewsRouter.get('/realtimeproducts', [isAuth, isAdmin], async (req, res) => {
+viewsRouter.get('/realtimeproducts', [isAuth, isAdminOrIsPremium], async (req, res) => {
     try {
         res.render('realTimeProducts');
     } catch (error) {
