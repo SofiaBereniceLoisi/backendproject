@@ -46,7 +46,7 @@ export default class UserController extends Controllers {
                 req.logIn(user, (err) => {
                     if (err) return next(err);
                     const { first_name, last_name, email, role } = user;
-                    
+
                     logger.info(`LOGIN OK! Usuario: ${first_name} ${last_name}, Email: ${email}, Rol: ${role}`);
                     return res.redirect('/users/profile');
                 });
@@ -86,6 +86,30 @@ export default class UserController extends Controllers {
             } else {
                 return httpResponse.Unauthorized(res, 'Unauthorized');;
             }
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    changeUserRole = async (req, res, next) => {
+        const { uid } = req.params;
+
+        try {
+            // Obtener el usuario por su ID
+            const user = await userService.getById(uid);
+
+            if (!user) {
+                return httpResponse.NotFound(res, 'User not found');
+            }
+
+            // Cambiar el rol del usuario
+            const newRole = user.role === 'user' ? 'premium' : 'user';
+            user.role = newRole;
+
+            // Guardar los cambios
+            await userService.update(uid, user);
+
+            return httpResponse.Ok(res, `User role changed to ${newRole}`);
         } catch (error) {
             next(error);
         }

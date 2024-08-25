@@ -3,6 +3,7 @@ import UserController from "../controllers/userController.js";
 import passport from "passport";
 import { isAuth } from "../middlewares/isAuth.js";
 import { validateEmail } from "../middlewares/validateEmail.js";
+import { isAdmin } from "../middlewares/isAdmin.js";
 
 const userRouter = Router();
 const userController = new UserController();
@@ -15,11 +16,13 @@ userRouter.post('/logout', userController.logoutResponse);
 userRouter.get('/private', isAuth, (req, res) => res.json({ msg: 'Ruta privada' }))
 userRouter.get('/profile', isAuth, userController.profile);
 
+userRouter.put('/premium/:uid', [isAuth, isAdmin], userController.changeUserRole);
+
 // Passport con github -----
 // Ruta inicial:
 userRouter.get('/register-github', passport.authenticate('github', { scope: ['user:email'] }));
 // Ruta de callback
-userRouter.get('/github-callback', passport.authenticate('github' , {
+userRouter.get('/github-callback', passport.authenticate('github', {
     failureRedirect: '/login',
     // successRedirect: '/profile-github',
     passReqToCallback: true

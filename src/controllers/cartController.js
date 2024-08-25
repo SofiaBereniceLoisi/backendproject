@@ -15,10 +15,20 @@ export default class CartController extends Controllers {
       //const { cid } = req.params;
       const { cart } = req.user;
       const { pid } = req.params;
-      const newProdToUserCart = await cartService.addProdToCart(
-        cart,
-        pid,
-      );
+      const userEmail = req.user.email; 
+
+      const product = await productService.getById(pid);
+
+      // Verifica si el producto existe
+      if (!product) {
+        return httpResponse.NotFound(res, "El producto no existe.");
+      }
+
+      if (req.user.role === 'premium' && product.owner === userEmail) {
+        return httpResponse.Forbidden(res, "No puede agregar a su carrito un producto que le pertenece.");
+      }
+
+      const newProdToUserCart = await cartService.addProdToCart(cart, pid);
       if (!newProdToUserCart) {
         return httpResponse.NotFound(res,"El producto o el carrito no existe.");
       } else {
