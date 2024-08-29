@@ -136,7 +136,7 @@ export default class ProductController extends Controllers {
 
         } catch (error) {
             logger.error('Error deleting product: ', error);
-            return httpResponse.InternalServerError(res, 'Error eliminando producto');
+            return next(error)
         }
     }
 

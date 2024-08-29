@@ -40,13 +40,10 @@ viewsRouter.get('/mailtoresetpass', async (req, res) => {
     res.render('mailToResetPass');
 });
 
-// Enviar correo para restablecer la contraseña
-viewsRouter.get('/resetPassword/:resetId', renderResetPasswordView);
-
-// Enviar el correo para recuperación de contraseña
 viewsRouter.post('/mailtoresetpass', handleMailToResetPass);
 
-// Procesar el formulario de recuperación de contraseña
+viewsRouter.get('/resetPassword/:resetId', renderResetPasswordView);
+
 viewsRouter.post('/resetpassword', handleResetPassword);
 
 export default viewsRouter;

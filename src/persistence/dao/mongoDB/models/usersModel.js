@@ -9,7 +9,7 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true },
     age: { type: Number },
     password: { type: String, required: true },
-    role: { type: String, default: 'user' },
+    role: { type: String, default: 'user', required: true},
     isGithub: { type: Boolean, default: false },
     cart: { type: Schema.Types.ObjectId, ref: 'carts', default: []} // Referencia al carrito
 })

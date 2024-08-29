@@ -15,12 +15,17 @@ import './passport/localStrategy.js';
 import './passport/githubStrategy.js';
 import compression from 'express-compression';
 import logger from './config/logConfig.js';
+import swaggerUI from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import { info } from './docs/info.js';
 
 // IMPORT ROUTER
 import MainRouter from './routes/mainRouter.js';
 const mainRouter = new MainRouter();
 
 const app = express();
+
+const specs = swaggerJSDoc(info);
 
 const sessionMiddleware = session(storeConfig);
 
@@ -32,9 +37,10 @@ app.use(cookieParser());
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(compression({brotli:{enabled:true,zlib:{}}}));
+app.use(compression({ brotli: { enabled: true, zlib: {} } }));
 app.use(errorHandler);
 app.use(errorMessagesMiddleware);
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 // Carpeta vistas y motor de plantillas
 app.set('view engine', 'handlebars');
@@ -50,7 +56,7 @@ if (config.PERSISTENCE === 'MONGO') {
 }
 
 // HTTP Server
-const httpServer = app.listen(config.PORT, () => { 
+const httpServer = app.listen(config.PORT, () => {
     logger.info(`Servidor escuchando en el puerto ${config.PORT}`);
 });
 
@@ -61,6 +67,6 @@ const socketServer = new Server(httpServer);
 
 socketServer.use((socket, next) => {
     sessionMiddleware(socket.request, socket.request.res || {}, next);
-  });
-  
+});
+
 websocketManager(socketServer);

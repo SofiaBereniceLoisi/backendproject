@@ -1,0 +1,63 @@
+#ENDPOINTS:
+
+paths: 
+  #CARTS:
+  /api/carts:
+    get:
+      summary: Obtiene todos los carritos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/Carts'
+        required: true
+        responses:
+          200:
+            description: Se obtuvieron todos los carritos correctamente.
+            content:
+              application/json: 
+                schema:
+                  $ref: '#/components/schemas/Carts/Cart'     
+          404: 
+    post:
+  /api/carts/:id: 
+  /api/carts/products/:pid:
+  /api/carts/clear/:cid:
+
+  #PRODUCTS:
+  /api/products:
+  /api/products/:id:
+  /api/products/mockingproducts:
+
+  #VIEWS:
+  /:
+  /realtimeproducts:
+  /chat:
+    #get
+  /login:
+  /register:
+  /resetpassword:
+  /resetPassword/:resetId:
+  /mailtoresetpass:
+
+  #CHAT:
+  /chat:
+    #get, post
+
+  #USERS:
+  /users:
+  /users/register:
+  /users/login:
+  /users/logout:
+  /users/private:
+  /users/profile:
+  /users/premium/:uid:
+  /users/register-github:
+  /users/github-callback:
+
+  #TICKETS:
+  /ticket:
+  /ticket/purchase:
+
+  #LOGGER TEST:
+  /test/loggerTest:
