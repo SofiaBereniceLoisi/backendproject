@@ -112,6 +112,211 @@ components:
 
 #ERRORES:
 
+  responses:
+    OkResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example: Success
+              data:
+                type: object
+                description: The response data
+
+    CreatedResponse:
+      description: Successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 201
+              message:
+                type: string
+                example: Created successfully
+              data:
+                type: object
+                description: The response data
+
+    BadRequestError:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 400
+              message:
+                type: string
+                example: Invalid request
+              error:
+                type: string
+                example: "Details about the error"
+
+    UnauthorizedError:
+      description: Unauthorized user
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 401
+              message:
+                type: string
+                example: Unidentified user
+              error:
+                type: string
+                example: "Details about the error"
+
+    ForbiddenError:
+      description: User without permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 403
+              message:
+                type: string
+                example: User without permissions
+              error:
+                type: string
+                example: "Details about the error"
+
+    NotFoundError:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 404
+              message:
+                type: string
+                example: Not found
+              error:
+                type: string
+                example: "Details about the error"
+
+    ConflictError:
+      description: Conflictive request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 409
+              message:
+                type: string
+                example: Conflictive request
+              error:
+                type: string
+                example: "Details about the error"
+
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 500
+              message:
+                type: string
+                example: Internal Server Error
+              error:
+                type: string
+                example: "Details about the error"
+
+    ServiceUnavailableError:
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 501
+              message:
+                type: string
+                example: Unavailable Service
+              error:
+                type: string
+                example: "Details about the error"
+
+    EmptyCartError:
+      description: Cannot generate ticket: Cart is empty
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 400
+              message:
+                type: string
+                example: Cannot generate ticket: Cart is empty
+              error:
+                type: string
+                example: "Details about the error"
+
+    IncorrectPasswordError:
+      description: Incorrect password
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 401
+              message:
+                type: string
+                example: Incorrect password
+              error:
+                type: string
+                example: "Details about the error"
+
+    EmailAlreadyRegisteredError:
+      description: Email already registered
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 409
+              message:
+                type: string
+                example: Email already registered
+              error:
+                type: string
+                example: "Details about the error"
+
 #CONTOLLERS (EJ: GETALL, GETBYID, CREATE, UPDATE, DELETE, ETC)
 
 

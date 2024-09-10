@@ -4,6 +4,8 @@ paths:
   #CARTS:
   /api/carts:
     get:
+      tags:
+        - Carts
       summary: Obtiene todos los carritos
       requestBody:
         content:
@@ -37,6 +39,8 @@ paths:
                   schema:
                     $ref: '#/components/schemas/Carts/Cart' 
     post:
+      tags:
+        - Carts
       summary: Crea un nuevo carrito vacio.
         requestBody:
           content:
@@ -71,6 +75,8 @@ paths:
                       $ref: '#/components/schemas/Carts/Cart' 
   /api/carts/:id: 
     get:
+      tags:
+        - Carts
       summary: Obtiene un carrito por su id
       requestBody:
         content:
@@ -98,6 +104,8 @@ paths:
                   schema:
                     $ref: '#/components/schemas/Carts/Cart'
     put:
+      tags:
+        - Carts
       summary: Actualiza un carrito por su id
       requestBody:
         content:
@@ -131,6 +139,8 @@ paths:
                   schema:
                     $ref: '#/components/schemas/Carts/Cart'
     delete:
+      tags:
+        - Carts
       summary: Elimina un carrito por su id
       requestBody:  
         content:  
@@ -165,6 +175,8 @@ paths:
                     $ref: '#/components/schemas/Carts/Cart'
   /api/carts/products/:pid:
     post:
+      tags:
+        - Carts
       summary: Agrega un producto al carrito por su id
       requestBody:
         content:
@@ -192,6 +204,8 @@ paths:
                   schema:
                     $ref: '#/components/schemas/Carts/Cart'
     put:
+      tags:
+        - Carts
       summary: Actualiza la cantidad de un producto en el carrito por su id
       requestBody:  
         content:
@@ -219,6 +233,8 @@ paths:
                   schema:
                     $ref: '#/components/schemas/Carts/Cart'
     delete:
+      tags:
+        - Carts
       summary: Elimina un producto del carrito por su id
       requestBody:  
         content:
@@ -247,6 +263,8 @@ paths:
                     $ref: '#/components/schemas/Carts/Cart'
   /api/carts/clear/:cid:
     delete:
+      tags:
+        - Carts
       summary: Elimina todos los productos del carrito por su id
       requestBody:  
         content:
@@ -277,6 +295,8 @@ paths:
   /api/products:
     #get, post
     get:
+      tags:
+        - Products
       summary: Obtiene todos los productos
       requestBody:
         content:
@@ -304,6 +324,8 @@ paths:
                   schema:
                     $ref: '#/components/schemas/Products/Products'
     post:
+      tags:
+        - Products
       summary: Crea un nuevo producto
       requestBody:
         content:
@@ -339,6 +361,8 @@ paths:
   /api/products/:id:
     #get, put, delete
     get:
+      tags:
+        - Products
       summary: Obtiene un producto por su id
       requestBody:
         content:
@@ -366,6 +390,8 @@ paths:
                   schema:
                     $ref: '#/components/schemas/Products/Products'
     put:
+      tags:
+        - Products
       summary: Actualiza un producto por su id
       requestBody:
         content:
@@ -399,6 +425,8 @@ paths:
                   schema:
                     $ref: '#/components/schemas/Products/Products'
     delete: 
+      tags:
+        - Products
       summary: Elimina un producto por su id
       requestBody:
         content:
@@ -436,6 +464,8 @@ paths:
   /api/products/mockingproducts:
     #get,post
     get:
+      tags:
+        - Products  
       summary: Obtiene todos los productos
       responses:
         200:
@@ -463,6 +493,8 @@ paths:
                 schema:
                   $ref: '#/components/schemas/Products/Products'
     post:
+      tags:
+        - Products
       summary: Crea 50 mocking products
         requestBody:
           content:
@@ -498,6 +530,8 @@ paths:
   #VIEWS:
   /:
     get:
+      tags:
+        - Views
       summary: Obtiene y muestra la vista principal de la pagina.
       responses:
         200:
@@ -507,6 +541,8 @@ paths:
 
   /realtimeproducts:
     get:
+      tags:
+        - Views
       summary: Obtiene y muestra la vista de productos en tiempo real.
       responses:
         200:
@@ -520,6 +556,8 @@ paths:
   /chat:
     #get
     get:
+      tags:
+        - Views
       summary: Obtiene y muestra la vista del chat.
       responses:
         200:
@@ -528,6 +566,8 @@ paths:
           description: Error mostrando la vista del chat.
   /login:
     get:
+      tags:
+        - Views
       summary: Obtiene y muestra la vista de inicio de sesion.
       responses:
         200:
@@ -536,6 +576,8 @@ paths:
           description: Error mostrando la vista de inicio de sesion.
   /register:
     get:
+      tags:
+        - Views
       summary: Obtiene y muestra la vista de registro.
       responses:
         200:
@@ -544,29 +586,33 @@ paths:
           description: Error mostrando la vista de registro.
   /resetpassword:
     post:
+      tags:
+        - Views
       summary: Restablece la contraseña de un usuario.
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              password:
-                type: string
-                format: password
-                example: "NuevaContraseña123"
-    responses:
-      200:
-        description: Contraseña restablecida correctamente.
-      400:
-        description: Solicitud inválida (por ejemplo, la nueva contraseña es igual a la anterior o no cumple con los criterios de seguridad).
-      404:  
-        description: El enlace de restablecimiento ha expirado o es inválido.
-      500:
-        description: Error restableciendo la contraseña.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  format: password
+                  example: "NuevaContraseña123"
+      responses:
+        200:
+          description: Contraseña restablecida correctamente.
+        400:
+          description: Solicitud inválida (por ejemplo, la nueva contraseña es igual a la anterior o no cumple con los criterios de seguridad).
+        404:  
+          description: El enlace de restablecimiento ha expirado o es inválido.
+        500:
+          description: Error restableciendo la contraseña.
   /resetPassword/:resetId:
     get:
+      tags:
+        - Views
       summary: Obtiene y muestra la vista para restablecer la contraseña.
       responses:
         200:
@@ -575,6 +621,8 @@ paths:
           description: Error mostrando la vista para restablecer la contraseña.
   /mailtoresetpass:
     get: 
+      tags:
+        - Views
       summary: Obtiene y muestra la pagina para ingresar el mail y restablecer la contraseña.
       responses:
         200:
@@ -582,25 +630,27 @@ paths:
         404:  
           description: Error mostrando la pagina para restablecer el mail.
     post:
+      tags:
+        - Views
       summary: Envía un correo con un enlace para restablecer la contraseña.
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              email:
-                type: string
-                format: email
-                example: "usuario@dominio.com"
-    responses:
-      200:
-        description: Correo de restablecimiento enviado exitosamente.
-      400:
-        description: Solicitud inválida (por ejemplo, el correo electrónico no está registrado).
-      500:
-        description: Error al enviar el correo.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "usuario@dominio.com"
+      responses:
+        200:
+          description: Correo de restablecimiento enviado exitosamente.
+        400:
+          description: Solicitud inválida (por ejemplo, el correo electrónico no está registrado).
+        500:
+          description: Error al enviar el correo.
 
   #CHAT:
   /chat:
@@ -609,6 +659,8 @@ paths:
   #USERS:
   /users/register:
     post: 
+      tags:
+        - Users
       summary: Crea un nuevo usuario.
       requestBody:
         content:
@@ -632,6 +684,8 @@ paths:
 
   /users/login:
     post: 
+      tags:
+        - Users
       summary: Inicia sesión de un usuario.
       requestBody:
         content:
@@ -661,6 +715,8 @@ paths:
         
   /users/logout:
     post: 
+      tags:
+        - Users
       summary: Cierra sesión de un usuario.
       responses:
         200:
@@ -671,6 +727,8 @@ paths:
           description: Error cerrando sesion. El usuario no existe.
   /users/private:
     get:
+      tags:
+        - Users
       summary: Obtiene y muestra una vista privada.
       responses:
         200:
@@ -681,6 +739,8 @@ paths:
           description: Error mostrando la vista privada.
   /users/profile:
     get:
+      tags:
+        - Users
       summary: Obtiene y muestra la vista de perfil.
       responses:
         200:
@@ -691,6 +751,8 @@ paths:
           description: Error mostrando la vista de perfil.
   /users/premium/:uid:
     put:  
+      tags:
+        - Users
       summary: Cambia el rol de un usuario.
       parameters:
         - $ref: '#/components/parameters/uid'
@@ -711,6 +773,8 @@ paths:
   #TICKETS:
   /ticket/purchase:
     post: 
+      tags:
+        - Tickets
       summary: Crea un nuevo ticket.
       requestBody:
         content:
@@ -737,6 +801,8 @@ paths:
   #LOGGER TEST:
   /test/loggerTest:
     get:
+      tags:
+        - Logger
       summary: Test de logger.
       responses:
         200:
