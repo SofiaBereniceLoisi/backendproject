@@ -13,5 +13,6 @@ export default {
     HOST: process.env.HOST,
     EMAIL: process.env.EMAIL,
     PASSWORD: process.env.PASSWORD,
-    NODE_ENV: process.env.NODE_ENV
+    NODE_ENV: process.env.NODE_ENV,
+    MONGO_URL_TEST: process.env.MONGO_URL_TEST
 }

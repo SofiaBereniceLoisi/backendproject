@@ -7,3 +7,6 @@ error | 2024-08-23 19:30:11 | Error adding product:  Cannot read properties of u
 error | 2024-08-25 18:00:08 | Error updating product:  productManager is not defined
 error | 2024-08-25 18:01:29 | Error updating product:  productManager is not defined
 error | 2024-08-25 18:02:04 | Error updating product:  productManager is not defined
+error | 2024-09-17 15:42:09 | Error conectando a MongoDB TEST: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+error | 2024-09-17 15:54:34 | Error conectando a MongoDB TEST: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+error | 2024-09-17 15:55:15 | Error conectando a MongoDB TEST: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.

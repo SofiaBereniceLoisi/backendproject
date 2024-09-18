@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon ./src/app.js"
+    "start": "nodemon ./src/app.js",
+    "test": "mocha src/test/prodDaoTest.js --exit"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "express-compression": "^1.0.2",
     "express-handlebars": "^7.1.2",
     "express-session": "^1.18.0",
+    "mocha": "^10.7.3",
     "mongoose": "^8.4.1",
     "mongoose-paginate-v2": "^1.8.2",
     "nodemailer": "^6.9.14",
