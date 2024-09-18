@@ -10,3 +10,5 @@ error | 2024-08-25 18:02:04 | Error updating product:  productManager is not def
 error | 2024-09-17 15:42:09 | Error conectando a MongoDB TEST: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
 error | 2024-09-17 15:54:34 | Error conectando a MongoDB TEST: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
 error | 2024-09-17 15:55:15 | Error conectando a MongoDB TEST: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+error | 2024-09-18 20:49:17 | Error getting cart  id_invalido : Cast to ObjectId failed for value "id_invalido" (type string) at path "_id" for model "carts"
+error | 2024-09-18 20:49:17 | Error adding product in cart:  carts validation failed: products.0.product: Cast to ObjectId failed for value "id_invalido" (type string) at path "product" because of "BSONError"
