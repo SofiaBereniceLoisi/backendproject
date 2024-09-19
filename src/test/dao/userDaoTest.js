@@ -1,8 +1,8 @@
-import logger from "../config/logConfig.js";
+import logger from "../../config/logConfig.js";
 import assert from "assert";
 import { describe, test, before, beforeEach, after } from 'node:test';
-import UserManagerM from "../persistence/dao/mongoDB/userManagerM.js";
-import { initMongoDBTEST } from "../persistence/dao/mongoDB/connectionMDB-TEST.js";
+import UserManagerM from "../../persistence/dao/mongoDB/userManagerM.js";
+import { initMongoDBTEST } from "../../persistence/dao/mongoDB/connectionMDB-TEST.js";
 import mongoose from "mongoose";
 
 describe("Tests unitarios de productsDao", () => {

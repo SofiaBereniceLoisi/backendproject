@@ -6,7 +6,9 @@
     "start": "nodemon ./src/app.js",
     "test:prods": "node src/test/prodDaoTest.js",
     "test:carts": "node src/test/cartDaoTest.js",
-    "test:users": "node src/test/userDaoTest.js"
+    "test:users": "node src/test/userDaoTest.js",
+    "test:daos": "npm run test:prods && npm run test:carts && npm run test:users",
+    "test:api": "node ./src/test/app/userRouter.test.js"
   },
   "author": "",
   "license": "ISC",
@@ -36,5 +38,8 @@
     "swagger-ui-express": "^5.0.1",
     "uuid": "^10.0.0",
     "winston": "^3.14.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
   }
 }

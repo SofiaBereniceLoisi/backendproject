@@ -1,811 +1,811 @@
-#ENDPOINTS:
+# #ENDPOINTS:
 
-paths: 
-  #CARTS:
-  /api/carts:
-    get:
-      tags:
-        - Carts
-      summary: Obtiene todos los carritos
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Carts'
-        required: true
-        responses:
-          200:
-            description: Se obtuvieron todos los carritos correctamente.
-            content:
-              application/json: 
-                schema:
-                  $ref: '#/components/schemas/Carts/Cart'    
-          401:
-              description: Error creando un nuevo carrito. El usuario no inicio sesion.  
-                content:  
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Carts/Cart'  
-          404: 
-            description: Error obtuviendo todos los carritos.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart' 
-          403:
-            description: Error obtuviendo todos los carritos. Usuario sin permisos. 
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart' 
-    post:
-      tags:
-        - Carts
-      summary: Crea un nuevo carrito vacio.
-        requestBody:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/parameters/schemas/Carts'
-          required: true
-          responses:
-            200:
-              description: Se creo un nuevo carrito vacío correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'  
-            401:
-              description: Error creando un nuevo carrito. El usuario no inicio sesion.  
-                content:  
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Carts/Cart' 
-            404: 
-              description: Error creando un nuevo carrito.
-                content:
-                  application/json: 
-                    schema:
-                      $ref: '#/components/schemas/Carts/Cart' 
-            403:
-              description: Error obtuviendo todos los carritos. Usuario sin permisos. 
-                content:
-                  application/json: 
-                    schema:
-                      $ref: '#/components/schemas/Carts/Cart' 
-  /api/carts/:id: 
-    get:
-      tags:
-        - Carts
-      summary: Obtiene un carrito por su id
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Carts'
-        required: true
-        responses:
-          200:
-            description: Se obtuvo el carrito correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-          401:
-              description: Error obtuviendo carrito. El usuario no inicio sesion.  
-                content:  
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Carts/Cart' 
-          404:
-            description: No se encontro el carrito.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-    put:
-      tags:
-        - Carts
-      summary: Actualiza un carrito por su id
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Carts'
-        required: true
-        responses:
-          200:
-            description: Se actualizo el carrito correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-          401:
-              description: Error actualizando el carrito. El usuario no inicio sesion.  
-                content:  
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Carts/Cart'
-          403:
-            description: Error actualizando el carrito. El usuario no tiene permisos para realizar esta operacion.  
-              content:  
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-          404:
-            description: No se encontro el carrito.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-    delete:
-      tags:
-        - Carts
-      summary: Elimina un carrito por su id
-      requestBody:  
-        content:  
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Carts' 
-        required: true
-        responses:
-          200:
-            description: Se elimino el carrito correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-          401:
-              description: Error eliminando el carrito. El usuario no inicio sesion.
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Carts/Cart'
-          403:
-            description: Error eliminando el carrito. El usuario no tiene permisos para realizar esta operacion.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-          404:
-            description: No se encontro el carrito.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-  /api/carts/products/:pid:
-    post:
-      tags:
-        - Carts
-      summary: Agrega un producto al carrito por su id
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Carts'
-        required: true
-        responses:
-          200:
-            description: Se agrego el producto al carrito correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-          401:
-              description: Error agregando el producto al carrito. El usuario no inicio sesion.  
-                content:  
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Carts/Cart'
-          404:
-            description: No se encontro el producto para agregar al carrito.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-    put:
-      tags:
-        - Carts
-      summary: Actualiza la cantidad de un producto en el carrito por su id
-      requestBody:  
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Carts'
-        required: true
-        responses:
-          200:
-            description: Se actualizo la cantidad del producto en el carrito correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-          401:
-              description: Error actualizando la cantidad del producto en el carrito. El usuario no inicio sesion.
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Carts/Cart'
-          404:
-            description: No se encontro el producto para agregar al carrito.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-    delete:
-      tags:
-        - Carts
-      summary: Elimina un producto del carrito por su id
-      requestBody:  
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Carts'
-        required: true
-        responses:
-          200:
-            description: Se elimino el producto del carrito correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-          401:  
-            description: Error eliminando el producto del carrito. El usuario no inicio sesion.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-          404:
-            description: No se encontro el producto para agregar al carrito.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-  /api/carts/clear/:cid:
-    delete:
-      tags:
-        - Carts
-      summary: Elimina todos los productos del carrito por su id
-      requestBody:  
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Carts'
-        required: true
-        responses:
-          200:
-            description: Se elimino el carrito correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-          401:  
-            description: Error eliminando el carrito. El usuario no inicio sesion.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-          404:
-            description: No se encontro el carrito.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Carts/Cart'
-  #PRODUCTS:
-  /api/products:
-    #get, post
-    get:
-      tags:
-        - Products
-      summary: Obtiene todos los productos
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Products'
-        required: true
-        responses:
-          200:
-            description: Se obtuvieron todos los productos correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-          401:
-              description: Error obtuviendo todos los productos. El usuario no inicio sesion.  
-                content:  
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Products/Products'
-          404:  
-            description: Error obtuviendo todos los productos.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-    post:
-      tags:
-        - Products
-      summary: Crea un nuevo producto
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Products'
-        required: true
-        responses:
-          200:
-            description: Se agrego el producto correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-          401:
-            description: Error creando el producto. El usuario no inicio sesion.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-          403:
-            description: Error creando el producto. El usuario no tiene permisos para realizar esta operacion.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-          404:
-            description: Error creando el producto.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-  /api/products/:id:
-    #get, put, delete
-    get:
-      tags:
-        - Products
-      summary: Obtiene un producto por su id
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Products'
-        required: true
-        responses:
-          200:
-            description: Se obtuvo el producto correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-          401:
-              description: Error obtuviendo el producto. El usuario no inicio sesion.  
-                content:  
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Products/Products'
-          404:  
-            description: Error obtuviendo el producto.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-    put:
-      tags:
-        - Products
-      summary: Actualiza un producto por su id
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Products'
-        required: true
-        responses:
-          200:
-            description: Se actualizo el producto correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-          401:
-            description: Error actualizando el producto. El usuario no inicio sesion.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-          403:
-            description: Error actualizando el producto. El usuario no tiene permisos para realizar esta operacion.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-          404:
-            description: No se encontró el producto.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-    delete: 
-      tags:
-        - Products
-      summary: Elimina un producto por su id
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Products'
-        required: true
-        responses:
-          200:
-            description: Se elimino el producto correctamente.
-              content:
-                application/json: 
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-          401:  
-            description: Error eliminando el producto. El usuario no inicio sesion.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-          403:
-            description: Error eliminando el producto. El usuario no tiene permisos para realizar esta operacion.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-          404:
-            description: No se encontró el producto.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
+# paths: 
+#   #CARTS:
+#   /api/carts:
+#     get:
+#       tags:
+#         - Carts
+#       summary: Obtiene todos los carritos
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Carts'
+#         required: true
+#         responses:
+#           200:
+#             description: Se obtuvieron todos los carritos correctamente.
+#             content:
+#               application/json: 
+#                 schema:
+#                   $ref: '#/components/schemas/Carts/Cart'    
+#           401:
+#               description: Error creando un nuevo carrito. El usuario no inicio sesion.  
+#                 content:  
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Carts/Cart'  
+#           404: 
+#             description: Error obtuviendo todos los carritos.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart' 
+#           403:
+#             description: Error obtuviendo todos los carritos. Usuario sin permisos. 
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart' 
+#     post:
+#       tags:
+#         - Carts
+#       summary: Crea un nuevo carrito vacio.
+#         requestBody:
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/parameters/schemas/Carts'
+#           required: true
+#           responses:
+#             200:
+#               description: Se creo un nuevo carrito vacío correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'  
+#             401:
+#               description: Error creando un nuevo carrito. El usuario no inicio sesion.  
+#                 content:  
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Carts/Cart' 
+#             404: 
+#               description: Error creando un nuevo carrito.
+#                 content:
+#                   application/json: 
+#                     schema:
+#                       $ref: '#/components/schemas/Carts/Cart' 
+#             403:
+#               description: Error obtuviendo todos los carritos. Usuario sin permisos. 
+#                 content:
+#                   application/json: 
+#                     schema:
+#                       $ref: '#/components/schemas/Carts/Cart' 
+#   /api/carts/:id: 
+#     get:
+#       tags:
+#         - Carts
+#       summary: Obtiene un carrito por su id
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Carts'
+#         required: true
+#         responses:
+#           200:
+#             description: Se obtuvo el carrito correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#           401:
+#               description: Error obtuviendo carrito. El usuario no inicio sesion.  
+#                 content:  
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Carts/Cart' 
+#           404:
+#             description: No se encontro el carrito.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#     put:
+#       tags:
+#         - Carts
+#       summary: Actualiza un carrito por su id
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Carts'
+#         required: true
+#         responses:
+#           200:
+#             description: Se actualizo el carrito correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#           401:
+#               description: Error actualizando el carrito. El usuario no inicio sesion.  
+#                 content:  
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Carts/Cart'
+#           403:
+#             description: Error actualizando el carrito. El usuario no tiene permisos para realizar esta operacion.  
+#               content:  
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#           404:
+#             description: No se encontro el carrito.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#     delete:
+#       tags:
+#         - Carts
+#       summary: Elimina un carrito por su id
+#       requestBody:  
+#         content:  
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Carts' 
+#         required: true
+#         responses:
+#           200:
+#             description: Se elimino el carrito correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#           401:
+#               description: Error eliminando el carrito. El usuario no inicio sesion.
+#                 content:
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Carts/Cart'
+#           403:
+#             description: Error eliminando el carrito. El usuario no tiene permisos para realizar esta operacion.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#           404:
+#             description: No se encontro el carrito.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#   /api/carts/products/:pid:
+#     post:
+#       tags:
+#         - Carts
+#       summary: Agrega un producto al carrito por su id
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Carts'
+#         required: true
+#         responses:
+#           200:
+#             description: Se agrego el producto al carrito correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#           401:
+#               description: Error agregando el producto al carrito. El usuario no inicio sesion.  
+#                 content:  
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Carts/Cart'
+#           404:
+#             description: No se encontro el producto para agregar al carrito.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#     put:
+#       tags:
+#         - Carts
+#       summary: Actualiza la cantidad de un producto en el carrito por su id
+#       requestBody:  
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Carts'
+#         required: true
+#         responses:
+#           200:
+#             description: Se actualizo la cantidad del producto en el carrito correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#           401:
+#               description: Error actualizando la cantidad del producto en el carrito. El usuario no inicio sesion.
+#                 content:
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Carts/Cart'
+#           404:
+#             description: No se encontro el producto para agregar al carrito.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#     delete:
+#       tags:
+#         - Carts
+#       summary: Elimina un producto del carrito por su id
+#       requestBody:  
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Carts'
+#         required: true
+#         responses:
+#           200:
+#             description: Se elimino el producto del carrito correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#           401:  
+#             description: Error eliminando el producto del carrito. El usuario no inicio sesion.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#           404:
+#             description: No se encontro el producto para agregar al carrito.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#   /api/carts/clear/:cid:
+#     delete:
+#       tags:
+#         - Carts
+#       summary: Elimina todos los productos del carrito por su id
+#       requestBody:  
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Carts'
+#         required: true
+#         responses:
+#           200:
+#             description: Se elimino el carrito correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#           401:  
+#             description: Error eliminando el carrito. El usuario no inicio sesion.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#           404:
+#             description: No se encontro el carrito.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Carts/Cart'
+#   #PRODUCTS:
+#   /api/products:
+#     #get, post
+#     get:
+#       tags:
+#         - Products
+#       summary: Obtiene todos los productos
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Products'
+#         required: true
+#         responses:
+#           200:
+#             description: Se obtuvieron todos los productos correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#           401:
+#               description: Error obtuviendo todos los productos. El usuario no inicio sesion.  
+#                 content:  
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Products/Products'
+#           404:  
+#             description: Error obtuviendo todos los productos.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#     post:
+#       tags:
+#         - Products
+#       summary: Crea un nuevo producto
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Products'
+#         required: true
+#         responses:
+#           200:
+#             description: Se agrego el producto correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#           401:
+#             description: Error creando el producto. El usuario no inicio sesion.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#           403:
+#             description: Error creando el producto. El usuario no tiene permisos para realizar esta operacion.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#           404:
+#             description: Error creando el producto.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#   /api/products/:id:
+#     #get, put, delete
+#     get:
+#       tags:
+#         - Products
+#       summary: Obtiene un producto por su id
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Products'
+#         required: true
+#         responses:
+#           200:
+#             description: Se obtuvo el producto correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#           401:
+#               description: Error obtuviendo el producto. El usuario no inicio sesion.  
+#                 content:  
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Products/Products'
+#           404:  
+#             description: Error obtuviendo el producto.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#     put:
+#       tags:
+#         - Products
+#       summary: Actualiza un producto por su id
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Products'
+#         required: true
+#         responses:
+#           200:
+#             description: Se actualizo el producto correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#           401:
+#             description: Error actualizando el producto. El usuario no inicio sesion.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#           403:
+#             description: Error actualizando el producto. El usuario no tiene permisos para realizar esta operacion.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#           404:
+#             description: No se encontró el producto.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#     delete: 
+#       tags:
+#         - Products
+#       summary: Elimina un producto por su id
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Products'
+#         required: true
+#         responses:
+#           200:
+#             description: Se elimino el producto correctamente.
+#               content:
+#                 application/json: 
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#           401:  
+#             description: Error eliminando el producto. El usuario no inicio sesion.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#           403:
+#             description: Error eliminando el producto. El usuario no tiene permisos para realizar esta operacion.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#           404:
+#             description: No se encontró el producto.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
   
-  #PRODUCTS MOCKING:
-  /api/products/mockingproducts:
-    #get,post
-    get:
-      tags:
-        - Products  
-      summary: Obtiene todos los productos
-      responses:
-        200:
-          description: Se obtuvieron los mocking productos correctamente.
-            content:
-              application/json: 
-                schema:
-                  $ref: '#/components/schemas/Products/Products'
-        401:
-            description: Error obtuviendo los mocking productos. El usuario no inicio sesion.  
-              content:  
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-        403:
-            description: Error obtuviendo los mocking productos. El usuario no tiene permisos para realizar esta operacion.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Products/Products'
-        404:  
-          description: Error obtuviendo los mocking productos.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/Products/Products'
-    post:
-      tags:
-        - Products
-      summary: Crea 50 mocking products
-        requestBody:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/parameters/schemas/Products'
-          required: true
-          responses:
-            200:
-              description: Se crearon 50 mocking products correctamente.
-                content:
-                  application/json: 
-                    schema:
-                      $ref: '#/components/schemas/Products/Products'
-            401:
-              description: Error creando 50 mocking products. El usuario no inicio sesion.  
-                content:  
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Products/Products'
-            403:
-              description: Error creando 50 mocking products. El usuario no tiene permisos para realizar esta operacion.
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Products/Products'
-            404:  
-              description: Error creando 50 mocking products.
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Products/Products'
-  #VIEWS:
-  /:
-    get:
-      tags:
-        - Views
-      summary: Obtiene y muestra la vista principal de la pagina.
-      responses:
-        200:
-          description: La vista principal se mostro correctamente.
-        404:  
-          description: Error mostrando la vista principal.
+#   #PRODUCTS MOCKING:
+#   /api/products/mockingproducts:
+#     #get,post
+#     get:
+#       tags:
+#         - Products  
+#       summary: Obtiene todos los productos
+#       responses:
+#         200:
+#           description: Se obtuvieron los mocking productos correctamente.
+#             content:
+#               application/json: 
+#                 schema:
+#                   $ref: '#/components/schemas/Products/Products'
+#         401:
+#             description: Error obtuviendo los mocking productos. El usuario no inicio sesion.  
+#               content:  
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#         403:
+#             description: Error obtuviendo los mocking productos. El usuario no tiene permisos para realizar esta operacion.
+#               content:
+#                 application/json:
+#                   schema:
+#                     $ref: '#/components/schemas/Products/Products'
+#         404:  
+#           description: Error obtuviendo los mocking productos.
+#             content:
+#               application/json:
+#                 schema:
+#                   $ref: '#/components/schemas/Products/Products'
+#     post:
+#       tags:
+#         - Products
+#       summary: Crea 50 mocking products
+#         requestBody:
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/parameters/schemas/Products'
+#           required: true
+#           responses:
+#             200:
+#               description: Se crearon 50 mocking products correctamente.
+#                 content:
+#                   application/json: 
+#                     schema:
+#                       $ref: '#/components/schemas/Products/Products'
+#             401:
+#               description: Error creando 50 mocking products. El usuario no inicio sesion.  
+#                 content:  
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Products/Products'
+#             403:
+#               description: Error creando 50 mocking products. El usuario no tiene permisos para realizar esta operacion.
+#                 content:
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Products/Products'
+#             404:  
+#               description: Error creando 50 mocking products.
+#                 content:
+#                   application/json:
+#                     schema:
+#                       $ref: '#/components/schemas/Products/Products'
+#   #VIEWS:
+#   /:
+#     get:
+#       tags:
+#         - Views
+#       summary: Obtiene y muestra la vista principal de la pagina.
+#       responses:
+#         200:
+#           description: La vista principal se mostro correctamente.
+#         404:  
+#           description: Error mostrando la vista principal.
 
-  /realtimeproducts:
-    get:
-      tags:
-        - Views
-      summary: Obtiene y muestra la vista de productos en tiempo real.
-      responses:
-        200:
-          description: La pagina de productos en tiempo real se mostro correctamente.
-        401:  
-          description: Error mostrando la pagina de productos en tiempo real. El usuario no inicio sesion.
-        403:
-          description: Error mostrando la pagina de productos en tiempo real. El usuario no tiene permisos para acceder a esta pagina.
-        404:  
-          description: Error mostrando la pagina de productos en tiempo real.
-  /chat:
-    #get
-    get:
-      tags:
-        - Views
-      summary: Obtiene y muestra la vista del chat.
-      responses:
-        200:
-          description: La vista del chat se mostro correctamente.
-        404:  
-          description: Error mostrando la vista del chat.
-  /login:
-    get:
-      tags:
-        - Views
-      summary: Obtiene y muestra la vista de inicio de sesion.
-      responses:
-        200:
-          description: La vista de inicio de sesion se mostro correctamente.
-        404:  
-          description: Error mostrando la vista de inicio de sesion.
-  /register:
-    get:
-      tags:
-        - Views
-      summary: Obtiene y muestra la vista de registro.
-      responses:
-        200:
-          description: La vista de registro se mostro correctamente.
-        404:  
-          description: Error mostrando la vista de registro.
-  /resetpassword:
-    post:
-      tags:
-        - Views
-      summary: Restablece la contraseña de un usuario.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                password:
-                  type: string
-                  format: password
-                  example: "NuevaContraseña123"
-      responses:
-        200:
-          description: Contraseña restablecida correctamente.
-        400:
-          description: Solicitud inválida (por ejemplo, la nueva contraseña es igual a la anterior o no cumple con los criterios de seguridad).
-        404:  
-          description: El enlace de restablecimiento ha expirado o es inválido.
-        500:
-          description: Error restableciendo la contraseña.
-  /resetPassword/:resetId:
-    get:
-      tags:
-        - Views
-      summary: Obtiene y muestra la vista para restablecer la contraseña.
-      responses:
-        200:
-          description: La vista para restablecer la contraseña se mostro correctamente.
-        404:  
-          description: Error mostrando la vista para restablecer la contraseña.
-  /mailtoresetpass:
-    get: 
-      tags:
-        - Views
-      summary: Obtiene y muestra la pagina para ingresar el mail y restablecer la contraseña.
-      responses:
-        200:
-          description: La pagina para restablecer la contraseña se mostro correctamente.
-        404:  
-          description: Error mostrando la pagina para restablecer el mail.
-    post:
-      tags:
-        - Views
-      summary: Envía un correo con un enlace para restablecer la contraseña.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                  example: "usuario@dominio.com"
-      responses:
-        200:
-          description: Correo de restablecimiento enviado exitosamente.
-        400:
-          description: Solicitud inválida (por ejemplo, el correo electrónico no está registrado).
-        500:
-          description: Error al enviar el correo.
+#   /realtimeproducts:
+#     get:
+#       tags:
+#         - Views
+#       summary: Obtiene y muestra la vista de productos en tiempo real.
+#       responses:
+#         200:
+#           description: La pagina de productos en tiempo real se mostro correctamente.
+#         401:  
+#           description: Error mostrando la pagina de productos en tiempo real. El usuario no inicio sesion.
+#         403:
+#           description: Error mostrando la pagina de productos en tiempo real. El usuario no tiene permisos para acceder a esta pagina.
+#         404:  
+#           description: Error mostrando la pagina de productos en tiempo real.
+#   /chat:
+#     #get
+#     get:
+#       tags:
+#         - Views
+#       summary: Obtiene y muestra la vista del chat.
+#       responses:
+#         200:
+#           description: La vista del chat se mostro correctamente.
+#         404:  
+#           description: Error mostrando la vista del chat.
+#   /login:
+#     get:
+#       tags:
+#         - Views
+#       summary: Obtiene y muestra la vista de inicio de sesion.
+#       responses:
+#         200:
+#           description: La vista de inicio de sesion se mostro correctamente.
+#         404:  
+#           description: Error mostrando la vista de inicio de sesion.
+#   /register:
+#     get:
+#       tags:
+#         - Views
+#       summary: Obtiene y muestra la vista de registro.
+#       responses:
+#         200:
+#           description: La vista de registro se mostro correctamente.
+#         404:  
+#           description: Error mostrando la vista de registro.
+#   /resetpassword:
+#     post:
+#       tags:
+#         - Views
+#       summary: Restablece la contraseña de un usuario.
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               type: object
+#               properties:
+#                 password:
+#                   type: string
+#                   format: password
+#                   example: "NuevaContraseña123"
+#       responses:
+#         200:
+#           description: Contraseña restablecida correctamente.
+#         400:
+#           description: Solicitud inválida (por ejemplo, la nueva contraseña es igual a la anterior o no cumple con los criterios de seguridad).
+#         404:  
+#           description: El enlace de restablecimiento ha expirado o es inválido.
+#         500:
+#           description: Error restableciendo la contraseña.
+#   /resetPassword/:resetId:
+#     get:
+#       tags:
+#         - Views
+#       summary: Obtiene y muestra la vista para restablecer la contraseña.
+#       responses:
+#         200:
+#           description: La vista para restablecer la contraseña se mostro correctamente.
+#         404:  
+#           description: Error mostrando la vista para restablecer la contraseña.
+#   /mailtoresetpass:
+#     get: 
+#       tags:
+#         - Views
+#       summary: Obtiene y muestra la pagina para ingresar el mail y restablecer la contraseña.
+#       responses:
+#         200:
+#           description: La pagina para restablecer la contraseña se mostro correctamente.
+#         404:  
+#           description: Error mostrando la pagina para restablecer el mail.
+#     post:
+#       tags:
+#         - Views
+#       summary: Envía un correo con un enlace para restablecer la contraseña.
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               type: object
+#               properties:
+#                 email:
+#                   type: string
+#                   format: email
+#                   example: "usuario@dominio.com"
+#       responses:
+#         200:
+#           description: Correo de restablecimiento enviado exitosamente.
+#         400:
+#           description: Solicitud inválida (por ejemplo, el correo electrónico no está registrado).
+#         500:
+#           description: Error al enviar el correo.
 
-  #CHAT:
-  /chat:
-    #get, post
+#   #CHAT:
+#   /chat:
+#     #get, post
 
-  #USERS:
-  /users/register:
-    post: 
-      tags:
-        - Users
-      summary: Crea un nuevo usuario.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Users'
-      required: true
-      responses:
-        200:
-          description: Se agrego el usuario correctamente.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Users/User'
-        400:
-          description: Error creando el usuario. El usuario ya existe.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Users/User'
+#   #USERS:
+#   /users/register:
+#     post: 
+#       tags:
+#         - Users
+#       summary: Crea un nuevo usuario.
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Users'
+#       required: true
+#       responses:
+#         200:
+#           description: Se agrego el usuario correctamente.
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/Users/User'
+#         400:
+#           description: Error creando el usuario. El usuario ya existe.
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/Users/User'
 
-  /users/login:
-    post: 
-      tags:
-        - Users
-      summary: Inicia sesión de un usuario.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Users'
-      required: true
-      responses:
-        200:
-          description: Se inicio sesion correctamente.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Users/User'
-        400:
-          description: Error iniciando sesion. La contraseña es incorrecta.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Users/User'
-        404:
-          description: Error iniciando sesion. El usuario no existe.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Users/User'
+#   /users/login:
+#     post: 
+#       tags:
+#         - Users
+#       summary: Inicia sesión de un usuario.
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Users'
+#       required: true
+#       responses:
+#         200:
+#           description: Se inicio sesion correctamente.
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/Users/User'
+#         400:
+#           description: Error iniciando sesion. La contraseña es incorrecta.
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/Users/User'
+#         404:
+#           description: Error iniciando sesion. El usuario no existe.
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/Users/User'
         
-  /users/logout:
-    post: 
-      tags:
-        - Users
-      summary: Cierra sesión de un usuario.
-      responses:
-        200:
-          description: Se cerro sesion correctamente.
-        401:
-          description: Error cerrando sesion. El usuario no inicio sesion.
-        404:
-          description: Error cerrando sesion. El usuario no existe.
-  /users/private:
-    get:
-      tags:
-        - Users
-      summary: Obtiene y muestra una vista privada.
-      responses:
-        200:
-          description: La vista privada se mostro correctamente.
-        401:
-          description: Error mostrando la vista privada. El usuario no inicio sesion.
-        404:
-          description: Error mostrando la vista privada.
-  /users/profile:
-    get:
-      tags:
-        - Users
-      summary: Obtiene y muestra la vista de perfil.
-      responses:
-        200:
-          description: La vista de perfil se mostro correctamente.
-        401:
-          description: Error mostrando la vista de perfil. El usuario no inicio sesion.
-        404:
-          description: Error mostrando la vista de perfil.
-  /users/premium/:uid:
-    put:  
-      tags:
-        - Users
-      summary: Cambia el rol de un usuario.
-      parameters:
-        - $ref: '#/components/parameters/uid'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Users'
-      required: true
-      responses:
-        200:
-          description: El rol del usuario se actualizo correctamente. 
-        401:
-          description: Error cambiando el rol del usuario. El usuario no inicio sesion.
-        404:
-          description: Error cambiando el rol del usuario. El usuario no existe.
+#   /users/logout:
+#     post: 
+#       tags:
+#         - Users
+#       summary: Cierra sesión de un usuario.
+#       responses:
+#         200:
+#           description: Se cerro sesion correctamente.
+#         401:
+#           description: Error cerrando sesion. El usuario no inicio sesion.
+#         404:
+#           description: Error cerrando sesion. El usuario no existe.
+#   /users/private:
+#     get:
+#       tags:
+#         - Users
+#       summary: Obtiene y muestra una vista privada.
+#       responses:
+#         200:
+#           description: La vista privada se mostro correctamente.
+#         401:
+#           description: Error mostrando la vista privada. El usuario no inicio sesion.
+#         404:
+#           description: Error mostrando la vista privada.
+#   /users/profile:
+#     get:
+#       tags:
+#         - Users
+#       summary: Obtiene y muestra la vista de perfil.
+#       responses:
+#         200:
+#           description: La vista de perfil se mostro correctamente.
+#         401:
+#           description: Error mostrando la vista de perfil. El usuario no inicio sesion.
+#         404:
+#           description: Error mostrando la vista de perfil.
+#   /users/premium/:uid:
+#     put:  
+#       tags:
+#         - Users
+#       summary: Cambia el rol de un usuario.
+#       parameters:
+#         - $ref: '#/components/parameters/uid'
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Users'
+#       required: true
+#       responses:
+#         200:
+#           description: El rol del usuario se actualizo correctamente. 
+#         401:
+#           description: Error cambiando el rol del usuario. El usuario no inicio sesion.
+#         404:
+#           description: Error cambiando el rol del usuario. El usuario no existe.
 
-  #TICKETS:
-  /ticket/purchase:
-    post: 
-      tags:
-        - Tickets
-      summary: Crea un nuevo ticket.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/parameters/schemas/Tickets'
-      required: true  
-      responses:  
-        200:
-          description: Se agrego el ticket correctamente.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tickets/Ticket'
-        400:
-          description: Error creando el ticket. El usuario no inicio sesion.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tickets/Ticket'
-        404:  
-          description: Error creando el ticket. El usuario no existe.
+#   #TICKETS:
+#   /ticket/purchase:
+#     post: 
+#       tags:
+#         - Tickets
+#       summary: Crea un nuevo ticket.
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/parameters/schemas/Tickets'
+#       required: true  
+#       responses:  
+#         200:
+#           description: Se agrego el ticket correctamente.
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/Tickets/Ticket'
+#         400:
+#           description: Error creando el ticket. El usuario no inicio sesion.
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/Tickets/Ticket'
+#         404:  
+#           description: Error creando el ticket. El usuario no existe.
 
-  #LOGGER TEST:
-  /test/loggerTest:
-    get:
-      tags:
-        - Logger
-      summary: Test de logger.
-      responses:
-        200:
-          description: El test de logger se ejecuto correctamente.
-        500:
-          description: Error ejecutando el test de logger.
+#   #LOGGER TEST:
+#   /test/loggerTest:
+#     get:
+#       tags:
+#         - Logger
+#       summary: Test de logger.
+#       responses:
+#         200:
+#           description: El test de logger se ejecuto correctamente.
+#         500:
+#           description: Error ejecutando el test de logger.

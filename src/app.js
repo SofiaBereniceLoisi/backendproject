@@ -4,6 +4,7 @@ import { __dirname } from './utils/utils.js';
 import { websocketManager } from './persistence/dao/mongoDB/websocketManager.js';
 import { Server } from 'socket.io';
 import { initMongoDB } from './persistence/dao/mongoDB/connectionMDB.js';
+import { initMongoDBTEST } from './persistence/dao/mongoDB/connectionMDB-TEST.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { errorMessagesMiddleware } from './middlewares/errorMessages.js';
 import cookieParser from 'cookie-parser';
@@ -21,6 +22,7 @@ import { info } from './docs/info.js';
 
 // IMPORT ROUTER
 import MainRouter from './routes/mainRouter.js';
+
 const mainRouter = new MainRouter();
 
 const app = express();
@@ -51,8 +53,10 @@ app.set('views', `${__dirname}/../views`);
 app.use('/', mainRouter.getRouter());
 
 // PERSISTENCIA EN MONGO 
-if (config.PERSISTENCE === 'MONGO') {
+if (config.PERSISTENCE === 'MONGO' && config.NODE_ENV === 'development') {
     initMongoDB();
+} else if (config.PERSISTENCE === 'MONGO' && config.NODE_ENV === 'test') {
+    initMongoDBTEST();
 }
 
 // HTTP Server
@@ -70,3 +74,5 @@ socketServer.use((socket, next) => {
 });
 
 websocketManager(socketServer);
+
+export default app;
