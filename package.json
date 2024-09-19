@@ -4,8 +4,9 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon ./src/app.js",
-    "test:prods": "node src/test/prodDaoTest.js --exit",
-    "test:carts": "node src/test/cartDaoTest.js --exit"
+    "test:prods": "node src/test/prodDaoTest.js",
+    "test:carts": "node src/test/cartDaoTest.js",
+    "test:users": "node src/test/userDaoTest.js"
   },
   "author": "",
   "license": "ISC",
