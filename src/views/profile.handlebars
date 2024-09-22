@@ -15,12 +15,18 @@
             {{/if}}
         </div>
         <div class="login-footer">
-            <button onclick="location.href='/api/products'">IR A LA PAGINA PRINCIPAL</button>
-        </div>
-        <div class="login-footer">
             <form action="/users/logout" method="post">
             <button type="submit">CERRAR SESIÓN</button>
             </form>
+        </div>
+        <div class="login-footer">
+            
+            {{#if (eq role 'admin')}}
+                <button onclick="location.href='/users'">ADMINISTRAR USUARIOS</button>
+            {{/if}}
+        </div>
+        <div class="login-footer">
+            <button onclick="location.href='/api/products'">IR A LA PAGINA PRINCIPAL</button>
         </div>
     </div>
 </section>

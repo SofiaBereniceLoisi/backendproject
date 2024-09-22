@@ -1,0 +1,65 @@
+{{!-- <link rel="stylesheet" href="/css/tables.css"> --}}
+<section class="contenedor-usuarios">
+    <div class="usuarios-header">
+        <h2>Lista de Usuarios</h2>
+    </div>
+    
+    <table class="usuarios-tabla">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Ultima conexión</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <td>{{this.first_name}} {{this.last_name}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.role}}</td>
+                <td>{{this.last_connection}}</td>
+                <!-- Formulario para hacer usuario premium -->
+                <td>
+                    <form action="/users/premium/{{this.id}}" method="post">
+                        {{#if (eq this.role "user")}}
+                            <button type="submit">Hacer usuario premium</button>
+                        {{else}}
+                            <button type="submit">Hacer usuario regular</button>
+                        {{/if}}
+                    </form>
+                </td>
+
+                <!-- Formulario para hacer administrador -->
+                {{#if (ne this.role "admin")}}
+                <td>
+                    <form action="/users/admin/{{this.id}}" method="post">
+                        <button type="submit">Hacer administrador</button>
+                    </form>
+                </td>
+                {{/if}}
+
+                <!-- Formulario para eliminar usuario -->
+                <td>
+                    <form action="/users/admin/delete-user/{{this.id}}" method="post">
+                        <button type="submit">Eliminar usuario</button>
+                    </form>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="3">No se encontraron usuarios</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="usuarios-footer">
+        {{#if users}}
+        <form action="/users/admin/delete-inactive-users" method="post">
+            <button type="submit">Eliminar Usuarios Inactivos</button>
+        </form>
+        {{/if}}
+    </div>
+</section>

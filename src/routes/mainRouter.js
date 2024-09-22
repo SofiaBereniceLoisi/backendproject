@@ -25,7 +25,6 @@ export default class MainRouter {
         this.mainRouter.use('/chat', messageRouterM);
         this.mainRouter.use('/users', userRouter);
         this.mainRouter.use('/ticket' , ticketRouter);
-        // this.mainRouter.use('/api', emailRouter );
         this.mainRouter.use('/test', loggerTest)
     }
 

@@ -8,6 +8,14 @@ export default class UserManager extends MongoDao {
         super(UserModel);
     }
 
+    getAll = async () => {
+        try {
+            return await this.model.find(); // Devuelve todos los usuarios
+        } catch (error) {
+            throw new Error(`Error fetching all users: ${error.message}`);
+        }
+    }
+
     register = async (user) => {
         try {
             const { email } = user;
@@ -44,6 +52,24 @@ export default class UserManager extends MongoDao {
         } catch (error) {
             logger.error('Error getting user by mail: ', error);
             throw new Error(error);
+        }
+    }
+
+    getUsersByLastConnection = async (inactivityLimit) => {
+        try {
+            return await this.model.find({
+                last_connection: { $lt: inactivityLimit }
+            });
+        } catch (error) {
+            throw new Error(`Error fetching users by last connection: ${error.message}`);
+        }
+    }
+
+    async deleteUser(userId) {
+        try {
+            return await this.model.findByIdAndDelete(userId);
+        } catch (error) {
+            throw new Error(`Error deleting user: ${error.message}`);
         }
     }
 }

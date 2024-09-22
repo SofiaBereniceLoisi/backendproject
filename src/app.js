@@ -46,7 +46,16 @@ app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 // Carpeta vistas y motor de plantillas
 app.set('view engine', 'handlebars');
-app.engine('handlebars', Handlebars.engine());
+app.engine('handlebars', Handlebars.engine({
+    helpers: {
+        eq: function (a, b) {
+            return a == b;
+        },
+        ne: function (a, b) {
+            return a !== b;
+        }
+    }
+}));
 app.set('views', `${__dirname}/../views`);
 
 // ROUTES

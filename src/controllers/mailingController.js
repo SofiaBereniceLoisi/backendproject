@@ -100,3 +100,19 @@ export const handleResetPassword = async (req, res) => {
         res.render('resetPassword', { errorMessage: `Error al restablecer la contraseña: ${error.message}` });
     }
 };
+
+export const sendMailDeleteAccount = async (userName,userEmail) => {
+    try {
+        const mailOptionsGMail = {
+            from: config.EMAIL,
+            to: userEmail,
+            subject: 'Cuenta eliminada de la aplicación por inactividad',
+            html: `<h1>Hola ${userName} !</h1><p>Su cuenta ha sido eliminada de la aplicación por inactividad.</p>`
+        }
+        const response = await transporter.sendMail(mailOptionsGMail);
+        logger.info('Email sent!');
+        return response;
+    } catch (error) {
+        logger.error(`Error sending email: ${error.message}`);
+    }   
+}

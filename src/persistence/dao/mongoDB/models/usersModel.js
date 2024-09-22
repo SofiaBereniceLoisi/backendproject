@@ -11,7 +11,8 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     role: { type: String, default: 'user', required: true},
     isGithub: { type: Boolean, default: false },
-    cart: { type: Schema.Types.ObjectId, ref: 'carts', default: []} // Referencia al carrito
+    cart: { type: Schema.Types.ObjectId, ref: 'carts', default: []}, // Referencia al carrito
+    last_connection: { type: Date, default: null }
 })
 
 userSchema.plugin(mongoosePaginate);

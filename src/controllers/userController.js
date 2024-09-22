@@ -1,7 +1,7 @@
 import UserService from '../services/userService.js';
 import Controllers from './mainController.js';
 import { HttpResponse } from '../utils/httpResponse.js';
-import { sendMailRegister } from './mailingController.js';
+import { sendMailDeleteAccount, sendMailRegister } from './mailingController.js';
 import logger from '../config/logConfig.js';
 import passport from 'passport';
 import { isValidPassword } from '../utils/utils.js';
@@ -43,8 +43,10 @@ export default class UserController extends Controllers {
                     return res.redirect('/login');
                 }
 
-                req.logIn(user, (err) => {
+                req.logIn(user, async (err) => {
                     if (err) return next(err);
+                    await userService.updateLastConnection(user._id);
+
                     const { first_name, last_name, email, role } = user;
 
                     logger.info(`LOGIN OK! Usuario: ${first_name} ${last_name}, Email: ${email}, Rol: ${role}`);
@@ -115,4 +117,68 @@ export default class UserController extends Controllers {
         }
     };
 
+    changeUserRoleToAdmin = async (req, res, next) => {
+        const { uid } = req.params;
+
+        try {
+            // Obtener el usuario por su ID
+            const user = await userService.getById(uid);
+
+            if (!user) {
+                return httpResponse.NotFound(res, 'User not found');
+            }
+
+            // Cambiar el rol del usuario a administrador
+            const newRole = 'admin';
+            user.role = newRole;
+
+            // Guardar los cambios
+            await userService.update(uid, user);
+
+            return httpResponse.Ok(res, `User role changed to ${newRole}`);
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    deleteInactiveUsers = async (req, res, next) => {
+        try {
+            const inactivityLimit = new Date(Date.now() - 30 * 60 * 1000); // 30 minutos de inactividad
+            const inactiveUsers = await userService.getInactiveUsers(inactivityLimit);
+
+            if (!inactiveUsers || inactiveUsers.length === 0) {
+                return httpResponse.Ok(res, 'No users to delete');
+            }
+
+            for (const user of inactiveUsers) {
+                if (user.role !== 'admin') {
+                    await userService.deleteUser(user._id);
+                    await sendMailDeleteAccount(user.first_name, user.email);
+                }
+            }
+
+            return httpResponse.Ok(res, `${inactiveUsers.length} users deleted due to inactivity`);
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    showUserList = async (req, res, next) => {
+        try {
+            const users = await userService.getAllUsers();
+            res.render('usersList', { users });
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    deleteUser = async (req, res, next) => {
+        try {
+            const { uid } = req.params;
+            await userService.deleteUser(uid);
+            res.redirect('/users');
+        } catch (error) {
+            next(error);
+        }
+    };
 }
