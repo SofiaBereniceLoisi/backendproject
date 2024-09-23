@@ -1,5 +1,5 @@
 {
-  "name": "desafioentregable9",
+  "name": "proyecto-final-backend",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "test:daos": "npm run test:prods && npm run test:carts && npm run test:users",
     "test:api": "node ./src/test/app/userRouter.test.js"
   },
-  "author": "",
+  "author": "Sofia Loisi",
   "license": "ISC",
   "type": "module",
   "keywords": [],
