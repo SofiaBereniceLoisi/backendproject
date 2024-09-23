@@ -129,6 +129,12 @@ export default class ProductController extends Controllers {
 
             if (userRole === 'admin' || userEmail === product.owner) {
                 await productService.delete(id);
+                if (product.owner !== 'admin') {
+                    const owner = await userService.getByEmail(product.owner);
+                    if (owner && owner.role === 'premium') {
+                        await sendMailProductDeleted(owner.first_name, owner.email, product.title);
+                    }
+                }
                 return httpResponse.Ok(res, `Product with ID ${id} deleted successfully`);
             } else {
                 return httpResponse.Forbidden(res, 'No tiene permisos para eliminar este producto');

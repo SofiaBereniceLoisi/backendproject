@@ -1,7 +1,7 @@
 import UserService from '../services/userService.js';
 import Controllers from './mainController.js';
 import { HttpResponse } from '../utils/httpResponse.js';
-import { sendMailDeleteAccount, sendMailRegister } from './mailingController.js';
+import { sendMailDeleteAccount, sendMailRegister } from '../services/mailingService.js';
 import logger from '../config/logConfig.js';
 import passport from 'passport';
 import { isValidPassword } from '../utils/utils.js';

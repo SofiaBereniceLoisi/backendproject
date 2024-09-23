@@ -1,28 +1,9 @@
-import { transporter } from '../services/mailingService.js';
-import config from '../config/config.js';
-import logger from '../config/logConfig.js';
 import { sendResetPasswordEmail } from '../services/mailingService.js';
 import UserService from '../services/userService.js';
 const userService = new UserService();
 import { v4 as uuidv4 } from 'uuid';
 import { createHash } from '../utils/utils.js';
 import bcrypt from 'bcrypt';
-
-export const sendMailRegister = async (userName,userEmail) => {
-    try {
-        const mailOptionsGMail = {
-            from: config.EMAIL,
-            to: userEmail,
-            subject: 'Bienvenido/a',
-            html: `<h1>Bienvenido/a, ${userName}</h1><p>Gracias por registrarte en nuestra aplicación.</p>`
-        }
-        const response = await transporter.sendMail(mailOptionsGMail);
-        logger.info('Email sent!');
-        return response;
-    } catch (error) {
-        logger.error(`Error sending email: ${error.message}`);
-    }
-};
 
 export const renderResetPasswordView = (req, res) => {
     const { resetId } = req.params;
@@ -31,7 +12,7 @@ export const renderResetPasswordView = (req, res) => {
     if (resetInfo && resetInfo.resetId === resetId && resetInfo.expirationTime > Date.now()) {
         res.render('resetPassword');
     } else {
-        res.redirect('/mailtoresetpass'); // Redirigir si el enlace ha expirado o es inválido
+        res.redirect('/mailtoresetpass'); // Redirigir si el enlace expiro o es inválido
     }
 };
 
@@ -100,19 +81,3 @@ export const handleResetPassword = async (req, res) => {
         res.render('resetPassword', { errorMessage: `Error al restablecer la contraseña: ${error.message}` });
     }
 };
-
-export const sendMailDeleteAccount = async (userName,userEmail) => {
-    try {
-        const mailOptionsGMail = {
-            from: config.EMAIL,
-            to: userEmail,
-            subject: 'Cuenta eliminada de la aplicación por inactividad',
-            html: `<h1>Hola ${userName} !</h1><p>Su cuenta ha sido eliminada de la aplicación por inactividad.</p>`
-        }
-        const response = await transporter.sendMail(mailOptionsGMail);
-        logger.info('Email sent!');
-        return response;
-    } catch (error) {
-        logger.error(`Error sending email: ${error.message}`);
-    }   
-}
