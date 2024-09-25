@@ -35,4 +35,7 @@ productsRouter.route('/admin/products')
 productsRouter.route('/admin/product/:id')
     .post([isAuth, isAdminOrIsPremium], productController.delete)
 
+productsRouter.route('/admin/product/update/:id')
+    .post([isAuth, isAdminOrIsPremium], productController.update)
+
 export default productsRouter;

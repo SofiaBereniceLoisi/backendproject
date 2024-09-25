@@ -94,7 +94,7 @@ export default class ProductController extends Controllers {
     };
 
     update = async (req, res, next) => {
-        const { id } = req.params;
+        const { id } = req.body;
         const userEmail = req.user.email;
         const userRole = req.user.role;
         const updatedProductData = req.body;
@@ -164,6 +164,7 @@ export default class ProductController extends Controllers {
                     price: product.price,
                     stock: product.stock,
                     category: product.category,
+                    code: product.code,
                     owner: product.owner,
                     _id: product._id,
                 };

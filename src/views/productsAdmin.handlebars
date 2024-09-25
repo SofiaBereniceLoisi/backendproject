@@ -13,10 +13,12 @@
         <div class="card-body productCard">
             <h5 class="card-title"> {{this.title}}</h5>
             <p class="card-text"> {{this.description}}</p>
+            <p>ID: {{this._id}}</p>
             <ul>
                 <li>Precio: ${{this.price}}</li>
                 <li>Stock: {{this.stock}}</li>
                 <li>Categoría: {{this.category}}</li>
+                <li>Cod.: {{this.code}}</li>
             </ul>
             <form action="/api/products/admin/product/{{this._id}}" method="POST">
                 <button id="btnDeleteProduct" class="btn btn-secondary" type="submit">Eliminar Producto</button>
@@ -24,8 +26,6 @@
         </div>
     </div>
     {{/each}}
-    
-    
     {{/if}}
 
 </div>
@@ -60,4 +60,39 @@
         </form>
     </div>
 </div>
+
+
+{{!-- formulario para modificar y actualizar productos --}}
+<h2 class="text-center">Actualizar Productos</h2>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <p>Por favor indique el ID del producto que desea modificar. Complete el resto de los campos.</p> 
+        <form id="updateProductForm" action="/api/products/admin/product/update/:id" method="POST">
+            <div class="mb-3">
+                <input type="text" class="form-control" name="id" id="id" placeholder="ID del producto" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" name="title" id="title" placeholder="Título" required>
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" name="description" id="description" placeholder="Descripción" required></textarea>
+            </div>
+            <div class="mb-3">
+                <input type="number" class="form-control" name="price" id="price" placeholder="Precio" required>
+            </div>
+            <div class="mb-3">
+                <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" name="category" id="category" placeholder="Categoría" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" name="code" id="code" placeholder="Código" required>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-secondary">Actualizar Producto</button>
+            </div>
+        </form>
+    </div>
 </div>
