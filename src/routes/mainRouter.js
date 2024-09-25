@@ -25,15 +25,13 @@ export default class MainRouter {
         this.mainRouter.use('/chat', messageRouterM);
         this.mainRouter.use('/users', userRouter);
         this.mainRouter.use('/ticket' , ticketRouter);
-        this.mainRouter.use('/test', loggerTest)
+        this.mainRouter.use('/test', loggerTest);
+        this.mainRouter.use('*',(req, res) => {
+            res.status(404).send({ error: 'La página que ingresaste no existe.' });
+        })
     }
 
     getRouter(){
         return this.mainRouter;
     }
 }
-
-
-// mainRouter.get('/*', async (req, res) => {
-//     res.status(500).send({ error: 'La página que ingresaste no existe.' });
-// })
