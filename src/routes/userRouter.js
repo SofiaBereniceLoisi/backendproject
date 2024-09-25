@@ -16,7 +16,7 @@ userRouter.post('/logout', userController.logoutResponse);
 userRouter.get('/private', isAuth, (req, res) => res.json({ msg: 'Ruta privada' }))
 userRouter.get('/profile', isAuth, userController.profile);
 userRouter.get('/', [isAuth, isAdmin], userController.showUserList);
-userRouter.post('/premium/:uid', [isAuth, isAdmin], userController.changeUserRole);
+userRouter.post('/admin/premium/:uid', [isAuth, isAdmin], userController.changeUserRole);
 userRouter.post('/admin/delete-inactive-users', [isAuth, isAdmin], userController.deleteInactiveUsers);
 userRouter.post('/admin/:uid', [isAuth, isAdmin], userController.changeUserRoleToAdmin);
 userRouter.post('/admin/delete-user/:uid', [isAuth, isAdmin], userController.deleteUser);

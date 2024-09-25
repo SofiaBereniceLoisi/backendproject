@@ -1,5 +1,10 @@
 <h1>Bienvenido {{first_name}}!</h1>
 <button onclick="location.href='/users/profile'">Ver mi perfil</button>
+
+{{#if (ne this.role "user")}}
+    <button onclick="location.href='/api/products/admin/products'">Administrar productos</button>
+{{/if}}
+
 <h2>Lista de Productos</h2>
 {{#if products}}
 <ul>

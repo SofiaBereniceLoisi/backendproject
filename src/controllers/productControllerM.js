@@ -1,10 +1,13 @@
 import Controllers from "./mainController.js";
 import ProductService from "../services/productServices.js";
+import UserService from "../services/userService.js";
 import * as productServices from "../services/productServices.js"
 import logger from "../config/logConfig.js";
 import { HttpResponse } from "../utils/httpResponse.js";
+import { sendMailProductDeleted } from "../services/mailingService.js";
 const httpResponse = new HttpResponse();
-const productService = new ProductService;
+const productService = new ProductService();
+const userService = new UserService();
 
 export default class ProductController extends Controllers {
     constructor() {
@@ -146,7 +149,32 @@ export default class ProductController extends Controllers {
         }
     }
 
-
+    showProductsListToAdmin = async (req, res, next) => {
+        try {
+            const prods = await productService.getAll();
+            let products = prods.docs;
+            if (req.user.role === 'premium') {
+                // Filtramos los productos cuyo owner es el usuario premium
+                products = products.filter(product => product.owner === req.user.email);
+            }
+            const productList = products.map(product => {
+                return {
+                    title: product.title,
+                    description: product.description,
+                    price: product.price,
+                    stock: product.stock,
+                    category: product.category,
+                    owner: product.owner,
+                    _id: product._id,
+                };
+            });
+            const user = req.user.email
+            const userRole = req.user.role
+            res.render('productsAdmin', { products: productList , user, userRole});
+        } catch (error) {
+            next(error);
+        }
+    };
 }
 
 //MOCKING PRODS ---------------------------------------------------------

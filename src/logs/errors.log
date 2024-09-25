@@ -20,3 +20,6 @@ error | 2024-09-22 18:10:49 | Error getting user by id:  Cast to ObjectId failed
 error | 2024-09-22 18:11:59 | Error getting user by id:  Cast to ObjectId failed for value "delete-inactive-users" (type string) at path "_id" for model "users"
 error | 2024-09-22 18:12:03 | Error getting user by id:  Cast to ObjectId failed for value "delete-inactive-users" (type string) at path "_id" for model "users"
 error | 2024-09-22 18:13:30 | Error getting user by id:  Cast to ObjectId failed for value "delete-inactive-users" (type string) at path "_id" for model "users"
+error | 2024-09-24 23:25:00 | Error deleting product:  userService is not defined
+error | 2024-09-24 23:39:27 | Error deleting product:  sendMailProductDeleted is not defined
+error | 2024-09-24 23:43:19 | Error deleting product:  logger is not defined

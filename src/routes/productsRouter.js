@@ -27,4 +27,12 @@ productsRouter.route('/:id')
     .put([isAuth, isAdminOrIsPremium], productController.update)
     .delete([isAuth, isAdminOrIsPremium], productController.delete)
 
+// rutas con solo get y post para usar a partir de formularios (en vistas de administrador)
+productsRouter.route('/admin/products')
+    .get([isAuth, isAdminOrIsPremium], productController.showProductsListToAdmin)
+    .post([isAuth, isAdminOrIsPremium], productController.create)
+
+productsRouter.route('/admin/product/:id')
+    .post([isAuth, isAdminOrIsPremium], productController.delete)
+
 export default productsRouter;

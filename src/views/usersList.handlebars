@@ -23,7 +23,7 @@
                 <td>{{this.last_connection}}</td>
                 <!-- Formulario para hacer usuario premium -->
                 <td>
-                    <form action="/users/premium/{{this.id}}" method="post">
+                    <form action="/users/admin/premium/{{this.id}}" method="post">
                         {{#if (eq this.role "user")}}
                             <button type="submit">Hacer usuario premium</button>
                         {{else}}
