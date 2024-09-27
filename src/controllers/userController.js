@@ -71,6 +71,7 @@ export default class UserController extends Controllers {
 
     githubResponse = async (req, res, next) => {
         try {
+            await userService.updateLastConnection(req.user._id);
             req.session.user = req.user;
             res.redirect('/users/profile');
         } catch (error) {
