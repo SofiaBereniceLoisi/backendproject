@@ -28,7 +28,6 @@ export default class TicketController extends Controllers {
         try {
             const { id } = req.params;  
             const ticket = await ticketService.getTicketById(id);  
-            console.log(ticket);
             if (!ticket) {
                 return httpResponse.NotFound(res, "Ticket no encontrado.");
             }
