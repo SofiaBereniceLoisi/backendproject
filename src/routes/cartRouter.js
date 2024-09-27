@@ -20,6 +20,14 @@ cartRouter.route('/products/:pid')
     .delete([isAuth], cartController.removeProdToCart)
     .put([isAuth], cartController.updateProdQuantityToCart)
 
-cartRouter.delete("/clear/:cid", [isAuth], cartController.clearCart);
+cartRouter.route('/products/delete/:pid')
+    .post([isAuth], cartController.removeProdToCart)
+
+cartRouter.route('/products/update/:pid')
+    .post([isAuth], cartController.updateProdQuantityToCart)
+
+cartRouter.route("/clear/:cid")
+    .post([isAuth], cartController.clearCart) //este es ara poder usarlo desde el boton en vista
+    .delete([isAuth], cartController.clearCart);
 
 export default cartRouter;

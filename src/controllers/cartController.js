@@ -12,12 +12,63 @@ export default class CartController extends Controllers {
     super(cartService);
   }
 
+  getById = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const cart = await cartService.getById(id);
+  
+      if (!cart) {
+        return httpResponse.NotFound(res, "El carrito no existe.");
+      }
+  
+      if (cart.products && cart.products.length > 0) {
+        const detailedProducts = await Promise.all(
+          cart.products.map(async (cartItem) => {
+            const productDetails = await productService.getById(cartItem.product);
+  
+            if (!productDetails) {
+              throw new Error("Producto no encontrado");
+            }
+  
+            // Convierte el objeto del producto en un objeto plano
+            const productDetailsPlain = productDetails.toObject(); 
+  
+            const subtotal = productDetailsPlain.price * cartItem.quantity;
+  
+            return {
+              product: productDetailsPlain, // Usa el objeto plano
+              quantity: cartItem.quantity,
+              subtotal: subtotal, // Añadimos el subtotal calculado aquí
+            };
+          })
+        );
+  
+        // Calculamos el precio total del carrito
+        const totalPrice = detailedProducts.reduce(
+          (total, item) => total + item.subtotal, 0
+        );
+  
+        const plainCart = {
+          ...cart.toObject(), 
+          products: detailedProducts,
+          totalPrice: totalPrice 
+        };
+  
+        res.render('cart', { cart: plainCart });
+      } else {
+        res.render('cart', { cart: [], message: "El carrito está vacío." });
+      }
+    } catch (error) {
+      next(error);
+    }
+  };
+
   addProdToCart = async (req, res, next) => {
     try {
       //const { cid } = req.params;
       const { cart } = req.user;
       const { pid } = req.params;
-      const userEmail = req.user.email; 
+      const userEmail = req.user.email;
 
       const product = await productService.getById(pid);
 
@@ -31,9 +82,9 @@ export default class CartController extends Controllers {
 
       const newProdToUserCart = await cartService.addProdToCart(cart, pid);
       if (!newProdToUserCart) {
-        return httpResponse.NotFound(res,"El producto o el carrito no existe.");
+        return httpResponse.NotFound(res, "El producto o el carrito no existe.");
       } else {
-        return httpResponse.Ok(res,newProdToUserCart);
+        return httpResponse.Ok(res, newProdToUserCart);
       }
     } catch (error) {
       next(error);
@@ -49,10 +100,10 @@ export default class CartController extends Controllers {
         pid,
       );
       if (!delProdToUserCart) {
-        return httpResponse.NotFound(res,"El producto o el carrito no existe.");
+        return httpResponse.NotFound(res, "El producto o el carrito no existe.");
       }
       else {
-        return httpResponse.Ok(res,`El producto de id: ${pid} fue eliminado del carrito correctamente.`);
+        return httpResponse.Ok(res, `El producto de id: ${pid} fue eliminado del carrito correctamente.`);
       }
     } catch (error) {
       next(error);
@@ -72,7 +123,7 @@ export default class CartController extends Controllers {
       if (!updateProdQuantity) {
         return httpResponse.BadRequest(res, 'Error actualizando la cantidad del producto al carrito.');
       } else {
-        return httpResponse.Ok(res,updateProdQuantity);
+        return httpResponse.Ok(res, updateProdQuantity);
       }
     } catch (error) {
       next(error);
@@ -86,9 +137,9 @@ export default class CartController extends Controllers {
         cart,
       );
       if (!clearCart) {
-        return httpResponse.NotFound(res,"Error vaciando el carrito.");
+        return httpResponse.NotFound(res, "Error vaciando el carrito.");
       } else {
-        return httpResponse.Ok(res,clearCart);
+        return httpResponse.Ok(res, clearCart);
       }
     } catch (error) {
       next(error);

@@ -78,10 +78,6 @@ const httpServer = app.listen(config.PORT, () => {
 // Socket Server
 const socketServer = new Server(httpServer);
 
-socketServer.use((socket, next) => {
-    sessionMiddleware(socket.request, socket.request.res || {}, next);
-});
-
 websocketManager(socketServer);
 
 export default app;

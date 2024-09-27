@@ -7,4 +7,6 @@ const ticketRouter = Router();
 
 ticketRouter.post('/purchase', [isAuth], ticketController.generateTicket);
 
+ticketRouter.get('/purchase/:id',[isAuth], ticketController.getTicketById);
+
 export default ticketRouter;

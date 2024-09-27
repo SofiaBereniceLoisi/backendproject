@@ -26,3 +26,4 @@ error | 2024-09-24 23:43:19 | Error deleting product:  logger is not defined
 error | 2024-09-25 00:15:52 | Error updating product:  Error: CastError: Cast to ObjectId failed for value ":id" (type string) at path "_id" for model "products"
 error | 2024-09-25 00:25:04 | Error updating product:  Error: CastError: Cast to ObjectId failed for value "66f35d7c10b3a8fe9d60d79Y" (type string) at path "_id" for model "products"
 error | 2024-09-25 00:25:50 | Error updating product:  Error: CastError: Cast to ObjectId failed for value "66f35d7c10b3a8fe9d60d79y" (type string) at path "_id" for model "products"
+error | 2024-09-25 17:32:45 | Error getting all products:  cart is not defined

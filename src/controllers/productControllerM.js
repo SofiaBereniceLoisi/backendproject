@@ -29,8 +29,10 @@ export default class ProductController extends Controllers {
             const next = response.hasNextPage ? `http://localhost:8080/api/products?page=${response.nextPage}` : null;
             const prev = response.hasPrevPage ? `http://localhost:8080/api/products?page=${response.prevPage}` : null;
 
-            //para mensaje de bienvenida
+            //para mensaje de bienvenida y botones
             const first_name = await req.user.first_name;
+            const role = await req.user.role;
+            const cartId = await req.user.cart._id;
 
             res.render('products', {
                 products: products,
@@ -42,7 +44,9 @@ export default class ProductController extends Controllers {
                     hasPrevPage: response.hasPrevPage,
                     hasNextPage: response.hasNextPage
                 },
-                first_name: first_name, // le paso el nombre a la vista principal de productos
+                role: role,
+                first_name: first_name,
+                cart: cartId
             });
         } catch (error) {
             logger.error('Error getting all products: ', error);
@@ -61,7 +65,10 @@ export default class ProductController extends Controllers {
                     id: product._id.toString(),
                     title: product.title,
                     price: product.price,
-                    description: product.description
+                    description: product.description,
+                    category: product.category,
+                    code: product.code,
+                    stock: product.stock
                 });
             }
         } catch (error) {
@@ -73,8 +80,6 @@ export default class ProductController extends Controllers {
     create = async (req, res, next) => {
         try {
             let owner;
-            logger.debug('User role:', req.user.role);
-            logger.debug('User email:', req.user.email);
             if (req.user.role === 'admin') {
                 owner = 'admin';
             } else if (req.user.role === 'premium') {
@@ -151,7 +156,7 @@ export default class ProductController extends Controllers {
 
     showProductsListToAdmin = async (req, res, next) => {
         try {
-            const prods = await productService.getAll();
+            const prods = await productService.getAll(1,1000); //le paso numeros altos para que no me ponga limites en la paginacion
             let products = prods.docs;
             if (req.user.role === 'premium') {
                 // Filtramos los productos cuyo owner es el usuario premium

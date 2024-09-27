@@ -1,8 +1,12 @@
 <h1>Bienvenido {{first_name}}!</h1>
-<button onclick="location.href='/users/profile'">Ver mi perfil</button>
+<button class="btn btn-secondary" onclick="location.href='/users/profile'">Ver mi perfil</button>
 
-{{#if (ne this.role "user")}}
-    <button onclick="location.href='/api/products/admin/products'">Administrar productos</button>
+{{#if (ne role "user")}}
+    <button class="btn btn-secondary" onclick="location.href='/api/products/admin/products'">Administrar productos</button>
+{{/if}}
+
+{{#if (ne role "admin")}}
+    <button class="btn btn-secondary" onclick="location.href='/api/carts/{{cart}}'">Mi Carrito</button>
 {{/if}}
 
 <h2>Lista de Productos</h2>

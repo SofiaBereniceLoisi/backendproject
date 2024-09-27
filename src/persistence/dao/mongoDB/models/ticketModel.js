@@ -7,6 +7,14 @@ export const ticketSchema = new Schema({
   purchase_datetime: { type: String, required: true },
   amount: { type: Number, required: true },
   purchaser: { type: String, required: true },
+  products: [
+    {
+      title: { type: String, required: true },
+      quantity: { type: Number, required: true },
+      subtotal: { type: Number, required: true }
+    }
+  ],
+  __v: { type: Number, select: false }
 });
 
 export const TicketModel = model(

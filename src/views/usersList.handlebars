@@ -25,9 +25,9 @@
                 <td>
                     <form action="/users/admin/premium/{{this.id}}" method="post">
                         {{#if (eq this.role "user")}}
-                            <button type="submit">Hacer usuario premium</button>
+                            <button class="btn btn-secondary" type="submit">Hacer usuario premium</button>
                         {{else}}
-                            <button type="submit">Hacer usuario regular</button>
+                            <button class="btn btn-secondary" type="submit">Hacer usuario regular</button>
                         {{/if}}
                     </form>
                 </td>
@@ -36,7 +36,7 @@
                 {{#if (ne this.role "admin")}}
                 <td>
                     <form action="/users/admin/{{this.id}}" method="post">
-                        <button type="submit">Hacer administrador</button>
+                        <button class="btn btn-secondary" type="submit">Hacer administrador</button>
                     </form>
                 </td>
                 {{/if}}
@@ -44,7 +44,7 @@
                 <!-- Formulario para eliminar usuario -->
                 <td>
                     <form action="/users/admin/delete-user/{{this.id}}" method="post">
-                        <button type="submit">Eliminar usuario</button>
+                        <button class="btn btn-secondary" type="submit">Eliminar usuario</button>
                     </form>
                 </td>
             </tr>
@@ -58,7 +58,7 @@
     <div class="usuarios-footer">
         {{#if users}}
         <form action="/users/admin/delete-inactive-users" method="post">
-            <button type="submit">Eliminar Usuarios Inactivos</button>
+            <button class="btn btn-secondary" type="submit">Eliminar Usuarios Inactivos</button>
         </form>
         {{/if}}
     </div>

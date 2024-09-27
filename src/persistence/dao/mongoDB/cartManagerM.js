@@ -53,7 +53,7 @@ export default class CartManagerM extends MongoDao {
 
       return cart;
     } catch (error) {
-      logger.error(`Error adding product in cart: ` , error);
+      logger.error(`Error adding product in cart: `, error);
       throw new Error(error);
     }
   }
