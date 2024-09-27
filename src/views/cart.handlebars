@@ -1,62 +1,146 @@
-<h1>Mi Carrito</h1>
-{{#if cart.products.length}}
-<table>
-    <thead>
-        <tr>
-            <th> Producto </th>
-            <th>| Cantidad </th>
-            <th>| Precio unitario </th>
-            <th>| Subtotal </th>
-            <th>| Acciones </th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each cart.products}}
-        <tr>
-            <td>{{this.product.title}}</td>
-            <td>{{this.quantity}}</td>
-            <td>${{this.product.price}}</td>
-            <td>${{this.subtotal}}</td>
-            <td>
-                <form action="/api/carts/products/update/{{this.product._id}}" method="POST">
-            <td>
-                <input class="form-control" type="number" name="quantity" value="{{this.quantity}}" min="1">
-            </td>
-            <td>
-                <button class="btn btn-secondary" type="submit">Actualizar Cantidad</button>
-            </td>
-            </form>
-            </td>
-            <td>
-                <form action="/api/carts/products/delete/{{this.product._id}}" method="POST">
-                    <button class="btn btn-secondary" type="submit">Eliminar</button>
-                </form>
-            </td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
-<h3>Total: ${{cart.totalPrice}}</h3>
-<div>
-    <table>
-        <tbody>
-            <td>
-                <form action="/api/carts/clear/{{cart._id}}" method="POST">
-                    <button class="btn btn-secondary" type="submit">Vaciar Carrito</button>
-                </form>
-            </td>
-            <td>
-                <form action="/ticket/purchase" method="POST">
-                    <button class="btn btn-secondary" type="submit">Finalizar Compra</button>
-                </form>
-            </td>
-            <td>
-                <button class="btn btn-secondary" onclick="location.href='/api/products'">Seguir Comprando</button>
-            </td>
-        </tbody>
-    </table>
-</div>
-{{else}}
-<p>Tu carrito está vacío</p>
-<button class="btn btn-secondary" onclick="location.href='/api/products'">Seguir Comprando</button>
-{{/if}}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carrito</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        thead {
+            background-color: #C62727;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 0.9em;
+        }
+
+        .btn {
+            margin: 5px;
+            font-size: 0.9em;
+        }
+
+        .table-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-actions input[type="number"] {
+            width: 55px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .table-actions button {
+            flex-grow: 1;
+        }
+
+        .total-price {
+            text-align: right;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Mi Carrito</h1>
+        {{#if cart.products.length}}
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each cart.products}}
+                <tr>
+                    <td>{{this.product.title}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>${{this.product.price}}</td>
+                    <td>${{this.subtotal}}</td>
+                    <td class="table-actions">
+                        <form action="/api/carts/products/update/{{this.product._id}}" method="POST">
+                            <input class="form-control" type="number" name="quantity" value="{{this.quantity}}" min="1">
+                    </td>
+                    <td>
+                            <button class="btn btn-secondary" type="submit">Actualizar Cantidad</button>
+                        </form>
+                    </td>
+                    <td>        
+                        <form action="/api/carts/products/delete/{{this.product._id}}" method="POST">
+                            <button class="btn btn-secondary" type="submit">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <h3 class="total-price">Total: ${{cart.totalPrice}}</h3>
+        <div>
+            <table>
+                <tbody>
+                    <td>
+                        <form action="/api/carts/clear/{{cart._id}}" method="POST">
+                            <button class="btn btn-secondary" type="submit">Vaciar Carrito</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/ticket/purchase" method="POST">
+                            <button class="btn btn-secondary" type="submit">Finalizar Compra</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button class="btn btn-secondary" onclick="location.href='/api/products'">Seguir
+                            Comprando</button>
+                    </td>
+                </tbody>
+            </table>
+        </div>
+        {{else}}
+        <p>Tu carrito está vacío</p>
+        <button class="btn btn-secondary" onclick="location.href='/api/products'">Seguir Comprando</button>
+        {{/if}}
+    </div>
+</body>
+
+</html>
