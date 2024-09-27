@@ -1,35 +1,96 @@
-<h1>Bienvenido {{first_name}}!</h1>
-<button class="btn btn-secondary" onclick="location.href='/users/profile'">Ver mi perfil</button>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .btn-detail {
 
-{{#if (ne role "user")}}
-    <button class="btn btn-secondary" onclick="location.href='/api/products/admin/products'">Administrar productos</button>
-{{/if}}
+            background-color: #C62727;
+            color: #FFF8EA;
 
-{{#if (ne role "admin")}}
-    <button class="btn btn-secondary" onclick="location.href='/api/carts/{{cart}}'">Mi Carrito</button>
-{{/if}}
+            transition: background .5s;
+        }
+        .btn-detail:hover {
+            color: #FFF8EA;
+            background-color: #a61f1f; 
+        }
+        .card {
+            margin: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .card h5 {
+            font-weight: bold;
+        }
+        .card p {
+            margin: 10px 0;
+        }
+        .pagination {
+            display: flex;               /* Usar flexbox */
+            justify-content: center;     /* Centrar horizontalmente */
+            margin-top: 20px;           /* Espacio superior para separación */
+        }
+        .pagination a {
+            margin: 30px 10px;             /* Espaciado entre botones */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido {{first_name}}!</h1>
+        <div class="mb-3">
+            <button class="btn btn-secondary" onclick="location.href='/users/profile'">Ver mi perfil</button>
+            {{#if (ne role "user")}}
+                <button class="btn btn-secondary" onclick="location.href='/api/products/admin/products'">Administrar productos</button>
+            {{/if}}
+            {{#if (ne role "admin")}}
+                <button class="btn btn-secondary" onclick="location.href='/api/carts/{{cart}}'">Mi Carrito</button>
+            {{/if}}
+        </div>
 
-<h2>Lista de Productos</h2>
-{{#if products}}
-<ul>
-    {{#each products}}
-    <li>
-        <a href="/api/products/{{this.id}}">
-            {{this.title}} - ${{this.price}}
-        </a>
-    </li>
-    {{/each}}
-</ul>
-{{#if info}}
-<div>
-    {{#if info.hasPrevPage}}
-    <a href="{{info.prevLink}}">Anterior</a>
-    {{/if}}
-    {{#if info.hasNextPage}}
-    <a href="{{info.nextLink}}">Siguiente</a>
-    {{/if}}
-</div>
-{{/if}}
-{{else}}
-<p>No hay productos disponibles.</p>
-{{/if}}
+        <h2>Lista de Productos</h2>
+        <div class="row">
+            {{#if products}}
+                {{#each products}}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{this.title}}</h5>
+                                <p class="card-text">$ {{this.price}}</p>
+                                <a href="/api/products/{{this.id}}" class="btn btn-detail">Ver Detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            {{else}}
+                <p>No hay productos disponibles.</p>
+            {{/if}}
+        </div>
+
+        {{#if info}}
+            <div class="pagination">
+                {{#if info.hasPrevPage}}
+                    <a class="btn btn-secondary" href="{{info.prevLink}}">Anterior</a>
+                {{/if}}
+                {{#if info.hasNextPage}}
+                    <a class="btn btn-secondary" href="{{info.nextLink}}">Siguiente</a>
+                {{/if}}
+            </div>
+        {{/if}}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

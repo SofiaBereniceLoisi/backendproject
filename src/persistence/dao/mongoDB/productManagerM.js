@@ -7,7 +7,7 @@ export default class ProductManagerM extends MongoDao {
         super(ProductsModel);
     }
 
-    async getAll(page = 1, limit = 10, title, sort) {
+    async getAll(page = 1, limit = 9, title, sort) {
         try {
             const filter = title ? { 'title': title } : {};
             let sortOrder = {};
