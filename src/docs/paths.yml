@@ -1,811 +1,1624 @@
-# #ENDPOINTS:
+#ENDPOINTS:
 
-# paths: 
-#   #CARTS:
-#   /api/carts:
-#     get:
-#       tags:
-#         - Carts
-#       summary: Obtiene todos los carritos
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Carts'
-#         required: true
-#         responses:
-#           200:
-#             description: Se obtuvieron todos los carritos correctamente.
-#             content:
-#               application/json: 
-#                 schema:
-#                   $ref: '#/components/schemas/Carts/Cart'    
-#           401:
-#               description: Error creando un nuevo carrito. El usuario no inicio sesion.  
-#                 content:  
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Carts/Cart'  
-#           404: 
-#             description: Error obtuviendo todos los carritos.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart' 
-#           403:
-#             description: Error obtuviendo todos los carritos. Usuario sin permisos. 
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart' 
-#     post:
-#       tags:
-#         - Carts
-#       summary: Crea un nuevo carrito vacio.
-#         requestBody:
-#           content:
-#             application/json:
-#               schema:
-#                 $ref: '#/components/parameters/schemas/Carts'
-#           required: true
-#           responses:
-#             200:
-#               description: Se creo un nuevo carrito vacío correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'  
-#             401:
-#               description: Error creando un nuevo carrito. El usuario no inicio sesion.  
-#                 content:  
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Carts/Cart' 
-#             404: 
-#               description: Error creando un nuevo carrito.
-#                 content:
-#                   application/json: 
-#                     schema:
-#                       $ref: '#/components/schemas/Carts/Cart' 
-#             403:
-#               description: Error obtuviendo todos los carritos. Usuario sin permisos. 
-#                 content:
-#                   application/json: 
-#                     schema:
-#                       $ref: '#/components/schemas/Carts/Cart' 
-#   /api/carts/:id: 
-#     get:
-#       tags:
-#         - Carts
-#       summary: Obtiene un carrito por su id
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Carts'
-#         required: true
-#         responses:
-#           200:
-#             description: Se obtuvo el carrito correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#           401:
-#               description: Error obtuviendo carrito. El usuario no inicio sesion.  
-#                 content:  
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Carts/Cart' 
-#           404:
-#             description: No se encontro el carrito.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#     put:
-#       tags:
-#         - Carts
-#       summary: Actualiza un carrito por su id
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Carts'
-#         required: true
-#         responses:
-#           200:
-#             description: Se actualizo el carrito correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#           401:
-#               description: Error actualizando el carrito. El usuario no inicio sesion.  
-#                 content:  
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Carts/Cart'
-#           403:
-#             description: Error actualizando el carrito. El usuario no tiene permisos para realizar esta operacion.  
-#               content:  
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#           404:
-#             description: No se encontro el carrito.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#     delete:
-#       tags:
-#         - Carts
-#       summary: Elimina un carrito por su id
-#       requestBody:  
-#         content:  
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Carts' 
-#         required: true
-#         responses:
-#           200:
-#             description: Se elimino el carrito correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#           401:
-#               description: Error eliminando el carrito. El usuario no inicio sesion.
-#                 content:
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Carts/Cart'
-#           403:
-#             description: Error eliminando el carrito. El usuario no tiene permisos para realizar esta operacion.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#           404:
-#             description: No se encontro el carrito.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#   /api/carts/products/:pid:
-#     post:
-#       tags:
-#         - Carts
-#       summary: Agrega un producto al carrito por su id
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Carts'
-#         required: true
-#         responses:
-#           200:
-#             description: Se agrego el producto al carrito correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#           401:
-#               description: Error agregando el producto al carrito. El usuario no inicio sesion.  
-#                 content:  
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Carts/Cart'
-#           404:
-#             description: No se encontro el producto para agregar al carrito.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#     put:
-#       tags:
-#         - Carts
-#       summary: Actualiza la cantidad de un producto en el carrito por su id
-#       requestBody:  
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Carts'
-#         required: true
-#         responses:
-#           200:
-#             description: Se actualizo la cantidad del producto en el carrito correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#           401:
-#               description: Error actualizando la cantidad del producto en el carrito. El usuario no inicio sesion.
-#                 content:
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Carts/Cart'
-#           404:
-#             description: No se encontro el producto para agregar al carrito.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#     delete:
-#       tags:
-#         - Carts
-#       summary: Elimina un producto del carrito por su id
-#       requestBody:  
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Carts'
-#         required: true
-#         responses:
-#           200:
-#             description: Se elimino el producto del carrito correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#           401:  
-#             description: Error eliminando el producto del carrito. El usuario no inicio sesion.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#           404:
-#             description: No se encontro el producto para agregar al carrito.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#   /api/carts/clear/:cid:
-#     delete:
-#       tags:
-#         - Carts
-#       summary: Elimina todos los productos del carrito por su id
-#       requestBody:  
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Carts'
-#         required: true
-#         responses:
-#           200:
-#             description: Se elimino el carrito correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#           401:  
-#             description: Error eliminando el carrito. El usuario no inicio sesion.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#           404:
-#             description: No se encontro el carrito.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Carts/Cart'
-#   #PRODUCTS:
-#   /api/products:
-#     #get, post
-#     get:
-#       tags:
-#         - Products
-#       summary: Obtiene todos los productos
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Products'
-#         required: true
-#         responses:
-#           200:
-#             description: Se obtuvieron todos los productos correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#           401:
-#               description: Error obtuviendo todos los productos. El usuario no inicio sesion.  
-#                 content:  
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Products/Products'
-#           404:  
-#             description: Error obtuviendo todos los productos.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#     post:
-#       tags:
-#         - Products
-#       summary: Crea un nuevo producto
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Products'
-#         required: true
-#         responses:
-#           200:
-#             description: Se agrego el producto correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#           401:
-#             description: Error creando el producto. El usuario no inicio sesion.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#           403:
-#             description: Error creando el producto. El usuario no tiene permisos para realizar esta operacion.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#           404:
-#             description: Error creando el producto.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#   /api/products/:id:
-#     #get, put, delete
-#     get:
-#       tags:
-#         - Products
-#       summary: Obtiene un producto por su id
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Products'
-#         required: true
-#         responses:
-#           200:
-#             description: Se obtuvo el producto correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#           401:
-#               description: Error obtuviendo el producto. El usuario no inicio sesion.  
-#                 content:  
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Products/Products'
-#           404:  
-#             description: Error obtuviendo el producto.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#     put:
-#       tags:
-#         - Products
-#       summary: Actualiza un producto por su id
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Products'
-#         required: true
-#         responses:
-#           200:
-#             description: Se actualizo el producto correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#           401:
-#             description: Error actualizando el producto. El usuario no inicio sesion.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#           403:
-#             description: Error actualizando el producto. El usuario no tiene permisos para realizar esta operacion.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#           404:
-#             description: No se encontró el producto.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#     delete: 
-#       tags:
-#         - Products
-#       summary: Elimina un producto por su id
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Products'
-#         required: true
-#         responses:
-#           200:
-#             description: Se elimino el producto correctamente.
-#               content:
-#                 application/json: 
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#           401:  
-#             description: Error eliminando el producto. El usuario no inicio sesion.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#           403:
-#             description: Error eliminando el producto. El usuario no tiene permisos para realizar esta operacion.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#           404:
-#             description: No se encontró el producto.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
+paths: 
+  #CARTS:
+  /api/carts:
+    get:
+      tags:
+        - Carts
+      summary: |
+        Obtiene todos los carritos. 
+        El usuario debe estar autenticado y debe ser administrador.
+      security:
+        - BearerAuth: []  # Especificar que la ruta requiere autenticación
+      responses:
+        200:
+          description: Se obtuvieron todos los carritos correctamente.
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Success
+                  data: 
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Cart'    
+        401:
+          description: Error obteniendo los carritos. El usuario no inició sesión.
+          content:  
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error obteniendo los carritos. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: Detalles sobre el error o excepción.  
+        404:
+          description: Error obteniendo todos los carritos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Error obteniendo todos los carritos.
+                  error:
+                    type: string
+                    example: Detalles sobre el error.
+        403:
+          description: Error obteniendo todos los carritos. Usuario sin permisos (debe ser administrador).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 403
+                  message:
+                    type: string
+                    example: Usuario sin permisos. Debe ser administrador.
+                  error:
+                    type: string
+                    example: Detalles sobre el error.
+    post:
+      tags:
+        - Carts
+      summary: Crea un nuevo carrito vacío.
+      responses:
+        200:
+          description: Se creó un nuevo carrito vacío correctamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Success
+                  data: 
+                    type: object
+                    properties:
+                      id: 
+                        type: string  # Tipo string para el ObjectId
+                        example: "507f1f77bcf86cd799439011"  # Ejemplo de ObjectId
+                      products:
+                        type: array
+                        items: 
+                          type: object
+                        example: []  # Carrito vacío
+        401:
+          description: Error creando un nuevo carrito. El usuario no inició sesión.  
+          content:  
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error creando un nuevo carrito. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        403:
+          description: Usuario sin permisos. 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 403
+                  message:
+                    type: string
+                    example: Usuario sin permisos.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404: 
+          description: Error creando un nuevo carrito.
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Error creando un nuevo carrito.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+ 
+
+  /api/carts/:id: 
+    get:
+      tags:
+        - Carts
+      summary: Obtiene un carrito por su id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            example: "507f1f77bcf86cd799439011"
+          description: El id del carrito a obtener (Mongo ObjectId).
+      responses:
+        200:
+          description: Se obtuvo el carrito correctamente.
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Success
+                  data:
+                    $ref: '#/components/schemas/Cart'
+        401:
+          description: Error obteniendo carrito. El usuario no inició sesión.  
+          content:  
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error obteniendo carrito. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:
+          description: No se encontró el carrito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: No se encontró el carrito.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+    put:
+      tags:
+        - Carts
+      summary: Actualiza un carrito por su id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            example: "507f1f77bcf86cd799439011"
+          description: El id del carrito a actualizar (Mongo ObjectId).
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/Carts'
+        required: true
+      responses:
+        200:
+          description: Se actualizó el carrito correctamente.
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Carrito actualizado correctamente.
+                  data:
+                    $ref: '#/components/schemas/Cart'
+        401:
+          description: Error actualizando el carrito. El usuario no inició sesión.  
+          content:  
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error actualizando el carrito. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        403:
+          description: Error actualizando el carrito. El usuario no tiene permisos para realizar esta operación.  
+          content:  
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 403
+                  message:
+                    type: string
+                    example: Error actualizando el carrito. El usuario no tiene permisos para realizar esta operación.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:
+          description: No se encontró el carrito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: No se encontró el carrito.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+    delete:
+      tags:
+        - Carts
+      summary: Elimina un carrito por su id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            example: "507f1f77bcf86cd799439011"
+          description: El id del carrito a eliminar (Mongo ObjectId).
+      responses:
+        200:
+          description: Se eliminó el carrito correctamente.
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Carrito eliminado correctamente.
+                  data:
+                    $ref: '#/components/schemas/Cart'
+        401:
+          description: Error eliminando el carrito. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error eliminando el carrito. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        403:
+          description: Error eliminando el carrito. El usuario no tiene permisos para realizar esta operación.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 403
+                  message:
+                    type: string
+                    example: Error eliminando el carrito. El usuario no tiene permisos para realizar esta operación.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:
+          description: No se encontró el carrito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: No se encontró el carrito.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+
+  /api/carts/products/:pid:
+    post:
+      tags:
+        - Carts
+      summary: Agrega un producto al carrito por su id
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            example: "507f1f77bcf86cd799439011"
+          description: El id del producto a agregar (Mongo ObjectId).
+        - in: query
+          name: cartId
+          required: true
+          schema:
+            type: string
+            example: "60d21b4667d0d8992e610c85"
+          description: El id del carrito al que se añadirá el producto (Mongo ObjectId).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  example: 1
+              required:
+                - quantity
+      responses:
+        200:
+          description: Se agregó el producto al carrito correctamente.
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Producto agregado correctamente al carrito.
+                  data:
+                    $ref: '#/components/schemas/Cart'
+        401:
+          description: Error agregando el producto al carrito. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error agregando el producto al carrito. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:
+          description: No se encontró el producto para agregar al carrito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: No se encontró el producto para agregar al carrito.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+    put:
+      tags:
+        - Carts
+      summary: Actualiza la cantidad de un producto en el carrito por su id
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            example: "507f1f77bcf86cd799439011"
+          description: El id del producto a actualizar en el carrito (Mongo ObjectId).
+        - in: query
+          name: cartId
+          required: true
+          schema:
+            type: string
+            example: "60d21b4667d0d8992e610c85"
+          description: El id del carrito que contiene el producto a actualizar (Mongo ObjectId).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  example: 3
+              required:
+                - quantity
+      responses:
+        200:
+          description: Se actualizó la cantidad del producto en el carrito correctamente.
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: La cantidad del producto fue actualizada correctamente en el carrito.
+                  data:
+                    $ref: '#/components/schemas/Cart'
+        401:
+          description: Error actualizando la cantidad del producto en el carrito. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error actualizando la cantidad del producto en el carrito. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:
+          description: No se encontró el producto en el carrito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: No se encontró el producto en el carrito.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+    delete:
+      tags:
+        - Carts
+      summary: Elimina un producto del carrito por su id
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            example: "507f1f77bcf86cd799439011"
+          description: El id del producto a eliminar del carrito (Mongo ObjectId).
+        - in: query
+          name: cartId
+          required: true
+          schema:
+            type: string
+            example: "60d21b4667d0d8992e610c85"
+          description: El id del carrito del cual se eliminará el producto (Mongo ObjectId).
+      responses:
+        200:
+          description: Se eliminó el producto del carrito correctamente.
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Producto eliminado correctamente del carrito.
+                  data:
+                    $ref: '#/components/schemas/Cart'
+        401:  
+          description: Error eliminando el producto del carrito. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error eliminando el producto del carrito. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:
+          description: No se encontró el producto en el carrito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: No se encontró el producto en el carrito.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+
+  /api/carts/clear/:cid:
+    delete:
+      tags:
+        - Carts
+      summary: Elimina todos los productos del carrito por su id
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            example: "60d21b4667d0d8992e610c85"
+          description: El id del carrito del cual se eliminarán todos los productos (Mongo ObjectId).
+      responses:
+        200:
+          description: Se eliminaron todos los productos del carrito correctamente.
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Todos los productos fueron eliminados correctamente del carrito.
+                  data:
+                    $ref: '#/components/schemas/Cart'
+        401:  
+          description: Error eliminando los productos del carrito. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error eliminando los productos del carrito. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:
+          description: No se encontró el carrito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: No se encontró el carrito.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+
+  #PRODUCTS:
+  /api/products:
+    #get, post
+    get:
+      tags:
+        - Products
+      summary: Obtiene todos los productos
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            description: Número de página para la paginación.
+          example: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            description: Límite de productos por página.
+          example: 10
+      responses:
+        200:
+          description: Se obtuvieron todos los productos correctamente.
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Productos obtenidos correctamente.
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+        401:
+          description: Error obteniendo los productos. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error obteniendo los productos. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:  
+          description: No se encontraron productos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: No se encontraron productos.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+    post:
+      tags:
+        - Products
+      summary: Crea un nuevo producto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'  
+      responses:
+        201: 
+          description: Se agregó el producto correctamente.
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 201
+                  message:
+                    type: string
+                    example: Producto creado correctamente.
+                  data:
+                    $ref: '#/components/schemas/Product'  # Asegúrate de que este esquema define correctamente la estructura del producto
+        401:
+          description: Error creando el producto. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error creando el producto. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        403:
+          description: Error creando el producto. El usuario no tiene permisos para realizar esta operación.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 403
+                  message:
+                    type: string
+                    example: Error creando el producto. El usuario no tiene permisos para realizar esta operación.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:
+          description: Error creando el producto.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Error creando el producto.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+
+  /api/products/:id:
+    #get, put, delete
+    get:
+      tags:
+        - Products
+      summary: Obtiene un producto por su id
+      parameters: 
+        - in: path
+          name: id
+          required: true
+          description: ID del producto que se desea obtener
+          schema:
+            type: string
+      responses:
+        200:
+          description: Se obtuvo el producto correctamente.
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Product'  
+        401:
+          description: Error obteniendo el producto. El usuario no inició sesión.
+          content:  
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error obteniendo el producto. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:  
+          description: No se encontró el producto.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: No se encontró el producto.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+    put:  
+      tags:
+        - Products
+      summary: Actualiza un producto por su id
+      parameters:  # Añadido para incluir el parámetro de ruta
+        - in: path
+          name: id
+          required: true
+          description: ID del producto que se desea actualizar
+          schema:
+            type: string  # Asegúrate de que el tipo es correcto según tu implementación
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/Products'
+        required: true
+      responses:
+        200:
+          description: Se actualizó el producto correctamente.
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Product'  # Asegúrate de que este esquema define correctamente la estructura del producto
+        401:
+          description: Error actualizando el producto. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error actualizando el producto. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        403:
+          description: Error actualizando el producto. El usuario no tiene permisos para realizar esta operación.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 403
+                  message:
+                    type: string
+                    example: Error actualizando el producto. El usuario no tiene permisos.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:
+          description: No se encontró el producto.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: No se encontró el producto.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+    delete: 
+      tags:
+        - Products
+      summary: Elimina un producto por su id
+      parameters: 
+        - in: path
+          name: id
+          required: true
+          description: ID del producto que se desea eliminar
+          schema:
+            type: string  # Asegúrate de que el tipo es correcto según tu implementación
+      responses:
+        200:
+          description: Se eliminó el producto correctamente.
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Product'  # Asegúrate de que este esquema define correctamente la estructura del producto
+        401:  
+          description: Error eliminando el producto. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error eliminando el producto. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        403:
+          description: Error eliminando el producto. El usuario no tiene permisos para realizar esta operación.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 403
+                  message:
+                    type: string
+                    example: Error eliminando el producto. El usuario no tiene permisos.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:
+          description: No se encontró el producto.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: No se encontró el producto.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
   
-#   #PRODUCTS MOCKING:
-#   /api/products/mockingproducts:
-#     #get,post
-#     get:
-#       tags:
-#         - Products  
-#       summary: Obtiene todos los productos
-#       responses:
-#         200:
-#           description: Se obtuvieron los mocking productos correctamente.
-#             content:
-#               application/json: 
-#                 schema:
-#                   $ref: '#/components/schemas/Products/Products'
-#         401:
-#             description: Error obtuviendo los mocking productos. El usuario no inicio sesion.  
-#               content:  
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#         403:
-#             description: Error obtuviendo los mocking productos. El usuario no tiene permisos para realizar esta operacion.
-#               content:
-#                 application/json:
-#                   schema:
-#                     $ref: '#/components/schemas/Products/Products'
-#         404:  
-#           description: Error obtuviendo los mocking productos.
-#             content:
-#               application/json:
-#                 schema:
-#                   $ref: '#/components/schemas/Products/Products'
-#     post:
-#       tags:
-#         - Products
-#       summary: Crea 50 mocking products
-#         requestBody:
-#           content:
-#             application/json:
-#               schema:
-#                 $ref: '#/components/parameters/schemas/Products'
-#           required: true
-#           responses:
-#             200:
-#               description: Se crearon 50 mocking products correctamente.
-#                 content:
-#                   application/json: 
-#                     schema:
-#                       $ref: '#/components/schemas/Products/Products'
-#             401:
-#               description: Error creando 50 mocking products. El usuario no inicio sesion.  
-#                 content:  
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Products/Products'
-#             403:
-#               description: Error creando 50 mocking products. El usuario no tiene permisos para realizar esta operacion.
-#                 content:
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Products/Products'
-#             404:  
-#               description: Error creando 50 mocking products.
-#                 content:
-#                   application/json:
-#                     schema:
-#                       $ref: '#/components/schemas/Products/Products'
-#   #VIEWS:
-#   /:
-#     get:
-#       tags:
-#         - Views
-#       summary: Obtiene y muestra la vista principal de la pagina.
-#       responses:
-#         200:
-#           description: La vista principal se mostro correctamente.
-#         404:  
-#           description: Error mostrando la vista principal.
+  #PRODUCTS MOCKING:
+  /api/products/mockingproducts:
+    #get,post
+    get:
+      tags:
+        - Products  
+      summary: Obtiene todos los productos de mocking
+      responses:
+        200:
+          description: Se obtuvieron los productos de mocking correctamente.
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Product' 
+        401:
+          description: Error obteniendo los productos de mocking. El usuario no inició sesión.  
+          content:  
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error obteniendo los productos de mocking. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        403:
+          description: Error obteniendo los productos de mocking. El usuario no tiene permisos para realizar esta operación.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 403
+                  message:
+                    type: string
+                    example: Error obteniendo los productos de mocking. El usuario no tiene permisos.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:  
+          description: Error obteniendo los productos de mocking.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Error obteniendo los productos de mocking.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
 
-#   /realtimeproducts:
-#     get:
-#       tags:
-#         - Views
-#       summary: Obtiene y muestra la vista de productos en tiempo real.
-#       responses:
-#         200:
-#           description: La pagina de productos en tiempo real se mostro correctamente.
-#         401:  
-#           description: Error mostrando la pagina de productos en tiempo real. El usuario no inicio sesion.
-#         403:
-#           description: Error mostrando la pagina de productos en tiempo real. El usuario no tiene permisos para acceder a esta pagina.
-#         404:  
-#           description: Error mostrando la pagina de productos en tiempo real.
-#   /chat:
-#     #get
-#     get:
-#       tags:
-#         - Views
-#       summary: Obtiene y muestra la vista del chat.
-#       responses:
-#         200:
-#           description: La vista del chat se mostro correctamente.
-#         404:  
-#           description: Error mostrando la vista del chat.
-#   /login:
-#     get:
-#       tags:
-#         - Views
-#       summary: Obtiene y muestra la vista de inicio de sesion.
-#       responses:
-#         200:
-#           description: La vista de inicio de sesion se mostro correctamente.
-#         404:  
-#           description: Error mostrando la vista de inicio de sesion.
-#   /register:
-#     get:
-#       tags:
-#         - Views
-#       summary: Obtiene y muestra la vista de registro.
-#       responses:
-#         200:
-#           description: La vista de registro se mostro correctamente.
-#         404:  
-#           description: Error mostrando la vista de registro.
-#   /resetpassword:
-#     post:
-#       tags:
-#         - Views
-#       summary: Restablece la contraseña de un usuario.
-#       requestBody:
-#         required: true
-#         content:
-#           application/json:
-#             schema:
-#               type: object
-#               properties:
-#                 password:
-#                   type: string
-#                   format: password
-#                   example: "NuevaContraseña123"
-#       responses:
-#         200:
-#           description: Contraseña restablecida correctamente.
-#         400:
-#           description: Solicitud inválida (por ejemplo, la nueva contraseña es igual a la anterior o no cumple con los criterios de seguridad).
-#         404:  
-#           description: El enlace de restablecimiento ha expirado o es inválido.
-#         500:
-#           description: Error restableciendo la contraseña.
-#   /resetPassword/:resetId:
-#     get:
-#       tags:
-#         - Views
-#       summary: Obtiene y muestra la vista para restablecer la contraseña.
-#       responses:
-#         200:
-#           description: La vista para restablecer la contraseña se mostro correctamente.
-#         404:  
-#           description: Error mostrando la vista para restablecer la contraseña.
-#   /mailtoresetpass:
-#     get: 
-#       tags:
-#         - Views
-#       summary: Obtiene y muestra la pagina para ingresar el mail y restablecer la contraseña.
-#       responses:
-#         200:
-#           description: La pagina para restablecer la contraseña se mostro correctamente.
-#         404:  
-#           description: Error mostrando la pagina para restablecer el mail.
-#     post:
-#       tags:
-#         - Views
-#       summary: Envía un correo con un enlace para restablecer la contraseña.
-#       requestBody:
-#         required: true
-#         content:
-#           application/json:
-#             schema:
-#               type: object
-#               properties:
-#                 email:
-#                   type: string
-#                   format: email
-#                   example: "usuario@dominio.com"
-#       responses:
-#         200:
-#           description: Correo de restablecimiento enviado exitosamente.
-#         400:
-#           description: Solicitud inválida (por ejemplo, el correo electrónico no está registrado).
-#         500:
-#           description: Error al enviar el correo.
+    post:
+      tags:
+        - Products
+      summary: Crea 50 productos de mocking
+      responses:
+        200:
+          description: Se crearon 50 productos de mocking correctamente.
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Product' 
+        401:
+          description: Error creando 50 productos de mocking. El usuario no inició sesión.  
+          content:  
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 401
+                  message:
+                    type: string
+                    example: Error creando 50 productos de mocking. El usuario no inició sesión.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        403:
+          description: Error creando 50 productos de mocking. El usuario no tiene permisos para realizar esta operación.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 403
+                  message:
+                    type: string
+                    example: Error creando 50 productos de mocking. El usuario no tiene permisos.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
+        404:  
+          description: Error creando 50 productos de mocking.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Error creando 50 productos de mocking.
+                  error:
+                    type: string
+                    example: "Detalles sobre el error"
 
-#   #CHAT:
-#   /chat:
-#     #get, post
+  #VIEWS:
+  /:
+    get:
+      tags:
+        - Views
+      summary: Obtiene y muestra la vista principal de la pagina.
+      responses:
+        200:
+          description: La vista principal se mostro correctamente.
+        404:  
+          description: Error mostrando la vista principal.
 
-#   #USERS:
-#   /users/register:
-#     post: 
-#       tags:
-#         - Users
-#       summary: Crea un nuevo usuario.
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Users'
-#       required: true
-#       responses:
-#         200:
-#           description: Se agrego el usuario correctamente.
-#           content:
-#             application/json:
-#               schema:
-#                 $ref: '#/components/schemas/Users/User'
-#         400:
-#           description: Error creando el usuario. El usuario ya existe.
-#           content:
-#             application/json:
-#               schema:
-#                 $ref: '#/components/schemas/Users/User'
+  /realtimeproducts:
+    get:
+      tags:
+        - Views
+      summary: Obtiene y muestra la vista de productos en tiempo real.
+      responses:
+        200:
+          description: La pagina de productos en tiempo real se mostro correctamente.
+        401:  
+          description: Error mostrando la pagina de productos en tiempo real. El usuario no inicio sesion.
+        403:
+          description: Error mostrando la pagina de productos en tiempo real. El usuario no tiene permisos para acceder a esta pagina.
+        404:  
+          description: Error mostrando la pagina de productos en tiempo real.
+  /chat:
+    #get
+    get:
+      tags:
+        - Views
+      summary: Obtiene y muestra la vista del chat.
+      responses:
+        200:
+          description: La vista del chat se mostro correctamente.
+        404:  
+          description: Error mostrando la vista del chat.
+  /login:
+    get:
+      tags:
+        - Views
+      summary: Obtiene y muestra la vista de inicio de sesion.
+      responses:
+        200:
+          description: La vista de inicio de sesion se mostro correctamente.
+        404:  
+          description: Error mostrando la vista de inicio de sesion.
+  /register:
+    get:
+      tags:
+        - Views
+      summary: Obtiene y muestra la vista de registro.
+      responses:
+        200:
+          description: La vista de registro se mostro correctamente.
+        404:  
+          description: Error mostrando la vista de registro.
+  /resetpassword:
+    post:
+      tags:
+        - Views
+      summary: Restablece la contraseña de un usuario.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  format: password
+                  example: "NuevaContraseña123"
+      responses:
+        200:
+          description: Contraseña restablecida correctamente.
+        400:
+          description: Solicitud inválida (por ejemplo, la nueva contraseña es igual a la anterior o no cumple con los criterios de seguridad).
+        404:  
+          description: El enlace de restablecimiento ha expirado o es inválido.
+        500:
+          description: Error restableciendo la contraseña.
+  /resetPassword/:resetId:
+    get:
+      tags:
+        - Views
+      summary: Obtiene y muestra la vista para restablecer la contraseña.
+      parameters:
+        - name: resetId
+          in: path
+          required: true
+          description: ID único generado al enviar el correo para restablecer la contraseña. Este ID tiene una duración de una hora.
+          schema:
+            type: string
+            example: "60d21b4667d0d8992e610c85"
+      responses:
+        200:
+          description: La vista para restablecer la contraseña se mostro correctamente.
+        404:  
+          description: Error mostrando la vista para restablecer la contraseña.
+  /mailtoresetpass:
+    get: 
+      tags:
+        - Views
+      summary: Obtiene y muestra la pagina para ingresar el mail y restablecer la contraseña.
+      responses:
+        200:
+          description: La pagina para restablecer la contraseña se mostro correctamente.
+        404:  
+          description: Error mostrando la pagina para restablecer el mail.
+    post:
+      tags:
+        - Views
+      summary: Envía un correo con un enlace para restablecer la contraseña.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "usuario@dominio.com"
+      responses:
+        200:
+          description: Correo de restablecimiento enviado exitosamente.
+        400:
+          description: Solicitud inválida (por ejemplo, el correo electrónico no está registrado).
+        500:
+          description: Error al enviar el correo.
 
-#   /users/login:
-#     post: 
-#       tags:
-#         - Users
-#       summary: Inicia sesión de un usuario.
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Users'
-#       required: true
-#       responses:
-#         200:
-#           description: Se inicio sesion correctamente.
-#           content:
-#             application/json:
-#               schema:
-#                 $ref: '#/components/schemas/Users/User'
-#         400:
-#           description: Error iniciando sesion. La contraseña es incorrecta.
-#           content:
-#             application/json:
-#               schema:
-#                 $ref: '#/components/schemas/Users/User'
-#         404:
-#           description: Error iniciando sesion. El usuario no existe.
-#           content:
-#             application/json:
-#               schema:
-#                 $ref: '#/components/schemas/Users/User'
+  #USERS:
+  /users/register:
+    post:
+      tags:
+        - Users
+      summary: Registrar un usuario nuevo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/Users'
+      responses:
+        201:
+          description: Usuario registrado exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 201
+                  message:
+                    type: string
+                    example: Usuario registrado exitosamente.
+        400:
+          description: Error registrando usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  error:
+                    type: string
+                    example: "El email ya fue registrado"
+
+  /users/login:
+    post: 
+      tags:
+        - Users
+      summary: Inicia sesión de un usuario.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "usuario@example.com"
+                password:
+                  type: string
+                  example: "tuContraseña123"
+      responses:
+        200:
+          description: Se inició sesión correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Error iniciando sesión. La contraseña es incorrecta.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "La contraseña es incorrecta."
+        404:
+          description: Error iniciando sesión. El usuario no existe.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "El usuario no existe."
         
-#   /users/logout:
-#     post: 
-#       tags:
-#         - Users
-#       summary: Cierra sesión de un usuario.
-#       responses:
-#         200:
-#           description: Se cerro sesion correctamente.
-#         401:
-#           description: Error cerrando sesion. El usuario no inicio sesion.
-#         404:
-#           description: Error cerrando sesion. El usuario no existe.
-#   /users/private:
-#     get:
-#       tags:
-#         - Users
-#       summary: Obtiene y muestra una vista privada.
-#       responses:
-#         200:
-#           description: La vista privada se mostro correctamente.
-#         401:
-#           description: Error mostrando la vista privada. El usuario no inicio sesion.
-#         404:
-#           description: Error mostrando la vista privada.
-#   /users/profile:
-#     get:
-#       tags:
-#         - Users
-#       summary: Obtiene y muestra la vista de perfil.
-#       responses:
-#         200:
-#           description: La vista de perfil se mostro correctamente.
-#         401:
-#           description: Error mostrando la vista de perfil. El usuario no inicio sesion.
-#         404:
-#           description: Error mostrando la vista de perfil.
-#   /users/premium/:uid:
-#     put:  
-#       tags:
-#         - Users
-#       summary: Cambia el rol de un usuario.
-#       parameters:
-#         - $ref: '#/components/parameters/uid'
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Users'
-#       required: true
-#       responses:
-#         200:
-#           description: El rol del usuario se actualizo correctamente. 
-#         401:
-#           description: Error cambiando el rol del usuario. El usuario no inicio sesion.
-#         404:
-#           description: Error cambiando el rol del usuario. El usuario no existe.
+  /users/logout:
+    post: 
+      tags:
+        - Users
+      summary: Cierra sesión de un usuario.
+      responses:
+        200:
+          description: Se cerro sesion correctamente.
+        401:
+          description: Error cerrando sesion. El usuario no inicio sesion.
+        404:
+          description: Error cerrando sesion. El usuario no existe.
+  /users/private:
+    get:
+      tags:
+        - Users
+      summary: Obtiene y muestra una vista privada.
+      responses:
+        200:
+          description: La vista privada se mostro correctamente.
+        401:
+          description: Error mostrando la vista privada. El usuario no inicio sesion.
+        404:
+          description: Error mostrando la vista privada.
+  /users/profile:
+    get:
+      tags:
+        - Users
+      summary: Obtiene y muestra la vista de perfil.
+      responses:
+        200:
+          description: La vista de perfil se mostro correctamente.
+        401:
+          description: Error mostrando la vista de perfil. El usuario no inicio sesion.
+        404:
+          description: Error mostrando la vista de perfil.
+  /users/admin/premium/:uid:
+    put:  
+      tags:
+        - Users
+      summary: Cambia el rol de un usuario.
+      parameters:
+        - $ref: '#/components/parameters/uid' 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: string
+                  enum: ["regular", "premium"]
+                  example: "premium" 
+      responses:
+        200:
+          description: El rol del usuario se actualizó correctamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "El rol del usuario se actualizó correctamente."
+        401:
+          description: Error cambiando el rol del usuario. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No se ha autenticado."
+        404:
+          description: Error cambiando el rol del usuario. El usuario no existe.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "El usuario no existe."
+  /users/admin/delete-inactive-users:
+    post:
+      tags:
+      - Users
+      summary: Elimina usuarios inactivos (no han ingresado en más de 30 minutos).
+      responses:
+        200:
+          description: Usuarios inactivos eliminados correctamente.
+        401:
+          description: Error eliminando usuarios. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No autorizado."
+        403:
+          description: Error eliminando usuarios. El usuario no tiene permisos para realizar esta operación.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Permiso denegado."
 
-#   #TICKETS:
-#   /ticket/purchase:
-#     post: 
-#       tags:
-#         - Tickets
-#       summary: Crea un nuevo ticket.
-#       requestBody:
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/parameters/schemas/Tickets'
-#       required: true  
-#       responses:  
-#         200:
-#           description: Se agrego el ticket correctamente.
-#           content:
-#             application/json:
-#               schema:
-#                 $ref: '#/components/schemas/Tickets/Ticket'
-#         400:
-#           description: Error creando el ticket. El usuario no inicio sesion.
-#           content:
-#             application/json:
-#               schema:
-#                 $ref: '#/components/schemas/Tickets/Ticket'
-#         404:  
-#           description: Error creando el ticket. El usuario no existe.
+  /users/admin/:uid:
+    post:
+      tags:
+        - Users
+      summary: Cambia el rol de un usuario a administrador.
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario cuyo rol se va a cambiar a administrador.
+          schema:
+            type: string
+      responses:
+        200:
+          description: El rol del usuario se actualizó a administrador correctamente.
+        401:
+          description: Error cambiando el rol del usuario. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No autorizado."
+        404:
+          description: Error cambiando el rol del usuario. El usuario no existe.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "El usuario no existe."
+  /users/admin/delete-user/:uid:
+    post:
+      tags:
+      - Users
+      summary: Elimina un usuario por su ID.
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario que se va a eliminar.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Usuario eliminado correctamente.
+        401:
+          description: Error eliminando el usuario. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No autorizado."
+        404:
+          description: Error eliminando el usuario. El usuario no existe.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "El usuario no existe."
+  #TICKETS:
+  /ticket/purchase:
+    post: 
+      tags:
+        - Tickets
+      summary: Crea un nuevo ticket.
+      requestBody:
+        required: true  
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/Tickets'
+      responses:  
+        200:
+          description: Se agregó el ticket correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tickets/Ticket'
+        400:
+          description: Error creando el ticket. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Usuario no autenticado."
+        409:  
+          description: Error creando el ticket. El carrito está vacio.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "El carrito esta vacio y no se puede generar el ticket."
 
-#   #LOGGER TEST:
-#   /test/loggerTest:
-#     get:
-#       tags:
-#         - Logger
-#       summary: Test de logger.
-#       responses:
-#         200:
-#           description: El test de logger se ejecuto correctamente.
-#         500:
-#           description: Error ejecutando el test de logger.
+  /ticket/purchase/:id:
+    get:
+      tags:
+        - Tickets
+      summary: Obtiene un ticket por su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del ticket que se va a obtener.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Se obtuvo el ticket correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        401:
+          description: Error obteniendo el ticket. El usuario no inició sesión.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Usuario no autenticado."
+        404:
+          description: Error obteniendo el ticket. El ticket no existe.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "El ticket no existe." 
+
+  #LOGGER TEST:
+  /test/loggerTest:
+    get:
+      tags:
+        - Logger
+      summary: Test de logger.
+      responses:
+        200:
+          description: El test de logger se ejecuto correctamente.
+        500:
+          description: Error ejecutando el test de logger.

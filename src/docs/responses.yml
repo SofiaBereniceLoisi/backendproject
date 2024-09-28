@@ -1,323 +1,323 @@
-# components:
-#   schema:
-#     Users: 
-#       User:
-#         type: object
-#         properties:
-#           first_name:
-#             type: string
-#             description: The first name of the user 
-#           last_name:
-#             type: string
-#             description: The last name of the user
-#           email:
-#             type: string
-#             description: The email of the user
-#           age:
-#             type: number
-#             description: The age of the user
-#           role:
-#             type: string
-#             description: The role of the user
-#           cart:
-#             type: string
-#             description: The cart of the user. Receive the id (mongo _id) of the cart.
-#             example: '507f1f77bcf86cd799439011'
-#     Products:  
-#       Product:
-#         type: object
-#         properties:
-#           title:
-#             type: string
-#             description: The title of the product
-#             example: Camisa
-#           description:
-#             type: string
-#             description: The description of the product
-#             example: Camisa de hombre
-#           price:
-#             type: number
-#             description: The price of the product
-#             example: 1000
-#           code:
-#             type: string
-#             description: The code of the product
-#             example: C111
-#           stock:
-#             type: number
-#             description: The stock of the product
-#             example: 10
-#           status:
-#             type: boolean
-#             description: The status of the product
-#             example: true
-#           category:
-#             type: string
-#             description: The category of the product
-#             example: remeras
-#           owner:
-#             type: string
-#             description: Email of the product owner
-#             example: sofia@example.com
-#     Carts:
-#       Cart:
-#         type: object
-#         properties:
-#           products:
-#             type: array
-#             description: The products in the cart, it can be empty if the cart is empty.
-#             items:
-#               type: string
-#               properties:
-#                 quantity:
-#                   type: number
-#                   description: The quantity of the product in the cart.
-#                   example: 2
-#                 product:
-#                   type: string
-#                   description: ObjectId reference to the product in the cart.
-#                   example: '507f1f77bcf86cd799439011'
-#     Messagges:  
-#       Messagge:
-#         type: object
-#         properties:
-#           user:
-#             type: string
-#             description: The user who sent the message
-#             example: sofia@example.com
-#           message:
-#             type: string
-#             description: The message
-#             example: Hola
-#     Tickets:  
-#       Ticket:
-#         type: object
-#         properties:
-#           code:
-#             type: string
-#             description: The code of the ticket or the purchase
-#             example: 'e4af7059-a458-4253-989f-cec383e195b9'
-#           purchase_datetime:
-#             type: string
-#             description: The purchase datetime
-#             example: '30/7/2024, 04:17:45'
-#           amount:
-#             type: number
-#             description: The total amount of the purchase
-#             example: 1000
-#           purchaser:
-#             type: string
-#             description: The person who purchased
-#             example: sofia@example.com
+components:
+  schemas:
+    User: 
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: The first name of the user 
+        last_name:
+          type: string
+          description: The last name of the user
+        email:
+          type: string
+          description: The email of the user
+        age:
+          type: number
+          description: The age of the user
+        role:
+          type: string
+          description: The role of the user
+        cart:
+          type: string
+          description: The cart of the user. Receive the id (mongo _id) of the cart.
+          example: '507f1f77bcf86cd799439011'
+    Product:  
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the product
+          example: Camisa
+        description:
+          type: string
+          description: The description of the product
+          example: Camisa de hombre
+        price:
+          type: number
+          description: The price of the product
+          example: 1000
+        code:
+          type: string
+          description: The code of the product
+          example: C111
+        stock:
+          type: number
+          description: The stock of the product
+          example: 10
+        status:
+          type: boolean
+          description: The status of the product
+          example: true
+        category:
+          type: string
+          description: The category of the product
+          example: remeras
+        owner:
+          type: string
+          description: Email of the product owner
+          example: sofia@example.com
 
-# #ERRORES:
+    Cart:
+      type: object
+      properties:
+        id: 
+          type: objectId
+          description: The id of the cart (mongo)
+          example: '507f1f77bcf86cd799439011'
+        products:
+          type: array
+          description: The products in the cart, it can be empty if the cart is empty.
+          items:
+            properties:
+              quantity:
+                type: number
+                description: The quantity of the product in the cart.
+                example: 2
+              product:
+                type: string
+                description: ObjectId reference to the product in the cart.
+                example: '507f1f77bcf86cd799439011' 
+    Messagge:
+      type: object
+      properties:
+        user:
+          type: string
+          description: The user who sent the message
+          example: sofia@example.com
+        message:
+          type: string
+          description: The message
+          example: Hola
+ 
+    Ticket:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The code of the ticket or the purchase
+          example: 'e4af7059-a458-4253-989f-cec383e195b9'
+        purchase_datetime:
+          type: string
+          description: The purchase datetime
+          example: '30/7/2024, 04:17:45'
+        amount:
+          type: number
+          description: The total amount of the purchase
+          example: 1000
+        purchaser:
+          type: string
+          description: The person who purchased
+          example: sofia@example.com
 
-#   responses:
-#     OkResponse:
-#       description: Successful operation
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 200
-#               message:
-#                 type: string
-#                 example: Success
-#               data:
-#                 type: object
-#                 description: The response data
+#ERRORES:
 
-#     CreatedResponse:
-#       description: Successfully created
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 201
-#               message:
-#                 type: string
-#                 example: Created successfully
-#               data:
-#                 type: object
-#                 description: The response data
+  responses:
+    OkResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example: Success
+              data:
+                type: object
+                description: The response data
 
-#     BadRequestError:
-#       description: Invalid request
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 400
-#               message:
-#                 type: string
-#                 example: Invalid request
-#               error:
-#                 type: string
-#                 example: "Details about the error"
+    CreatedResponse:
+      description: Successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 201
+              message:
+                type: string
+                example: Created successfully
+              data:
+                type: object
+                description: The response data
 
-#     UnauthorizedError:
-#       description: Unauthorized user
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 401
-#               message:
-#                 type: string
-#                 example: Unidentified user
-#               error:
-#                 type: string
-#                 example: "Details about the error"
+    BadRequestError:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 400
+              message:
+                type: string
+                example: Invalid request
+              error:
+                type: string
+                example: "Details about the error"
 
-#     ForbiddenError:
-#       description: User without permissions
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 403
-#               message:
-#                 type: string
-#                 example: User without permissions
-#               error:
-#                 type: string
-#                 example: "Details about the error"
+    UnauthorizedError:
+      description: Unauthorized user
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 401
+              message:
+                type: string
+                example: Unidentified user
+              error:
+                type: string
+                example: "Details about the error"
 
-#     NotFoundError:
-#       description: Resource not found
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 404
-#               message:
-#                 type: string
-#                 example: Not found
-#               error:
-#                 type: string
-#                 example: "Details about the error"
+    ForbiddenError:
+      description: User without permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 403
+              message:
+                type: string
+                example: User without permissions
+              error:
+                type: string
+                example: "Details about the error"
 
-#     ConflictError:
-#       description: Conflictive request
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 409
-#               message:
-#                 type: string
-#                 example: Conflictive request
-#               error:
-#                 type: string
-#                 example: "Details about the error"
+    NotFoundError:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 404
+              message:
+                type: string
+                example: Not found
+              error:
+                type: string
+                example: "Details about the error"
 
-#     InternalServerError:
-#       description: Internal Server Error
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 500
-#               message:
-#                 type: string
-#                 example: Internal Server Error
-#               error:
-#                 type: string
-#                 example: "Details about the error"
+    ConflictError:
+      description: Conflictive request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 409
+              message:
+                type: string
+                example: Conflictive request
+              error:
+                type: string
+                example: "Details about the error"
 
-#     ServiceUnavailableError:
-#       description: Service Unavailable
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 501
-#               message:
-#                 type: string
-#                 example: Unavailable Service
-#               error:
-#                 type: string
-#                 example: "Details about the error"
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 500
+              message:
+                type: string
+                example: Internal Server Error
+              error:
+                type: string
+                example: "Details about the error"
 
-#     EmptyCartError:
-#       description: Cannot generate ticket: Cart is empty
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 400
-#               message:
-#                 type: string
-#                 example: Cannot generate ticket: Cart is empty
-#               error:
-#                 type: string
-#                 example: "Details about the error"
+    ServiceUnavailableError:
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 501
+              message:
+                type: string
+                example: Unavailable Service
+              error:
+                type: string
+                example: "Details about the error"
 
-#     IncorrectPasswordError:
-#       description: Incorrect password
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 401
-#               message:
-#                 type: string
-#                 example: Incorrect password
-#               error:
-#                 type: string
-#                 example: "Details about the error"
+    EmptyCartError:
+      description: Cannot generate ticket because the cart is empty
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 400
+              message:
+                type: string
+                example: "Cannot generate ticket: Cart is empty"
+              error:
+                type: string
+                example: "Details about the error"
 
-#     EmailAlreadyRegisteredError:
-#       description: Email already registered
-#       content:
-#         application/json:
-#           schema:
-#             type: object
-#             properties:
-#               status:
-#                 type: integer
-#                 example: 409
-#               message:
-#                 type: string
-#                 example: Email already registered
-#               error:
-#                 type: string
-#                 example: "Details about the error"
+    IncorrectPasswordError:
+      description: Incorrect password
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 401
+              message:
+                type: string
+                example: Incorrect password
+              error:
+                type: string
+                example: "Details about the error"
 
-# #CONTOLLERS (EJ: GETALL, GETBYID, CREATE, UPDATE, DELETE, ETC)
+    EmailAlreadyRegisteredError:
+      description: Email already registered
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 409
+              message:
+                type: string
+                example: Email already registered
+              error:
+                type: string
+                example: "Details about the error"
+
+#CONTOLLERS (EJ: GETALL, GETBYID, CREATE, UPDATE, DELETE, ETC)
 
 
 
