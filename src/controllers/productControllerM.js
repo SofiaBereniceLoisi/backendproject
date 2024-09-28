@@ -26,8 +26,9 @@ export default class ProductController extends Controllers {
                 price: product.price
             }));
 
-            const next = response.hasNextPage ? `http://localhost:8080/api/products?page=${response.nextPage}` : null;
-            const prev = response.hasPrevPage ? `http://localhost:8080/api/products?page=${response.prevPage}` : null;
+            const baseUrl = `${req.protocol}://${req.get('host')}/api/products`;
+            const next = response.hasNextPage ? `${baseUrl}?page=${response.nextPage}` : null;
+            const prev = response.hasPrevPage ? `${baseUrl}?page=${response.prevPage}` : null;
 
             //para mensaje de bienvenida y botones
             const first_name = await req.user.first_name;
