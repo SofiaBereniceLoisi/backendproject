@@ -9,11 +9,13 @@ export const info = {
         },
         servers: [
             {
-                url: 'http://localhost:8080'
+                url: 'http://localhost:8080',
+                description: 'Local server'
             },
-            // {
-            //     url: 'http://servidor en la nube'
-            // }
+            {
+                url: 'https://ecommercebackend-3q5e.onrender.com',
+                description: 'Render server'
+            }
         ]
     },
     apis: ['./src/docs/*.yml'],
